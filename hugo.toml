@@ -1,4 +1,4 @@
-baseURL = "https://monstrix-site.pages.dev"
+baseURL = "https://monstrix.ru"
 languageCode = "ru"
 title = "MONSTRIX"
 theme = "terminal"
