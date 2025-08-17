@@ -1,0 +1,9 @@
+baseURL = "https://yourdomain.com"
+languageCode = "ru"
+title = "MONSTRIX"
+theme = "terminal"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
