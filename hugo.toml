@@ -7,3 +7,6 @@ theme = "terminal"
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+[params]
+  # Кастомные CSS файлы
+  customCSS = ["css/monstrix-custom.css"]
