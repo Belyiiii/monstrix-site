@@ -95,113 +95,100 @@
 
 <style>
  
-.logo__text, .logo__cursor {
-    display: none !important;
-}
-
- 
 .logo {
-    position: relative;
-    width: 140px !important;
-    height: 28px !important;
-    display: flex !important;
-    align-items: center !important;
-    cursor: pointer;
+   font-size: 0 !important;
+   line-height: 0 !important;
 }
 
- 
 .logo * {
-    display: none !important;
+   display: none !important;
+   font-size: 0 !important;
+   opacity: 0 !important;
+}
+
+.logo__text, .logo__cursor {
+   display: none !important;
 }
 
  
-.logo::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 128 28' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='letters' stroke='%23000' stroke-width='2' fill='none' stroke-linecap='square'%3E%3C!-- M --%3E%3Cline x1='5' y1='8' x2='5' y2='20'/%3E%3Cline x1='5' y1='8' x2='10' y2='14'/%3E%3Cline x1='10' y1='14' x2='15' y2='8'/%3E%3Cline x1='15' y1='8' x2='15' y2='20'/%3E%3C!-- N --%3E%3Cline x1='35' y1='8' x2='35' y2='20'/%3E%3Cline x1='35' y1='8' x2='42' y2='20'/%3E%3Cline x1='42' y1='8' x2='42' y2='20'/%3E%3C!-- S --%3E%3Cline x1='50' y1='8' x2='55' y2='8'/%3E%3Cline x1='50' y1='8' x2='50' y2='14'/%3E%3Cline x1='50' y1='14' x2='55' y2='14'/%3E%3Cline x1='55' y1='14' x2='55' y2='20'/%3E%3Cline x1='50' y1='20' x2='55' y2='20'/%3E%3C!-- T --%3E%3Cline x1='62' y1='8' x2='72' y2='8'/%3E%3Cline x1='67' y1='8' x2='67' y2='20'/%3E%3C!-- R --%3E%3Cline x1='78' y1='8' x2='78' y2='20'/%3E%3Ccircle cx='83' cy='11' r='3' fill='none'/%3E%3Cline x1='78' y1='14' x2='83' y2='20'/%3E%3C!-- I --%3E%3Cline x1='92' y1='8' x2='92' y2='20'/%3E%3C!-- X --%3E%3Cline x1='100' y1='8' x2='110' y2='20'/%3E%3Cline x1='110' y1='8' x2='100' y2='20'/%3E%3C/g%3E%3C!-- O normal --%3E%3Cg id='O-normal'%3E%3Ccircle stroke='%23000' stroke-width='2' fill='none' cx='25' cy='14' r='6'/%3E%3Ccircle fill='%23000' cx='25' cy='14' r='2'/%3E%3C/g%3E%3C/svg%3E") no-repeat center;
-    background-size: contain;
-    display: block;
+.logo::before {
+   content: '';
+   display: inline-block;
+   width: 168px;
+   height: 32px;
+   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 168 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000'%3E%3C!-- M --%3E%3Crect x='4' y='6' width='2' height='20'/%3E%3Crect x='6' y='8' width='2' height='2'/%3E%3Crect x='8' y='10' width='2' height='2'/%3E%3Crect x='10' y='8' width='2' height='2'/%3E%3Crect x='12' y='6' width='2' height='20'/%3E%3C!-- O с глазом --%3E%3Crect x='18' y='8' width='2' height='2'/%3E%3Crect x='20' y='6' width='6' height='2'/%3E%3Crect x='26' y='8' width='2' height='2'/%3E%3Crect x='28' y='10' width='2' height='12'/%3E%3Crect x='26' y='22' width='2' height='2'/%3E%3Crect x='20' y='24' width='6' height='2'/%3E%3Crect x='18' y='22' width='2' height='2'/%3E%3Crect x='16' y='10' width='2' height='12'/%3E%3C!-- Глаз в O --%3E%3Crect x='21' y='13' width='4' height='6'/%3E%3C!-- N --%3E%3Crect x='34' y='6' width='2' height='20'/%3E%3Crect x='36' y='8' width='2' height='2'/%3E%3Crect x='38' y='10' width='2' height='2'/%3E%3Crect x='40' y='12' width='2' height='2'/%3E%3Crect x='42' y='14' width='2' height='2'/%3E%3Crect x='44' y='6' width='2' height='20'/%3E%3C!-- S --%3E%3Crect x='50' y='6' width='8' height='2'/%3E%3Crect x='50' y='8' width='2' height='6'/%3E%3Crect x='52' y='14' width='6' height='2'/%3E%3Crect x='56' y='16' width='2' height='6'/%3E%3Crect x='50' y='24' width='8' height='2'/%3E%3C!-- T --%3E%3Crect x='62' y='6' width='10' height='2'/%3E%3Crect x='66' y='8' width='2' height='18'/%3E%3C!-- R --%3E%3Crect x='76' y='6' width='2' height='20'/%3E%3Crect x='78' y='6' width='6' height='2'/%3E%3Crect x='84' y='8' width='2' height='6'/%3E%3Crect x='78' y='14' width='6' height='2'/%3E%3Crect x='82' y='16' width='2' height='2'/%3E%3Crect x='84' y='18' width='2' height='8'/%3E%3C!-- I --%3E%3Crect x='90' y='6' width='8' height='2'/%3E%3Crect x='93' y='8' width='2' height='16'/%3E%3Crect x='90' y='24' width='8' height='2'/%3E%3C!-- X --%3E%3Crect x='102' y='6' width='2' height='6'/%3E%3Crect x='108' y='6' width='2' height='6'/%3E%3Crect x='104' y='12' width='4' height='2'/%3E%3Crect x='105' y='14' width='2' height='4'/%3E%3Crect x='104' y='18' width='4' height='2'/%3E%3Crect x='102' y='20' width='2' height='6'/%3E%3Crect x='108' y='20' width='2' height='6'/%3E%3C/g%3E%3C/svg%3E");
+   background-repeat: no-repeat;
+   background-size: contain;
+   image-rendering: pixelated;
+   image-rendering: -moz-crisp-edges;
+   image-rendering: crisp-edges;
+   cursor: pointer;
 }
 
  
+.logo.glitch-square::before {
+   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 168 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000'%3E%3C!-- M --%3E%3Crect x='4' y='6' width='2' height='20'/%3E%3Crect x='6' y='8' width='2' height='2'/%3E%3Crect x='8' y='10' width='2' height='2'/%3E%3Crect x='10' y='8' width='2' height='2'/%3E%3Crect x='12' y='6' width='2' height='20'/%3E%3C!-- O как квадрат --%3E%3Crect x='18' y='8' width='2' height='16'/%3E%3Crect x='20' y='8' width='8' height='2'/%3E%3Crect x='26' y='8' width='2' height='16'/%3E%3Crect x='20' y='22' width='8' height='2'/%3E%3C!-- N --%3E%3Crect x='34' y='6' width='2' height='20'/%3E%3Crect x='36' y='8' width='2' height='2'/%3E%3Crect x='38' y='10' width='2' height='2'/%3E%3Crect x='40' y='12' width='2' height='2'/%3E%3Crect x='42' y='14' width='2' height='2'/%3E%3Crect x='44' y='6' width='2' height='20'/%3E%3C!-- S --%3E%3Crect x='50' y='6' width='8' height='2'/%3E%3Crect x='50' y='8' width='2' height='6'/%3E%3Crect x='52' y='14' width='6' height='2'/%3E%3Crect x='56' y='16' width='2' height='6'/%3E%3Crect x='50' y='24' width='8' height='2'/%3E%3C!-- T --%3E%3Crect x='62' y='6' width='10' height='2'/%3E%3Crect x='66' y='8' width='2' height='18'/%3E%3C!-- R --%3E%3Crect x='76' y='6' width='2' height='20'/%3E%3Crect x='78' y='6' width='6' height='2'/%3E%3Crect x='84' y='8' width='2' height='6'/%3E%3Crect x='78' y='14' width='6' height='2'/%3E%3Crect x='82' y='16' width='2' height='2'/%3E%3Crect x='84' y='18' width='2' height='8'/%3E%3C!-- I --%3E%3Crect x='90' y='6' width='8' height='2'/%3E%3Crect x='93' y='8' width='2' height='16'/%3E%3Crect x='90' y='24' width='8' height='2'/%3E%3C!-- X --%3E%3Crect x='102' y='6' width='2' height='6'/%3E%3Crect x='108' y='6' width='2' height='6'/%3E%3Crect x='104' y='12' width='4' height='2'/%3E%3Crect x='105' y='14' width='2' height='4'/%3E%3Crect x='104' y='18' width='4' height='2'/%3E%3Crect x='102' y='20' width='2' height='6'/%3E%3Crect x='108' y='20' width='2' height='6'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+ 
+.logo.glitch-line::before {
+   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 168 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000'%3E%3C!-- M --%3E%3Crect x='4' y='6' width='2' height='20'/%3E%3Crect x='6' y='8' width='2' height='2'/%3E%3Crect x='8' y='10' width='2' height='2'/%3E%3Crect x='10' y='8' width='2' height='2'/%3E%3Crect x='12' y='6' width='2' height='20'/%3E%3C!-- O как линия --%3E%3Crect x='16' y='15' width='16' height='2'/%3E%3C!-- N --%3E%3Crect x='34' y='6' width='2' height='20'/%3E%3Crect x='36' y='8' width='2' height='2'/%3E%3Crect x='38' y='10' width='2' height='2'/%3E%3Crect x='40' y='12' width='2' height='2'/%3E%3Crect x='42' y='14' width='2' height='2'/%3E%3Crect x='44' y='6' width='2' height='20'/%3E%3C!-- S --%3E%3Crect x='50' y='6' width='8' height='2'/%3E%3Crect x='50' y='8' width='2' height='6'/%3E%3Crect x='52' y='14' width='6' height='2'/%3E%3Crect x='56' y='16' width='2' height='6'/%3E%3Crect x='50' y='24' width='8' height='2'/%3E%3C!-- T --%3E%3Crect x='62' y='6' width='10' height='2'/%3E%3Crect x='66' y='8' width='2' height='18'/%3E%3C!-- R --%3E%3Crect x='76' y='6' width='2' height='20'/%3E%3Crect x='78' y='6' width='6' height='2'/%3E%3Crect x='84' y='8' width='2' height='6'/%3E%3Crect x='78' y='14' width='6' height='2'/%3E%3Crect x='82' y='16' width='2' height='2'/%3E%3Crect x='84' y='18' width='2' height='8'/%3E%3C!-- I --%3E%3Crect x='90' y='6' width='8' height='2'/%3E%3Crect x='93' y='8' width='2' height='16'/%3E%3Crect x='90' y='24' width='8' height='2'/%3E%3C!-- X --%3E%3Crect x='102' y='6' width='2' height='6'/%3E%3Crect x='108' y='6' width='2' height='6'/%3E%3Crect x='104' y='12' width='4' height='2'/%3E%3Crect x='105' y='14' width='2' height='4'/%3E%3Crect x='104' y='18' width='4' height='2'/%3E%3Crect x='102' y='20' width='2' height='6'/%3E%3Crect x='108' y='20' width='2' height='6'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+ 
+.logo.glitch-cross::before {
+   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 168 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000'%3E%3C!-- M --%3E%3Crect x='4' y='6' width='2' height='20'/%3E%3Crect x='6' y='8' width='2' height='2'/%3E%3Crect x='8' y='10' width='2' height='2'/%3E%3Crect x='10' y='8' width='2' height='2'/%3E%3Crect x='12' y='6' width='2' height='20'/%3E%3C!-- O как крест --%3E%3Crect x='21' y='8' width='2' height='16'/%3E%3Crect x='16' y='15' width='12' height='2'/%3E%3C!-- N --%3E%3Crect x='34' y='6' width='2' height='20'/%3E%3Crect x='36' y='8' width='2' height='2'/%3E%3Crect x='38' y='10' width='2' height='2'/%3E%3Crect x='40' y='12' width='2' height='2'/%3E%3Crect x='42' y='14' width='2' height='2'/%3E%3Crect x='44' y='6' width='2' height='20'/%3E%3C!-- S --%3E%3Crect x='50' y='6' width='8' height='2'/%3E%3Crect x='50' y='8' width='2' height='6'/%3E%3Crect x='52' y='14' width='6' height='2'/%3E%3Crect x='56' y='16' width='2' height='6'/%3E%3Crect x='50' y='24' width='8' height='2'/%3E%3C!-- T --%3E%3Crect x='62' y='6' width='10' height='2'/%3E%3Crect x='66' y='8' width='2' height='18'/%3E%3C!-- R --%3E%3Crect x='76' y='6' width='2' height='20'/%3E%3Crect x='78' y='6' width='6' height='2'/%3E%3Crect x='84' y='8' width='2' height='6'/%3E%3Crect x='78' y='14' width='6' height='2'/%3E%3Crect x='82' y='16' width='2' height='2'/%3E%3Crect x='84' y='18' width='2' height='8'/%3E%3C!-- I --%3E%3Crect x='90' y='6' width='8' height='2'/%3E%3Crect x='93' y='8' width='2' height='16'/%3E%3Crect x='90' y='24' width='8' height='2'/%3E%3C!-- X --%3E%3Crect x='102' y='6' width='2' height='6'/%3E%3Crect x='108' y='6' width='2' height='6'/%3E%3Crect x='104' y='12' width='4' height='2'/%3E%3Crect x='105' y='14' width='2' height='4'/%3E%3Crect x='104' y='18' width='4' height='2'/%3E%3Crect x='102' y='20' width='2' height='6'/%3E%3Crect x='108' y='20' width='2' height='6'/%3E%3C/g%3E%3C/svg%3E");
+}
+
 @media (max-width: 768px) {
-    .logo {
-        width: 120px !important;
-        height: 24px !important;
-    }
+   .logo::before {
+       width: 140px;
+       height: 26px;
+   }
 }
 </style>
 
 <script>
-
 document.addEventListener('DOMContentLoaded', function() {
-    const logo = document.querySelector('.logo');
-    if (!logo) return;
-
-    
-    const states = {
-        normal: "data:image/svg+xml,%3Csvg viewBox='0 0 128 28' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23000' stroke-width='2' fill='none' stroke-linecap='square'%3E%3Cline x1='5' y1='8' x2='5' y2='20'/%3E%3Cline x1='5' y1='8' x2='10' y2='14'/%3E%3Cline x1='10' y1='14' x2='15' y2='8'/%3E%3Cline x1='15' y1='8' x2='15' y2='20'/%3E%3Cline x1='35' y1='8' x2='35' y2='20'/%3E%3Cline x1='35' y1='8' x2='42' y2='20'/%3E%3Cline x1='42' y1='8' x2='42' y2='20'/%3E%3Cline x1='50' y1='8' x2='55' y2='8'/%3E%3Cline x1='50' y1='8' x2='50' y2='14'/%3E%3Cline x1='50' y1='14' x2='55' y2='14'/%3E%3Cline x1='55' y1='14' x2='55' y2='20'/%3E%3Cline x1='50' y1='20' x2='55' y2='20'/%3E%3Cline x1='62' y1='8' x2='72' y2='8'/%3E%3Cline x1='67' y1='8' x2='67' y2='20'/%3E%3Cline x1='78' y1='8' x2='78' y2='20'/%3E%3Ccircle cx='83' cy='11' r='3' fill='none'/%3E%3Cline x1='78' y1='14' x2='83' y2='20'/%3E%3Cline x1='92' y1='8' x2='92' y2='20'/%3E%3Cline x1='100' y1='8' x2='110' y2='20'/%3E%3Cline x1='110' y1='8' x2='100' y2='20'/%3E%3C/g%3E%3Ccircle stroke='%23000' stroke-width='2' fill='none' cx='25' cy='14' r='6'/%3E%3Ccircle fill='%23000' cx='25' cy='14' r='2'/%3E%3C/svg%3E",
-        
-        square: "data:image/svg+xml,%3Csvg viewBox='0 0 128 28' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23000' stroke-width='2' fill='none' stroke-linecap='square'%3E%3Cline x1='5' y1='8' x2='5' y2='20'/%3E%3Cline x1='5' y1='8' x2='10' y2='14'/%3E%3Cline x1='10' y1='14' x2='15' y2='8'/%3E%3Cline x1='15' y1='8' x2='15' y2='20'/%3E%3Cline x1='35' y1='8' x2='35' y2='20'/%3E%3Cline x1='35' y1='8' x2='42' y2='20'/%3E%3Cline x1='42' y1='8' x2='42' y2='20'/%3E%3Cline x1='50' y1='8' x2='55' y2='8'/%3E%3Cline x1='50' y1='8' x2='50' y2='14'/%3E%3Cline x1='50' y1='14' x2='55' y2='14'/%3E%3Cline x1='55' y1='14' x2='55' y2='20'/%3E%3Cline x1='50' y1='20' x2='55' y2='20'/%3E%3Cline x1='62' y1='8' x2='72' y2='8'/%3E%3Cline x1='67' y1='8' x2='67' y2='20'/%3E%3Cline x1='78' y1='8' x2='78' y2='20'/%3E%3Ccircle cx='83' cy='11' r='3' fill='none'/%3E%3Cline x1='78' y1='14' x2='83' y2='20'/%3E%3Cline x1='92' y1='8' x2='92' y2='20'/%3E%3Cline x1='100' y1='8' x2='110' y2='20'/%3E%3Cline x1='110' y1='8' x2='100' y2='20'/%3E%3C/g%3E%3Crect stroke='%23ff0080' stroke-width='2' fill='none' x='19' y='8' width='12' height='12'/%3E%3Crect fill='%23ff0080' x='23' y='12' width='4' height='4'/%3E%3C/svg%3E",
-        
-        cross: "data:image/svg+xml,%3Csvg viewBox='0 0 128 28' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23000' stroke-width='2' fill='none' stroke-linecap='square'%3E%3Cline x1='5' y1='8' x2='5' y2='20'/%3E%3Cline x1='5' y1='8' x2='10' y2='14'/%3E%3Cline x1='10' y1='14' x2='15' y2='8'/%3E%3Cline x1='15' y1='8' x2='15' y2='20'/%3E%3Cline x1='35' y1='8' x2='35' y2='20'/%3E%3Cline x1='35' y1='8' x2='42' y2='20'/%3E%3Cline x1='42' y1='8' x2='42' y2='20'/%3E%3Cline x1='50' y1='8' x2='55' y2='8'/%3E%3Cline x1='50' y1='8' x2='50' y2='14'/%3E%3Cline x1='50' y1='14' x2='55' y2='14'/%3E%3Cline x1='55' y1='14' x2='55' y2='20'/%3E%3Cline x1='50' y1='20' x2='55' y2='20'/%3E%3Cline x1='62' y1='8' x2='72' y2='8'/%3E%3Cline x1='67' y1='8' x2='67' y2='20'/%3E%3Cline x1='78' y1='8' x2='78' y2='20'/%3E%3Ccircle cx='83' cy='11' r='3' fill='none'/%3E%3Cline x1='78' y1='14' x2='83' y2='20'/%3E%3Cline x1='92' y1='8' x2='92' y2='20'/%3E%3Cline x1='100' y1='8' x2='110' y2='20'/%3E%3Cline x1='110' y1='8' x2='100' y2='20'/%3E%3C/g%3E%3Cg stroke='%2300ffff' stroke-width='2'%3E%3Cline x1='25' y1='6' x2='25' y2='22'/%3E%3Cline x1='17' y1='14' x2='33' y2='14'/%3E%3Cline x1='20' y1='10' x2='30' y2='18'/%3E%3Cline x1='30' y1='10' x2='20' y2='18'/%3E%3C/g%3E%3C/svg%3E",
-        
-        triangle: "data:image/svg+xml,%3Csvg viewBox='0 0 128 28' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23000' stroke-width='2' fill='none' stroke-linecap='square'%3E%3Cline x1='5' y1='8' x2='5' y2='20'/%3E%3Cline x1='5' y1='8' x2='10' y2='14'/%3E%3Cline x1='10' y1='14' x2='15' y2='8'/%3E%3Cline x1='15' y1='8' x2='15' y2='20'/%3E%3Cline x1='35' y1='8' x2='35' y2='20'/%3E%3Cline x1='35' y1='8' x2='42' y2='20'/%3E%3Cline x1='42' y1='8' x2='42' y2='20'/%3E%3Cline x1='50' y1='8' x2='55' y2='8'/%3E%3Cline x1='50' y1='8' x2='50' y2='14'/%3E%3Cline x1='50' y1='14' x2='55' y2='14'/%3E%3Cline x1='55' y1='14' x2='55' y2='20'/%3E%3Cline x1='50' y1='20' x2='55' y2='20'/%3E%3Cline x1='62' y1='8' x2='72' y2='8'/%3E%3Cline x1='67' y1='8' x2='67' y2='20'/%3E%3Cline x1='78' y1='8' x2='78' y2='20'/%3E%3Ccircle cx='83' cy='11' r='3' fill='none'/%3E%3Cline x1='78' y1='14' x2='83' y2='20'/%3E%3Cline x1='92' y1='8' x2='92' y2='20'/%3E%3Cline x1='100' y1='8' x2='110' y2='20'/%3E%3Cline x1='110' y1='8' x2='100' y2='20'/%3E%3C/g%3E%3Cg stroke='%23ffff00' stroke-width='2' fill='none'%3E%3Cline x1='25' y1='6' x2='17' y2='22'/%3E%3Cline x1='17' y1='22' x2='33' y2='22'/%3E%3Cline x1='33' y1='22' x2='25' y2='6'/%3E%3C/g%3E%3Cpolygon fill='%23ffff00' points='25,12 22,16 28,16'/%3E%3C/svg%3E",
-        
-        diamond: "data:image/svg+xml,%3Csvg viewBox='0 0 128 28' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23000' stroke-width='2' fill='none' stroke-linecap='square'%3E%3Cline x1='5' y1='8' x2='5' y2='20'/%3E%3Cline x1='5' y1='8' x2='10' y2='14'/%3E%3Cline x1='10' y1='14' x2='15' y2='8'/%3E%3Cline x1='15' y1='8' x2='15' y2='20'/%3E%3Cline x1='35' y1='8' x2='35' y2='20'/%3E%3Cline x1='35' y1='8' x2='42' y2='20'/%3E%3Cline x1='42' y1='8' x2='42' y2='20'/%3E%3Cline x1='50' y1='8' x2='55' y2='8'/%3E%3Cline x1='50' y1='8' x2='50' y2='14'/%3E%3Cline x1='50' y1='14' x2='55' y2='14'/%3E%3Cline x1='55' y1='14' x2='55' y2='20'/%3E%3Cline x1='50' y1='20' x2='55' y2='20'/%3E%3Cline x1='62' y1='8' x2='72' y2='8'/%3E%3Cline x1='67' y1='8' x2='67' y2='20'/%3E%3Cline x1='78' y1='8' x2='78' y2='20'/%3E%3Ccircle cx='83' cy='11' r='3' fill='none'/%3E%3Cline x1='78' y1='14' x2='83' y2='20'/%3E%3Cline x1='92' y1='8' x2='92' y2='20'/%3E%3Cline x1='100' y1='8' x2='110' y2='20'/%3E%3Cline x1='110' y1='8' x2='100' y2='20'/%3E%3C/g%3E%3Cg stroke='%23ff4000' stroke-width='2' fill='none'%3E%3Cline x1='25' y1='6' x2='33' y2='14'/%3E%3Cline x1='33' y1='14' x2='25' y2='22'/%3E%3Cline x1='25' y1='22' x2='17' y2='14'/%3E%3Cline x1='17' y1='14' x2='25' y2='6'/%3E%3C/g%3E%3C/svg%3E"
-    };
-
-    const glitchSequence = ['square', 'cross', 'triangle', 'diamond'];
-    let isGlitching = false;
-
-    
-    function performGlitch() {
-        if (isGlitching) return;
-        isGlitching = true;
-
-        
-        logo.style.setProperty('background-image', `url("${states.normal}")`);
-        
-        setTimeout(() => {
-            let step = 0;
-            
-            
-            const interval = setInterval(() => {
-                const state = glitchSequence[step % 4];
-                logo.style.setProperty('background-image', `url("${states[state]}")`);
-                step++;
-                
-                if (step >= 4) {
-                    clearInterval(interval);
-                    
-                    setTimeout(() => {
-                        logo.style.setProperty('background-image', `url("${states.normal}")`);
-                        isGlitching = false;
-                    }, 40);
-                }
-            }, 40);
-        }, 300);
-    }
-
-    
-    logo.addEventListener('click', (e) => {
-        e.preventDefault();
-        performGlitch();
-    });
-
-    
-    setInterval(() => {
-        if (!isGlitching) {
-            performGlitch();
-        }
-    }, 2000);
-
-    
-    logo.style.setProperty('background-image', `url("${states.normal}")`);
+   const logo = document.querySelector('.logo');
+   if (logo) {
+       const glitchStates = ['glitch-square', 'glitch-line', 'glitch-cross'];
+       let isGlitching = false;
+       
+       function performGlitch() {
+           if (isGlitching) return;
+           isGlitching = true;
+           
+           setTimeout(() => {
+               let step = 0;
+               
+               const interval = setInterval(() => {
+                   const state = glitchStates[step % 3];
+                   logo.className = 'logo ' + state;
+                   step++;
+                   
+                   if (step >= 3) {
+                       clearInterval(interval);
+                       setTimeout(() => {
+                           logo.className = 'logo';
+                           isGlitching = false;
+                       }, 80);
+                   }
+               }, 80);
+           }, 300);
+       }
+       
+       logo.addEventListener('click', (e) => {
+           e.preventDefault();
+           performGlitch();
+       });
+       
+       setInterval(() => {
+           if (!isGlitching) {
+               performGlitch();
+           }
+       }, 4000);
+   }
 });
 </script>
 
