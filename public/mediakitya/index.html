@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Igor Fedorov • TechnoMinimalist - Заявка для Яндекс Маркета</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+            background: #1a1a1a;
+            color: #00ff00;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .terminal-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .terminal-prompt {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .terminal-prompt::before {
+            content: "$ ";
+            color: #00ff00;
+        }
+        
+        .yandex-badge {
+            background: rgba(255, 204, 0, 0.1);
+            border: 2px solid #ffcc00;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            border-radius: 10px;
+        }
+        
+        .yandex-badge h2 {
+            color: #ffcc00;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .yandex-badge p {
+            color: #ccc;
+            font-size: 14px;
+        }
+        
+        h1 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #fff;
+            font-weight: normal;
+        }
+        
+        .tagline {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+        
+        .bio-section {
+            background: #0a0a0a;
+            border: 1px solid #333;
+            padding: 30px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .bio-section::before {
+            content: "// о себе";
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: #1a1a1a;
+            padding: 0 10px;
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .bio-text {
+            color: #ccc;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .bio-text strong {
+            color: #fff;
+        }
+        
+        .highlight-text {
+            color: #00ff00;
+            font-weight: normal;
+        }
+        
+        .quote-block {
+            border-left: 2px solid #333;
+            padding-left: 20px;
+            margin: 20px 0;
+            color: #999;
+            font-style: italic;
+        }
+        
+        .stats-row {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            padding: 20px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .stat-number {
+            font-size: 1.5em;
+            color: #00ff00;
+            display: block;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .metric-card {
+            background: #0a0a0a;
+            border: 1px solid #333;
+            padding: 20px;
+            position: relative;
+            transition: all 0.2s;
+        }
+        
+        .metric-card:hover {
+            border-color: #00ff00;
+            transform: translateY(-2px);
+        }
+        
+        .platform-name {
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .metric-item {
+            margin: 10px 0;
+            color: #999;
+            font-size: 13px;
+        }
+        
+        .metric-value {
+            color: #00ff00;
+            font-weight: normal;
+        }
+        
+        .platform-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #00ff00;
+            text-decoration: none;
+            font-size: 12px;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s;
+        }
+        
+        .platform-link:hover {
+            border-bottom-color: #00ff00;
+        }
+        
+        .section {
+            margin: 40px 0;
+        }
+        
+        .section-title {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #fff;
+            font-weight: normal;
+        }
+        
+        .section-title::before {
+            content: "// ";
+            color: #666;
+        }
+        
+        .yandex-section {
+            background: rgba(255, 204, 0, 0.05);
+            border: 2px solid #ffcc00;
+            padding: 30px;
+            margin: 40px 0;
+            position: relative;
+        }
+        
+        .yandex-section::before {
+            content: "⚡ ЗАЯВКА ДЛЯ ЯНДЕКС МАРКЕТА";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #1a1a1a;
+            padding: 0 15px;
+            color: #ffcc00;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .yandex-section h3 {
+            color: #ffcc00;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .yandex-section p {
+            color: #ccc;
+            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        
+        .product-showcase {
+            background: #0a0a0a;
+            border: 1px solid #ffcc00;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .product-showcase h4 {
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .product-link-box {
+            display: inline-block;
+            background: rgba(255, 204, 0, 0.1);
+            border: 1px solid #ffcc00;
+            padding: 15px 25px;
+            margin: 15px 0;
+            color: #ffcc00;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .product-link-box:hover {
+            background: rgba(255, 204, 0, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .video-embed {
+            background: #0a0a0a;
+            border: 1px solid #333;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .video-embed a {
+            display: inline-block;
+            background: #00ff00;
+            color: #000;
+            padding: 15px 40px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 10px 0;
+            transition: all 0.2s;
+        }
+        
+        .video-embed a:hover {
+            background: #00cc00;
+            transform: scale(1.05);
+        }
+        
+        .script-box {
+            background: #0a0a0a;
+            border: 1px solid #333;
+            padding: 25px;
+            margin: 20px 0;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .script-box h4 {
+            color: #00ff00;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        
+        .script-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #222;
+        }
+        
+        .script-item:last-child {
+            border-bottom: none;
+        }
+        
+        .script-timestamp {
+            color: #ffcc00;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .script-action {
+            color: #999;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .case-item {
+            background: #0a0a0a;
+            border: 1px solid #333;
+            padding: 20px;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+        
+        .case-item:hover {
+            border-color: #00ff00;
+            transform: translateY(-2px);
+        }
+        
+        .case-number {
+            font-size: 1.8em;
+            color: #00ff00;
+            margin-bottom: 10px;
+        }
+        
+        .case-title {
+            color: #fff;
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+        
+        .case-platform {
+            color: #666;
+            font-size: 11px;
+        }
+        
+        .achievement-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .achievement-list li {
+            color: #999;
+            margin: 15px 0;
+            padding-left: 20px;
+            position: relative;
+            font-size: 14px;
+        }
+        
+        .achievement-list li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: #00ff00;
+        }
+        
+        .achievement-list strong {
+            color: #fff;
+        }
+        
+        .contact-section {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            border-top: 1px solid #333;
+        }
+        
+        .cta-text {
+            color: #999;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: transparent;
+            color: #00ff00;
+            padding: 12px 30px;
+            text-decoration: none;
+            margin: 10px;
+            border: 1px solid #333;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .cta-button:hover {
+            border-color: #00ff00;
+            background: rgba(0, 255, 0, 0.05);
+        }
+        
+        .cta-button.yandex {
+            background: #ffcc00;
+            color: #000;
+            border-color: #ffcc00;
+            font-weight: bold;
+        }
+        
+        .cta-button.yandex:hover {
+            background: #ffdd00;
+        }
+        
+        @media (max-width: 768px) {
+            .metrics-grid, .case-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-row {
+                flex-direction: column;
+            }
+            
+            .stat-item {
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal-container">
+        <div class="terminal-prompt">cat /home/igor/yandex_application.md</div>
+        
+        <div class="yandex-badge">
+            <h2>💛 ЗАЯВКА НА КОНТЕНТ-КРЕАТОРА ЯНДЕКС МАРКЕТА</h2>
+            <p>Категория: HOME — Электроника и гаджеты для дома</p>
+        </div>
+        
+        <h1>Igor Fedorov • TechnoMinimalist</h1>
+        <p class="tagline">Техноблогер по электронике и умным гаджетам</p>
+
+        <div class="bio-section">
+            <p class="bio-text">
+                <strong>15+ лет в маркетинге</strong> + страсть к электронике = контент, который продаёт. 
+            </p>
+            <p class="bio-text">
+                Показываю не просто "как включить", а <strong>как решить реальную проблему</strong> с помощью гаджета. 
+                Аудитория покупает, потому что видит себя в моих сценариях.
+            </p>
+            <div class="quote-block">
+                "Строю гаджеты. Иногда ломаю. Потом делаю вид, что так и было задумано."
+            </div>
+            <p class="bio-text">
+                <strong>Результаты за полгода:</strong> <span class="highlight-text">YouTube вырос до 34К</span>, 
+                <span class="highlight-text">Instagram до 33К</span>, видео стабильно набирают 100К+ просмотров.
+            </p>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-item">
+                <span class="stat-number">67K+</span>
+                <span class="stat-label">общая аудитория</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">800K</span>
+                <span class="stat-label">макс. просмотров</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">85.6%</span>
+                <span class="stat-label">средний досмотр</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">"где купить?" в каждом видео</span>
+            </div>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="platform-name">YouTube</div>
+                <div class="metric-item">Подписчики: <span class="metric-value">34,000</span></div>
+                <div class="metric-item">За 28 дней: <span class="metric-value">1.3 млн просмотров</span></div>
+                <div class="metric-item">Watch Time: <span class="metric-value">10.8 тыс. часов</span></div>
+                <div class="metric-item">Средний досмотр: <span class="metric-value">85.6%</span></div>
+                <a href="https://youtube.com/@project_23" target="_blank" class="platform-link">→ Перейти на канал</a>
+            </div>
+
+            <div class="metric-card">
+                <div class="platform-name">Instagram</div>
+                <div class="metric-item">Подписчики: <span class="metric-value">33,000</span></div>
+                <div class="metric-item">За 30 дней: <span class="metric-value">689К просмотров</span></div>
+                <div class="metric-item">Топ Reels: <span class="metric-value">899К просмотров</span></div>
+                <div class="metric-item">Рост: <span class="metric-value">+2,500/месяц</span></div>
+                <a href="https://www.instagram.com/igor.fedorov" target="_blank" class="platform-link">→ Перейти в профиль</a>
+            </div>
+
+            <div class="metric-card">
+                <div class="platform-name">TikTok</div>
+                <div class="metric-item">Подписчики: <span class="metric-value">5,000</span></div>
+                <div class="metric-item">Топ видео: <span class="metric-value">280К просмотров</span></div>
+                <div class="metric-item">Лайки: <span class="metric-value">32К всего</span></div>
+                <div class="metric-item">Рост: <span class="metric-value">Новый аккаунт, активный рост</span></div>
+                <a href="https://www.tiktok.com/@igortechminimal" target="_blank" class="platform-link">→ Перейти в профиль</a>
+            </div>
+        </div>
+
+        <!-- РАЗДЕЛ ДЛЯ ЯНДЕКС МАРКЕТА -->
+        <div class="yandex-section">
+            <h3>📦 Выбранная категория и товар</h3>
+            <p>
+                <strong>Категория:</strong> HOME — Электроника и гаджеты для дома
+            </p>
+            <p>
+                <strong>Почему эта категория?</strong> Моя аудитория — это tech-энтузиасты, которые ищут умные решения 
+                для дома. Они не просто покупают гаджеты, они ищут способы улучшить свою жизнь через технологии.
+            </p>
+
+            <div class="product-showcase">
+                <h4>Выбранный товар:</h4>
+                <p style="color: #fff; font-size: 16px; margin: 15px 0;">
+                    <strong>Зарядное устройство COMMO 100W Key Charger (4 порта: 3xUSB-C + 1xUSB-A)</strong>
+                </p>
+                <p>
+                    <strong>Проблема:</strong> В 2025 году у каждого человека минимум 4-5 гаджетов (телефон, часы, наушники, 
+                    камера, повербанк), но большинство до сих пор использует зарядки с одним портом. 
+                    Очередь на зарядку — это реальная боль современного человека.
+                </p>
+                <p>
+                    <strong>Решение:</strong> COMMO на 4 порта — заряжаешь все гаджеты одновременно, экономишь время и розетки.
+                </p>
+                <a href="https://market.yandex.ru/product/103566349108" target="_blank" class="product-link-box">
+                    → Посмотреть товар на Яндекс Маркете
+                </a>
+            </div>
+
+            <h3 style="margin-top: 40px;">🎬 Концепция ролика</h3>
+            <p>
+                <strong>"Очередь на зарядку"</strong> — релейтабельная ситуация, которую каждый испытывал. 
+                Показываю проблему через юмор и конфликт (девушка кричит, когда пытаюсь отключить её телефон 😄), 
+                затем решение — COMMO 4 порта.
+            </p>
+            <p>
+                <strong>Почему сработает:</strong>
+            </p>
+            <ul class="achievement-list">
+                <li>Узнаваемая ситуация — каждый сталкивался с нехваткой розеток</li>
+                <li>Юмор и динамика — не скучный обзор, а мини-история</li>
+                <li>Крупные планы — показываю каждую деталь, как товар работает</li>
+                <li>Без закадровой озвучки — визуальный сторителлинг, который работает в любой стране</li>
+            </ul>
+
+            <div class="video-embed">
+                <h4 style="color: #ffcc00; margin-bottom: 15px;">✅ ГОТОВОЕ ВИДЕО</h4>
+                <p style="color: #999; font-size: 13px; margin-bottom: 20px;">
+                    Снято на профессиональную камеру Sony | Динамичный монтаж | Длительность: ~50 сек
+                </p>
+                <a href="https://drive.google.com/file/d/1I3IchEUT2m3lEeug5qmdyw5O2Ja53uko/view?usp=sharing" target="_blank">
+                    → СМОТРЕТЬ ВИДЕО НА GOOGLE DRIVE
+                </a>
+            </div>
+
+            <div class="script-box">
+                <h4>📝 Сценарий видео "Очередь на зарядку"</h4>
+                
+                <div class="script-item">
+                    <div class="script-timestamp">[0:00-0:05] — Проблема</div>
+                    <div class="script-action">
+                        Листаю соцсети на телефоне. Крупный план: батарея 5%. Телефон садится.
+                    </div>
+                </div>
+                
+                <div class="script-item">
+                    <div class="script-timestamp">[0:06-0:12] — Усиление проблемы</div>
+                    <div class="script-action">
+                        Поворачиваю голову — на тумбочке заряжается телефон девушки. 
+                        Камера панорамирует дальше: часы №1, часы №2, камера, наушники — все в очереди на зарядку.
+                    </div>
+                </div>
+                
+                <div class="script-item">
+                    <div class="script-timestamp">[0:13-0:18] — Комедийный момент</div>
+                    <div class="script-action">
+                        Крупный план моего лица — задумчивый взгляд. Рука тянется отключить её телефон...
+                    </div>
+                </div>
+                
+                <div class="script-item">
+                    <div class="script-timestamp">[0:19-0:22] — Конфликт</div>
+                    <div class="script-action">
+                        Девушка оборачивается и кричит (текст на экране: "НЕ СМЕЙ! 😤")
+                    </div>
+                </div>
+                
+                <div class="script-item">
+                    <div class="script-timestamp">[0:23-0:26] — Включаю обратно</div>
+                    <div class="script-action">
+                        Виноватое лицо. Быстро втыкаю обратно её зарядку.
+                    </div>
+                </div>
+                
+                <div class="script-item">
+                    <div class="script-timestamp">[0:27-0:33] — Решение</div>
+                    <div class="script-action">
+                        Беру планшет, открываю Яндекс Маркет, листаю, нахожу зарядку COMMO на 4 порта. 
+                        Делаю жест "захвата" с экрана.
+                    </div>
+                </div>
+                
+                <div class="script-item">
+                    <div class="script-timestamp">[0:34-0:38] — Магия</div>
+                    <div class="script-action">
+                        Переход: зарядка COMMO появляется у меня в руке (эффект, будто вытащил из экрана). 
+                        Кручу в руках, рассматриваю со всех сторон.
+                    </div>
+                </div>
+                
+                <div class="script-item">
+                    <div class="script-timestamp">[0:39-0:48] — Крупные планы</div>
+                    <div class="script-action">
+                        Втыкаю зарядку в розетку (макро-съёмка). Подключаю 4 кабеля по очереди — 
+                        крупный план каждого порта.
+                    </div>
+                </div>
+                
+                <div class="script-item">
+                    <div class="script-timestamp">[0:49-0:55] — Результат</div>
+                    <div class="script-action">
+                        Все 4 гаджета заряжаются одновременно. Быстрый монтаж: 
+                        телефон ⚡ часы ⚡ камера ⚡ наушники ⚡
+                    </div>
+                </div>
+                
+                <div class="script-item">
+                    <div class="script-timestamp">[0:56-1:00] — Финал</div>
+                    <div class="script-action">
+                        Довольное лицо. Показываю большой палец вверх. Девушка рядом тоже довольна — 
+                        её телефон заряжается.<br>
+                        <strong style="color: #ffcc00;">Текст на экране: "COMMO 4 порта — конец очередям на зарядку 🔌"</strong>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">💡 Дополнительные возможности</h3>
+            <ul class="achievement-list">
+                <li><strong>Камера 360°</strong> — могу снимать иммерсивный контент (например, обзор сумки для зала)</li>
+                <li><strong>Партнёрство с фитнес-блогером</strong> — совместные проекты в категориях Fashion, Home, Спорт (её аудитория: 209K)</li>
+                <li><strong>У нас ремонт</strong> — могу создавать контент про товары для ремонта и обустройства в реальных условиях</li>
+                <li><strong>Готов к объёму</strong> — 12+ роликов в месяц не проблема, уже готов список из 20+ концепций</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Топовый контент (примеры вирусных видео)</h2>
+            <div class="case-grid">
+                <div class="case-item">
+                    <div class="case-number">899К</div>
+                    <div class="case-title">Портативный SSD-брелок</div>
+                    <div class="case-platform">Instagram Reels</div>
+                </div>
+                <div class="case-item">
+                    <div class="case-number">835К</div>
+                    <div class="case-title">Девайсы рабочего стола</div>
+                    <div class="case-platform">Instagram Reels</div>
+                </div>
+                <div class="case-item">
+                    <div class="case-number">470К</div>
+                    <div class="case-title">Китайская нейронка vs США</div>
+                    <div class="case-platform">YouTube Shorts</div>
+                </div>
+                <div class="case-item">
+                    <div class="case-number">333К</div>
+                    <div class="case-title">CardPuter мини-терминал</div>
+                    <div class="case-platform">Instagram Reels</div>
+                </div>
+                <div class="case-item">
+                    <div class="case-number">200К</div>
+                    <div class="case-title">Рекламное видео</div>
+                    <div class="case-platform">YouTube</div>
+                </div>
+                <div class="case-item">
+                    <div class="case-number">100К+</div>
+                    <div class="case-title">Кнопки для клавиатуры</div>
+                    <div class="case-platform">Instagram</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Почему аудитория покупает после моих обзоров</h2>
+            <ul class="achievement-list">
+                <li><strong>Показываю реальные проблемы</strong> — не "распаковка", а решение боли аудитории</li>
+                <li><strong>Профессиональная съёмка</strong> — Sony камера, крупные планы, динамичный монтаж</li>
+                <li><strong>Честные тесты</strong> — если что-то плохо, скажу прямо. Аудитория доверяет</li>
+                <li><strong>Практические сценарии</strong> — люди видят себя в моих видео</li>
+                <li><strong>Высокая конверсия</strong> — 50+ комментариев "где купить?" под каждым видео</li>
+            </ul>
+        </div>
+
+        <div class="contact-section">
+            <h2 class="section-title">Контакты</h2>
+            <p class="cta-text">Готов начать работу с Яндекс Маркетом прямо сейчас! 💛</p>
+            <a href="mailto:Belyiiii@gmail.com" class="cta-button yandex">📧 Belyiiii@gmail.com</a>
+            <a href="https://t.me/belyiiii" class="cta-button">💬 Telegram: @belyiiii</a>
+            <a href="https://www.instagram.com/igor.fedorov/" class="cta-button">📱 Instagram DM</a>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px; padding: 20px; border-top: 1px solid #333;">
+            <p style="color: #666; font-size: 12px;">
+                Обновлено: Декабрь 2025 | Igor Fedorov • TechnoMinimalist
+            </p>
+        </div>
+    </div>
+</body>
+</html>
