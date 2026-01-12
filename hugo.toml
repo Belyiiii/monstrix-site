@@ -2,11 +2,12 @@ baseURL = "https://monstrix.ru"
 languageCode = "ru"
 title = "MONSTRIX"
 theme = "terminal"
+publishDir = "docs"
 
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+
 [params]
-  # Кастомные CSS файлы
   customCSS = ["css/monstrix-custom.css"]
