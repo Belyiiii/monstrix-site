@@ -55,30 +55,20 @@
     border-radius: 3px;
 }
 /* Фикс мобильного меню */
-@media (max-width: 768px) {
-    .menu__dropdown,
-    ul.menu__dropdown {
-        min-width: 280px !important;
-        width: auto !important;
-        padding: 15px 20px !important;
+@media (max-width: 684px) {
+    .menu--mobile .menu__dropdown {
+        min-width: 250px !important;
+        width: max-content !important;
+        padding: 15px !important;
     }
     
-    .menu__dropdown li {
-        padding: 10px 15px !important;
-        white-space: nowrap !important;
+    .menu--mobile .menu__dropdown > li {
+        margin-bottom: 12px !important;
     }
     
-    .menu__dropdown li a {
+    .menu--mobile .menu__dropdown > li a {
         font-size: 18px !important;
         white-space: nowrap !important;
-        display: block !important;
-    }
-}
-/* Жёсткий фикс если не работает */
-@media (max-width: 768px) {
-    .menu--mobile ul.menu__dropdown {
-        min-width: 280px !important;
-        max-width: none !important;
-        width: max-content !important;
+        padding: 8px 10px !important;
     }
 }
