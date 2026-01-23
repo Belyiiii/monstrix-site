@@ -11,6 +11,7 @@ theme = "terminal"
 [params]
   customCSS = ["css/monstrix-custom.css"]
   showMenuItems = 6
+  logoHomeLink = "/"
 
 [menu]
   [[menu.main]]
