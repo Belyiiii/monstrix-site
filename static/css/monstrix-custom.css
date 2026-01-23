@@ -74,3 +74,11 @@
         display: block !important;
     }
 }
+/* Жёсткий фикс если не работает */
+@media (max-width: 768px) {
+    .menu--mobile ul.menu__dropdown {
+        min-width: 280px !important;
+        max-width: none !important;
+        width: max-content !important;
+    }
+}
