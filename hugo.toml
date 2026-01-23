@@ -1,8 +1,7 @@
-baseURL = "https://monstrix.ru"
+baseURL = "https://monstrix.ru/"
 languageCode = "ru"
 title = "MONSTRIX"
 theme = "terminal"
-publishDir = "docs"
 
 [markup]
   [markup.goldmark]
