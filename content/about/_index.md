@@ -25,11 +25,12 @@ description: "О MONSTRIX и его создателе"
 
 ## Где меня найти
 
-- [Instagram](https://instagram.com/ВАШ_НИК) — процесс и результаты
-- [YouTube](https://youtube.com/@ВАШ_КАНАЛ) — детальные обзоры
-- [TikTok](https://tiktok.com/@ВАШ_НИК) — быстрые демо
-- [Telegram](https://t.me/ВАШ_КАНАЛ) — обсуждения и новости
+- [Instagram]([https://www.instagram.com/igor.fedorov) — процесс и результаты
+- [YouTube](https://youtube.com/@project_23) — детальные обзоры
+- [TikTok](https://www.tiktok.com/@igortechminimal) — быстрые демо
+- [Telegram](https://t.me/techminimal) — обсуждения и новости
 - [GitHub](https://github.com/Belyiiii) — код и схемы
+- [MakerWorld](https://makerworld.com/ru/@user_1615181110) — 3D модели
 
 ---
 
