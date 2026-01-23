@@ -10,3 +10,30 @@ theme = "terminal"
 
 [params]
   customCSS = ["css/monstrix-custom.css"]
+  showMenuItems = 6
+
+[menu]
+  [[menu.main]]
+    name = "Проекты"
+    url = "/projects/"
+    weight = 1
+  [[menu.main]]
+    name = "Гайды"
+    url = "/guides/"
+    weight = 2
+  [[menu.main]]
+    name = "Компоненты"
+    url = "/components/"
+    weight = 3
+  [[menu.main]]
+    name = "Ссылки"
+    url = "/links/"
+    weight = 4
+  [[menu.main]]
+    name = "Поддержать"
+    url = "/support/"
+    weight = 5
+  [[menu.main]]
+    name = "О проекте"
+    url = "/about/"
+    weight = 6
