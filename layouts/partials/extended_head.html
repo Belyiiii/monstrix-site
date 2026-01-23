@@ -45,10 +45,23 @@
    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 168 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000'%3E%3C!-- M --%3E%3Crect x='4' y='6' width='2' height='20'/%3E%3Crect x='6' y='8' width='2' height='2'/%3E%3Crect x='8' y='10' width='2' height='2'/%3E%3Crect x='10' y='8' width='2' height='2'/%3E%3Crect x='12' y='6' width='2' height='20'/%3E%3C!-- O как крест --%3E%3Crect x='21' y='8' width='2' height='16'/%3E%3Crect x='16' y='15' width='12' height='2'/%3E%3C!-- N --%3E%3Crect x='34' y='6' width='2' height='20'/%3E%3Crect x='36' y='8' width='2' height='2'/%3E%3Crect x='38' y='10' width='2' height='2'/%3E%3Crect x='40' y='12' width='2' height='2'/%3E%3Crect x='42' y='14' width='2' height='2'/%3E%3Crect x='44' y='6' width='2' height='20'/%3E%3C!-- S --%3E%3Crect x='50' y='6' width='8' height='2'/%3E%3Crect x='50' y='8' width='2' height='6'/%3E%3Crect x='52' y='14' width='6' height='2'/%3E%3Crect x='56' y='16' width='2' height='6'/%3E%3Crect x='50' y='24' width='8' height='2'/%3E%3C!-- T --%3E%3Crect x='62' y='6' width='10' height='2'/%3E%3Crect x='66' y='8' width='2' height='18'/%3E%3C!-- R --%3E%3Crect x='76' y='6' width='2' height='20'/%3E%3Crect x='78' y='6' width='6' height='2'/%3E%3Crect x='84' y='8' width='2' height='6'/%3E%3Crect x='78' y='14' width='6' height='2'/%3E%3Crect x='82' y='16' width='2' height='2'/%3E%3Crect x='84' y='18' width='2' height='8'/%3E%3C!-- I --%3E%3Crect x='90' y='6' width='8' height='2'/%3E%3Crect x='93' y='8' width='2' height='16'/%3E%3Crect x='90' y='24' width='8' height='2'/%3E%3C!-- X --%3E%3Crect x='102' y='6' width='2' height='6'/%3E%3Crect x='108' y='6' width='2' height='6'/%3E%3Crect x='104' y='12' width='4' height='2'/%3E%3Crect x='105' y='14' width='2' height='4'/%3E%3Crect x='104' y='18' width='4' height='2'/%3E%3Crect x='102' y='20' width='2' height='6'/%3E%3Crect x='108' y='20' width='2' height='6'/%3E%3C/g%3E%3C/svg%3E");
 }
 
+/* Мобильное меню - расширяем */
 @media (max-width: 768px) {
    .logo::before {
        width: 140px;
        height: 26px;
+   }
+   
+   .menu__inner {
+       min-width: 180px !important;
+   }
+   
+   .menu__inner li {
+       padding: 10px 20px !important;
+   }
+   
+   .menu__inner a {
+       font-size: 16px !important;
    }
 }
 </style>
@@ -60,34 +73,44 @@ document.addEventListener('DOMContentLoaded', function() {
        const glitchStates = ['glitch-square', 'glitch-line', 'glitch-cross'];
        let isGlitching = false;
        
-       function performGlitch() {
+       function performGlitch(callback) {
            if (isGlitching) return;
            isGlitching = true;
            
-           setTimeout(() => {
-               let step = 0;
+           let step = 0;
+           
+           const interval = setInterval(() => {
+               const state = glitchStates[step % 3];
+               logo.className = 'logo ' + state;
+               step++;
                
-               const interval = setInterval(() => {
-                   const state = glitchStates[step % 3];
-                   logo.className = 'logo ' + state;
-                   step++;
-                   
-                   if (step >= 3) {
-                       clearInterval(interval);
-                       setTimeout(() => {
-                           logo.className = 'logo';
-                           isGlitching = false;
-                       }, 80);
-                   }
-               }, 80);
-           }, 300);
+               if (step >= 3) {
+                   clearInterval(interval);
+                   setTimeout(() => {
+                       logo.className = 'logo';
+                       isGlitching = false;
+                       if (callback) callback();
+                   }, 80);
+               }
+           }, 80);
        }
        
+       // Клик по логотипу - глитч и переход на главную
        logo.addEventListener('click', (e) => {
-           e.preventDefault();
-           performGlitch();
+           // Если уже на главной - только глитч
+           if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+               e.preventDefault();
+               performGlitch();
+           } else {
+               // На других страницах - глитч и переход
+               e.preventDefault();
+               performGlitch(() => {
+                   window.location.href = '/';
+               });
+           }
        });
        
+       // Автоматический глитч каждые 4 секунды
        setInterval(() => {
            if (!isGlitching) {
                performGlitch();
