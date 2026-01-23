@@ -56,19 +56,21 @@
 }
 /* Фикс мобильного меню */
 @media (max-width: 684px) {
-    .menu--mobile .menu__dropdown {
+    ul.menu__dropdown[class] {
         min-width: 250px !important;
         width: max-content !important;
         padding: 15px !important;
+        box-sizing: border-box !important;
     }
     
-    .menu--mobile .menu__dropdown > li {
+    ul.menu__dropdown[class] > li {
         margin-bottom: 12px !important;
     }
     
-    .menu--mobile .menu__dropdown > li a {
+    ul.menu__dropdown[class] > li a {
         font-size: 18px !important;
         white-space: nowrap !important;
         padding: 8px 10px !important;
+        word-break: keep-all !important;
     }
 }
