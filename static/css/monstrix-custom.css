@@ -54,3 +54,26 @@
     background: rgba(255, 255, 255, 0.1);
     border-radius: 3px;
 }
+/* Фикс мобильного меню */
+@media (max-width: 768px) {
+    .menu {
+        min-width: 220px !important;
+        right: 0 !important;
+    }
+    
+    .menu__inner {
+        min-width: 220px !important;
+        padding: 15px !important;
+    }
+    
+    .menu__inner li {
+        padding: 12px 20px !important;
+        white-space: nowrap !important;
+    }
+    
+    .menu__inner li a {
+        font-size: 18px !important;
+        display: block !important;
+        width: 100% !important;
+    }
+}
