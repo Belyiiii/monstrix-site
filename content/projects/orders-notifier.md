@@ -267,7 +267,7 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 ## 📁 Файлы проекта
 
 - [Исходный код (GitHub)](https://github.com/Belyiiii/monstrix-orders-wb-ozon)
-- [3D модель корпуса (MakerWorld)](#)
+- [3D модель корпуса (MakerWorld)](https://makerworld.com/ru/models/2292684-orders-notifier-wb-ozon-esp32-s3-oled#profileId-2501760)
 
 ---
 
