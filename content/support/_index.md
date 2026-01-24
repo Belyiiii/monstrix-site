@@ -11,8 +11,7 @@ MONSTRIX — некоммерческий проект. Я трачу собст
 
 ## ☕ Способы поддержки
 
-- [Tribute]— подписка с эксклюзивным контентом
-- [DonationAlerts](ссылка) — разовый донат
+- [Донат](https://t.me/tribute/app?startapp=dEq7)— Задонатить на новые детали
 - [Telegram Stars](https://t.me/techminimal) — поддержка в Telegram
 
 ---
