@@ -282,6 +282,6 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 
 ## ☕ Поддержать проект
 
-Если проект был полезен — можете поддержать разработку:
+Если проект был полезен — можете поддержать разработку донатом [Задонатить](https://t.me/tribute/app?startapp=dEq7)
 
-[Поддержать](/support)
+[раздел поддержка](/support)
