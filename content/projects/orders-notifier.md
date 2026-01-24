@@ -57,7 +57,7 @@ tags: ["esp32", "oled", "wildberries", "ozon", "проект", "для нови�
 
 Всё подключается к плате ESP32-S3 SuperMini. Вот схема:
 
-![Схема подключения](/images/projects/orders-notifier/wiring-scheme.jpg)
+![Схема подключения](/images/projects/orders-notifier/wiring-scheme.svg)
 
 ### Текстом:
 ```
@@ -78,7 +78,7 @@ LED лента WB (2 провода):
 
 ### Где найти пины на плате
 
-![Распиновка ESP32-S3 SuperMini](/images/projects/orders-notifier/pinout.jpg)
+![Распиновка ESP32-S3 SuperMini](/images/projects/orders-notifier/pinout.webp)
 
 ---
 
