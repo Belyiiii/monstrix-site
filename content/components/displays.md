@@ -10,7 +10,7 @@ description: "Подборка дисплеев для проектов на ESP
 
 ## OLED 0.96" I2C (SSD1306)
 
-![OLED 0.96](/images/components/oled-096.jpg)
+![OLED 0.96](/images/components/oled.webp)
 
 **Характеристики:**
 - Разрешение: 128x64 px
@@ -20,7 +20,7 @@ description: "Подборка дисплеев для проектов на ESP
 - Цвет: монохром (белый/синий/жёлто-синий)
 
 **Ссылки:**
-- [AliExpress](ссылка)
+- [AliExpress](https://ali.click/2wh5xh?erid=2SDnjcLmR8c)
 - [Даташит SSD1306](ссылка)
 
 **Мой опыт:**
