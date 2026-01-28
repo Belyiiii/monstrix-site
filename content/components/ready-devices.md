@@ -10,7 +10,7 @@ description: "Готовые девайсы на базе ESP32 — собран
 
 ## M5Stack Cardputer
 
-![M5Stack Cardputer](/images/components/m5stack-cardputer.jpg)
+![M5Stack Cardputer Adv](/images/components/m5stack-cardputer.webp)
 
 **Характеристики:**
 - Чип: ESP32-S3
@@ -20,7 +20,7 @@ description: "Готовые девайсы на базе ESP32 — собран
 - Особенности: внешние пины для подключения модулей
 
 **Ссылки:**
-- [AliExpress](ссылка)
+- [AliExpress](https://ali.click/glthx4?erid=2SDnjcsYgHN)
 - [Официальный сайт M5Stack](https://m5stack.com/)
 
 **Мой опыт:**
@@ -35,7 +35,7 @@ description: "Готовые девайсы на базе ESP32 — собран
 
 ## M5Stack AtomS3R AI Chatbot Kit
 
-![M5Stack AtomS3R AI Kit](/images/components/m5stack-atoms3r-ai.jpg)
+![M5Stack AtomS3R AI Kit](/images/components/m5stack-atoms3r-ai.webp)
 
 **Характеристики:**
 - Чип: ESP32-S3
@@ -45,7 +45,7 @@ description: "Готовые девайсы на базе ESP32 — собран
 - Питание: USB-C (без аккумулятора)
 
 **Ссылки:**
-- [AliExpress](ссылка)
+- [AliExpress](https://ali.click/yqthxy?erid=2SDnjeBA3ex)
 - [Официальный сайт M5Stack](https://m5stack.com/)
 
 **Мой опыт:**
@@ -60,7 +60,7 @@ description: "Готовые девайсы на базе ESP32 — собран
 
 ## M5Stack M5StickC PLUS2
 
-![M5Stack M5StickC PLUS2](/images/components/m5stack-m5stickc-plus2.jpg)
+![M5Stack M5StickC PLUS2](/images/components/m5stack-m5stickc-plus2.webp)
 
 **Характеристики:**
 - Чип: ESP32-PICO
@@ -70,7 +70,7 @@ description: "Готовые девайсы на базе ESP32 — собран
 - Интерфейсы: WiFi, Bluetooth, USB-C, Grove
 
 **Ссылки:**
-- [AliExpress](ссылка)
+- [AliExpress](https://ali.click/ruthxe?erid=2SDnjey7fPe)
 - [Официальный сайт M5Stack](https://m5stack.com/)
 
 **Мой опыт:**
@@ -84,5 +84,5 @@ description: "Готовые девайсы на базе ESP32 — собран
 ---
 
 *Раздел пополняется...*
-
+в связи с новыми правилами маркировки:
 *Реклама. ООО "АЛИБАБА.КОМ (РУ)" ИНН: 7703380158*
