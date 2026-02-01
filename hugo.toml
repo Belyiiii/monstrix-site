@@ -2,7 +2,11 @@ baseURL = "https://monstrix.ru/"
 languageCode = "ru"
 title = "MONSTRIX"
 theme = "terminal"
-
+baseURL = "https://monstrix.ru/"
+languageCode = "ru"
+title = "MONSTRIX"
+theme = "terminal"
+copyright = "© 2025 MONSTRIX | Лицензия <a href=\"https://creativecommons.org/licenses/by-nc-sa/4.0/\" target=\"_blank\">CC BY-NC-SA 4.0</a>"
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
