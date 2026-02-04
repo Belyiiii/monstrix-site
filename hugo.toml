@@ -1,7 +1,4 @@
-baseURL = "https://monstrix.ru/"
-languageCode = "ru"
-title = "MONSTRIX"
-theme = "terminal"
+
 baseURL = "https://monstrix.ru/"
 languageCode = "ru"
 title = "MONSTRIX"
