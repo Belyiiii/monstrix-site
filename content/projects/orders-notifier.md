@@ -1,5 +1,5 @@
 ---
-title: "Orders Notifier — уведомления о заказах WB и Ozon"
+title: "Уведомлятор заказов — уведомления о заказах WB и Ozon"
 date: 2025-01-24
 tags: ["esp32", "oled", "wildberries", "ozon", "проект", "для новичков"]
 ---
