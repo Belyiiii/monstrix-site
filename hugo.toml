@@ -13,6 +13,7 @@ copyright = "© 2025 MONSTRIX | Лицензия <a href=\"https://creativecommo
   customCSS = ["css/monstrix-custom.css"]
   showMenuItems = 6
   logoHomeLink = "/"
+  autoCover = true
 
 [menu]
   [[menu.main]]
