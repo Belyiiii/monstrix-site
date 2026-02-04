@@ -1,0 +1,13 @@
+<footer class="footer">
+    <div class="footer__inner">
+        <div class="copyright">
+            <span>© 2025 MONSTRIX | Лицензия <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+        </div>
+    </div>
+</footer>
+{{ $menu := resources.Get "js/menu.js" | js.Build }}
+{{ $cp := resources.Get "js/code.js" | js.Build }}
+{{ $bundle := slice $menu $cp | resources.Concat "bundle.js" | resources.Minify }}
+<script type="text/javascript" src="{{ $bundle.RelPermalink }}"></script>
+<!-- Extended footer section-->
+{{ partial "extended_footer.html" . }}
