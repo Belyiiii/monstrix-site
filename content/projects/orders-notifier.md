@@ -9,7 +9,7 @@ cover: "/images/projects/orders-notifier/main.jpg"
 
 <!--more-->
 
-![Готовое устройство](/images/projects/orders-notifier/main.jpg)
+
 
 ---
 
