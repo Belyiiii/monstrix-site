@@ -117,7 +117,7 @@ https://static-cdn.m5stack.com/resource/arduino/package_m5stack_index.json
 
 ### Шаг 5: Загрузите прошивку
 
-1. Скачайте код: [NeuroFrame.ino](https://github.com/monstrix-project/neuroframe)
+1. Скачайте код: [NeuroFrame.ino](https://github.com/Belyiiii/neuroframe)
 2. Подключите M5StickC Plus 2 через USB-C
 3. Выберите порт: Инструменты → Порт
 4. Нажмите "Загрузка"
@@ -214,7 +214,7 @@ Pollinations.ai предоставляет **5000 бесплатных гене�
 
 ## 📁 Файлы проекта
 
-- [Исходный код (GitHub)](https://github.com/monstrix-project/neuroframe)
+- [Исходный код (GitHub)](https://github.com/Belyiiii/neuroframe)
 - [Компоненты](/components/ready-devices/)
 
 ---
