@@ -72,6 +72,7 @@ description: "Готовые девайсы на базе ESP32 — собран
 **Ссылки:**
 -
 [AliExpress](https://ali.click/ruthxe?erid=2SDnjey7fPe)
+
 [AliExpress](https://ali.click/mu3cy9)
 - [Официальный сайт M5Stack](https://m5stack.com/)
 
