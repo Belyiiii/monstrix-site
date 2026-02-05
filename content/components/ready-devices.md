@@ -70,7 +70,9 @@ description: "Готовые девайсы на базе ESP32 — собран
 - Интерфейсы: WiFi, Bluetooth, USB-C, Grove
 
 **Ссылки:**
-- [AliExpress](https://ali.click/ruthxe?erid=2SDnjey7fPe)
+-
+[AliExpress](https://ali.click/ruthxe?erid=2SDnjey7fPe)
+[AliExpress](https://ali.click/mu3cy9)
 - [Официальный сайт M5Stack](https://m5stack.com/)
 
 **Мой опыт:**
