@@ -74,24 +74,21 @@
         word-break: keep-all !important;
     }
 }
-
 /* Стилизуем ссылку "Читать далее" под терминал */
-.post__readmore,
-.read-more,
-a.read-more {
-    color: #ff6b35 !important;
-    text-decoration: none !important;
+a.read-more.button.inline {
+    font-size: 0 !important;
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
 }
 
-.post__readmore::before,
-.read-more::before,
-a.read-more::before {
+a.read-more.button.inline::before {
     content: "[ Читать → ]" !important;
-    font-family: monospace;
+    font-size: 16px !important;
+    font-family: monospace !important;
+    color: #ff6b35 !important;
 }
 
-.post__readmore:hover,
-.read-more:hover,
-a.read-more:hover {
+a.read-more.button.inline:hover::before {
     color: #ff8c5a !important;
 }
