@@ -75,12 +75,20 @@
     }
 }
 
-
 /* ЖЁСТКИЙ ФИКС скобок */
 a.read-more.button.inline {
     font-size: 0 !important;
     visibility: hidden !important;
     position: relative !important;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    min-width: 120px !important;
 }
 
 a.read-more.button.inline::before {
@@ -91,8 +99,20 @@ a.read-more.button.inline::before {
     visibility: visible !important;
     position: absolute !important;
     left: 0 !important;
+    top: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
 }
 
 a.read-more.button.inline:hover::before {
     color: #ff8c5a !important;
+}
+
+/* Отключаем стандартные стили для этой кнопки */
+a.read-more.button.inline:active,
+a.read-more.button.inline:hover {
+    background: none !important;
+    transform: none !important;
+    box-shadow: none !important;
 }
