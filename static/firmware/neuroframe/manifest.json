@@ -1,0 +1,13 @@
+{
+  "name": "NeuroFrame",
+  "version": "1.0",
+  "home_assistant_domain": "esphome",
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        { "path": "NeuroFrame_v1.0.bin", "offset": 0 }
+      ]
+    }
+  ]
+}
