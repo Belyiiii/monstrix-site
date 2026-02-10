@@ -49,7 +49,6 @@ description: "Создание компактных устройств на ESP3
 <a href="https://t.me/tribute/app?startapp=dEq7" target="_blank" style="display:inline-block; background:transparent; color:#eec35e; border:2px solid #eec35e; padding:12px 30px; font-size:16px; font-family:monospace; cursor:pointer; text-decoration:none;">
   [ ❤️ Поддержать автора ]
 </a>
-**[💰 Поддержать автора](/support/)**
 
 ---
 
