@@ -154,8 +154,8 @@ portrait of a wizard, oil painting style
 
 Если материал был полезен — буду рад поддержке! Все средства идут на новые эксперименты и компоненты.
 
-<a href="https://t.me/tribute/app?startapp=dEq7" target="_blank" style="display:inline-block; background:#ff6b35; color:white; border:none; padding:15px 40px; font-size:18px; border-radius:8px; cursor:pointer; text-decoration:none;">
-  ❤️ Поддержать автора
+<a href="https://t.me/tribute/app?startapp=dEq7" target="_blank" style="display:inline-block; background:transparent; color:#eec35e; border:2px solid #eec35e; padding:12px 30px; font-size:16px; font-family:monospace; cursor:pointer; text-decoration:none;">
+  [ ❤️ Поддержать автора ]
 </a>
 
 ---
