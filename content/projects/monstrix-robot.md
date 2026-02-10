@@ -180,8 +180,8 @@ cover: "/images/projects/monstrix-robot/cover.jpg"
 
 ## 📁 Файлы проекта
 
-- [3D модель (MakerWorld)](ссылка)
-- [Исходный код (GitHub)](ссылка)
+- [3D модель (MakerWorld)](https://makerworld.com/ru/models/1941340-monstrix-robot-emotional-companion#profileId-2085040)
+- [Исходный код (GitHub)](https://github.com/Belyiiii/monstrix-cod)
 - [Прошивка](/firmware/monstrix-robot/)
 
 ---
