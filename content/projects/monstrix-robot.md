@@ -45,7 +45,7 @@ cover: "/images/projects/monstrix-robot/cover.jpg"
 |-----|-----------|
 | Корпус робота | PLA/PETG, слой 0.2мм, заполнение 20% |
 
-Модель для печати: [MakerWorld](ссылка) или [Thingiverse](ссылка)
+Модель для печати: [MakerWorld](https://makerworld.com/ru/models/1941340-monstrix-robot-emotional-companion#profileId-2085040) 
 
 ### 🔌 Электроника
 
@@ -113,7 +113,7 @@ cover: "/images/projects/monstrix-robot/cover.jpg"
 
 Прошей прямо из браузера: **[Прошивка MONSTRIX Robot](/firmware/monstrix-robot/)**
 
-Или через Arduino IDE — скачай код с GitHub.
+Или через Arduino IDE — скачай код с [GitHub.](https://github.com/Belyiiii/monstrix-cod)
 
 ### Шаг 4: Готово! 🎉
 
