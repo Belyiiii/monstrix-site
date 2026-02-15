@@ -46,7 +46,7 @@ Li-Ion 18650
 
 **Ссылки:**
 
-- [AliExpress](ссылка)
+- [AliExpress](https://ali.click/v6ijz9?erid=2SDnjdYDz49)
 
 ---
 
@@ -81,7 +81,7 @@ Li-Ion 18650
 
 **Ссылки:**
 
-- [AliExpress](ссылка)
+- [AliExpress](https://ali.click/tbijz7?erid=2SDnjeJhcWV)
 
 ---
 
@@ -126,7 +126,7 @@ Li-Ion 18650
 
 **Ссылки:**
 
-- [AliExpress](ссылка)
+- [AliExpress](https://ali.click/jfijzi?erid=2SDnjegwRjf)
 
 ---
 
