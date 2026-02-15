@@ -2,6 +2,7 @@
 title: "Контроллеры ESP32"
 date: 2025-01-25
 description: "Подборка плат ESP32 для проектов"
+cover: "/images/components/esp32f.webp"
 ---
 
 Платы ESP32 которые использую в проектах. Компактные, с WiFi и Bluetooth из коробки.
