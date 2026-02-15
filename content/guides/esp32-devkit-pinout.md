@@ -372,5 +372,3 @@ int touch = touchRead(4);  // Touch0
 ---
 
 *Вопросы? Пиши в [Telegram](https://t.me/techminimal)*
-
-*Реклама. ООО "АЛИБАБА.КОМ (РУ)" ИНН: 7703380158*
