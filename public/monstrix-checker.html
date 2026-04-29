@@ -3,320 +3,566 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MONSTRIX — Network Checker</title>
+<meta name="theme-color" content="#0a0e0a">
+<title>MONSTRIX // net_check.exe</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: Arial, sans-serif;
-    background: #1a1a2e;
-    color: #fff;
-    padding: 20px;
-    min-height: 100vh;
-  }
-  .container { max-width: 420px; margin: 0 auto; }
-  .logo { text-align: center; font-size: 48px; margin-bottom: 8px; }
-  h1 { color: #ff6b35; text-align: center; margin-bottom: 4px; font-size: 24px; }
-  .subtitle { text-align: center; color: #aaa; margin-bottom: 24px; font-size: 14px; }
+/* ============================================================
+   MONSTRIX // CRT TERMINAL UI v2.0
+   phosphor green + amber + cyan accents, scanlines, glitch
+   no external assets — fully portable to ESP32 html_pages.h
+   ============================================================ */
 
-  .btn-check {
-    width: 100%;
-    padding: 15px;
-    background: #ff6b35;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    cursor: pointer;
-    margin-bottom: 20px;
-    font-weight: bold;
-    transition: background 0.2s;
-  }
-  .btn-check:hover { background: #ff8c5a; }
-  .btn-check:disabled { background: #555; cursor: not-allowed; }
+:root{
+  --bg:        #0a0e0a;
+  --bg-soft:   #0f1410;
+  --bg-card:   #0d120e;
+  --phosphor:  #00ff66;
+  --phosphor-2:#33ff8a;
+  --phosphor-d:#0a8a3a;
+  --amber:     #ffb000;
+  --amber-2:   #ffd166;
+  --cyan:      #00d4ff;
+  --magenta:   #ff3df0;
+  --red:       #ff3355;
+  --muted:     #2c4030;
+  --grid:      rgba(0,255,102,.05);
+  --scan:      rgba(0,255,102,.04);
+  --shadow:    0 0 8px rgba(0,255,102,.35);
+}
 
-  .summary {
-    display: none;
-    background: #16213e;
-    border-radius: 10px;
-    padding: 14px 18px;
-    margin-bottom: 16px;
-    font-size: 14px;
-    color: #aaa;
-    text-align: center;
-  }
-  .summary span { color: #fff; font-size: 18px; font-weight: bold; }
-  .ok-count { color: #4CAF50; }
-  .fail-count { color: #e94560; }
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);min-height:100vh}
 
-  .section-label {
-    color: #aaa;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin: 16px 0 8px 4px;
-  }
+body{
+  font-family: 'JetBrains Mono','Fira Code','IBM Plex Mono','SF Mono',
+               ui-monospace, Menlo, Consolas, monospace;
+  font-size:14px;
+  line-height:1.55;
+  color:var(--phosphor);
+  text-shadow: 0 0 1px var(--phosphor), 0 0 4px rgba(0,255,102,.35);
+  padding:18px 14px 60px;
+  overflow-x:hidden;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(ellipse at center, rgba(0,255,102,.05) 0%, transparent 70%),
+    linear-gradient(180deg, transparent 0, var(--bg) 100%);
+}
 
-  .card {
-    background: #16213e;
-    border-radius: 10px;
-    margin-bottom: 8px;
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    transition: opacity 0.2s;
-  }
-  .card-icon { font-size: 24px; width: 32px; text-align: center; flex-shrink: 0; }
-  .card-info { flex: 1; }
-  .card-name { font-size: 15px; font-weight: bold; }
-  .card-url { font-size: 11px; color: #555; margin-top: 2px; }
-  .card-status {
-    font-size: 13px;
-    font-weight: bold;
-    flex-shrink: 0;
-    min-width: 70px;
-    text-align: right;
-  }
+/* CRT scanlines + flicker overlay */
+body::before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; z-index:9999;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      var(--scan) 0,
+      var(--scan) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  mix-blend-mode:overlay;
+}
+body::after{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; z-index:9998;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.55) 100%);
+  animation: flicker 6s infinite;
+}
+@keyframes flicker{
+  0%,100% { opacity:1;   }
+  48%     { opacity:.96; }
+  50%     { opacity:1;   }
+  52%     { opacity:.92; }
+  54%     { opacity:1;   }
+}
 
-  .status-idle { color: #555; }
-  .status-checking {
-    color: #ff6b35;
-    animation: pulse 0.8s infinite alternate;
-  }
-  .status-ok { color: #4CAF50; }
-  .status-fail { color: #e94560; }
+.container{ max-width: 560px; margin: 0 auto; }
 
-  @keyframes pulse { from { opacity: 0.4; } to { opacity: 1; } }
+/* ============ HEADER / LOGO ============ */
+.boot{
+  color: var(--phosphor-d);
+  font-size:11px;
+  margin-bottom: 6px;
+  letter-spacing:.5px;
+}
+.boot .ok   { color: var(--phosphor); }
+.boot .warn { color: var(--amber);    }
 
-  .ping-time {
-    font-size: 11px;
-    color: #aaa;
-    font-weight: normal;
-    display: block;
-    margin-top: 2px;
-  }
+.logo{
+  color: var(--phosphor);
+  font-size: 13px;
+  line-height: 1.05;
+  white-space: pre;
+  letter-spacing: 0;
+  text-shadow: 0 0 6px rgba(0,255,102,.65), 0 0 14px rgba(0,255,102,.35);
+  margin: 6px 0 4px;
+  position: relative;
+  display: inline-block;
+}
+.logo.glitch::before,
+.logo.glitch::after{
+  content: attr(data-text);
+  position: absolute; left:0; top:0;
+  white-space: pre;
+  pointer-events:none;
+  opacity:.85;
+  mix-blend-mode: screen;
+}
+.logo.glitch::before{ color: var(--cyan);    transform: translate(-1.5px, 0); animation: glitch-x 3s infinite steps(1); }
+.logo.glitch::after { color: var(--magenta); transform: translate( 1.5px, 0); animation: glitch-y 2.6s infinite steps(1); }
+@keyframes glitch-x{
+  0%,90%,100% { clip-path: inset(0 0 0 0); transform: translate(-1.5px,0); }
+  92%   { clip-path: inset(20% 0 60% 0); transform: translate(-3px, -1px); }
+  94%   { clip-path: inset(70% 0 10% 0); transform: translate( 2px,  1px); }
+  96%   { clip-path: inset(40% 0 30% 0); transform: translate(-2px,  0px); }
+}
+@keyframes glitch-y{
+  0%,88%,100% { clip-path: inset(0 0 0 0); transform: translate(1.5px,0); }
+  91%   { clip-path: inset(10% 0 75% 0); transform: translate(3px, 1px); }
+  93%   { clip-path: inset(55% 0 25% 0); transform: translate(-1px,-1px); }
+  95%   { clip-path: inset(30% 0 50% 0); transform: translate(2px, 0); }
+}
 
-  .add-section {
-    background: #16213e;
-    border-radius: 10px;
-    padding: 16px;
-    margin-top: 20px;
-  }
-  .add-section h2 {
-    color: #ff6b35;
-    font-size: 14px;
-    margin-bottom: 12px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #333;
-  }
-  .add-row { display: flex; gap: 8px; margin-bottom: 8px; }
-  .add-row input {
-    flex: 1;
-    padding: 10px 12px;
-    border: none;
-    border-radius: 8px;
-    background: #0f0f23;
-    color: #fff;
-    font-size: 14px;
-  }
-  .add-row input:focus { outline: 2px solid #ff6b35; }
-  .btn-add {
-    padding: 10px 16px;
-    background: #ff6b35;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  .btn-add:hover { background: #ff8c5a; }
+.tag{
+  color: var(--amber);
+  font-size:12px;
+  margin: 4px 0 14px;
+  letter-spacing: .5px;
+  text-shadow: 0 0 5px rgba(255,176,0,.45);
+}
+.tag .blink::after{
+  content:"▮";
+  display:inline-block;
+  margin-left:2px;
+  animation: blink 1s steps(1) infinite;
+  color: var(--phosphor);
+}
+@keyframes blink{ 50%{ opacity:0; } }
 
-  .footer {
-    text-align: center;
-    color: #333;
-    font-size: 11px;
-    margin-top: 30px;
-    padding-bottom: 10px;
-  }
-  .footer a { color: #555; text-decoration: none; }
+/* ============ PANELS / CARDS ============ */
+.panel{
+  border: 1px solid var(--phosphor-d);
+  background: var(--bg-card);
+  margin: 14px 0;
+  position: relative;
+  box-shadow: inset 0 0 0 1px rgba(0,255,102,.04);
+}
+.panel + .panel { margin-top: 18px; }
+
+.panel-head{
+  position: absolute;
+  top: -10px; left: 12px;
+  background: var(--bg);
+  padding: 0 8px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--amber);
+  text-transform: uppercase;
+}
+.panel-head::before{ content:"┤ "; color: var(--phosphor-d); }
+.panel-head::after { content:" ├"; color: var(--phosphor-d); }
+
+.panel-body{ padding: 14px 14px 12px; }
+
+/* ============ STATUS BAR ============ */
+.statbar{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--phosphor-d);
+  background: var(--bg-card);
+  padding: 0;
+  margin-bottom: 14px;
+}
+.statbar .cell{
+  padding: 10px 12px;
+  border-right: 1px dashed var(--muted);
+  font-size: 11px;
+  color: var(--phosphor-d);
+  letter-spacing: .5px;
+}
+.statbar .cell:last-child{ border-right: none; }
+.statbar .cell .v{
+  display:block; font-size: 18px; font-weight: 700;
+  color: var(--phosphor); text-shadow: var(--shadow);
+  margin-top: 2px;
+  letter-spacing: 1px;
+}
+.statbar .cell.ok    .v{ color: var(--phosphor-2); }
+.statbar .cell.fail  .v{ color: var(--red); text-shadow: 0 0 6px rgba(255,51,85,.5); }
+.statbar .cell.amber .v{ color: var(--amber);   text-shadow: 0 0 6px rgba(255,176,0,.5); }
+
+/* ============ EXECUTE BUTTON ============ */
+.btn-run{
+  display:block;
+  width:100%;
+  padding: 14px 16px;
+  background: transparent;
+  color: var(--phosphor);
+  border: 1px solid var(--phosphor);
+  border-radius: 0;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background .12s, color .12s, box-shadow .12s;
+  text-shadow: 0 0 4px rgba(0,255,102,.7);
+  box-shadow: 0 0 0 0 rgba(0,255,102,0), inset 0 0 18px rgba(0,255,102,.04);
+}
+.btn-run:hover{
+  background: var(--phosphor);
+  color: var(--bg);
+  text-shadow: none;
+  box-shadow: 0 0 18px rgba(0,255,102,.55), inset 0 0 0 0 transparent;
+}
+.btn-run:disabled{
+  border-color: var(--muted);
+  color: var(--muted);
+  cursor: not-allowed;
+  text-shadow: none;
+}
+.btn-run.scanning{
+  border-color: var(--amber);
+  color: var(--amber);
+  animation: scan-pulse 1s infinite alternate;
+}
+@keyframes scan-pulse{
+  from{ box-shadow: 0 0 0 rgba(255,176,0,.0); }
+  to  { box-shadow: 0 0 22px rgba(255,176,0,.55); }
+}
+
+/* ============ TARGET ROW ============ */
+.row{
+  display:grid;
+  grid-template-columns: 18px 1fr auto;
+  gap: 10px;
+  align-items:center;
+  padding: 7px 4px;
+  border-bottom: 1px dashed var(--muted);
+  font-size: 13px;
+}
+.row:last-child{ border-bottom: none; }
+
+.row .marker{
+  color: var(--phosphor-d);
+  font-weight: 700;
+  text-align:center;
+}
+.row .name{
+  color: var(--phosphor-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.row .host{
+  color: var(--muted);
+  font-size: 11px;
+  margin-left: 6px;
+}
+.row .stat{
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .5px;
+  text-align: right;
+  white-space: nowrap;
+}
+.row .ms{
+  display:block;
+  font-weight: 400;
+  font-size: 10px;
+  color: var(--phosphor-d);
+  margin-top: 1px;
+  letter-spacing: .5px;
+}
+
+.stat.idle    { color: var(--muted); }
+.stat.wait    { color: var(--amber); animation: blink 1s steps(1) infinite; }
+.stat.ok      { color: var(--phosphor-2); text-shadow: 0 0 6px rgba(51,255,138,.55); }
+.stat.fail    { color: var(--red);  text-shadow: 0 0 6px rgba(255,51,85,.45); animation: shake .35s steps(1); }
+@keyframes shake{
+  0%   { transform: translateX(0); }
+  25%  { transform: translateX(-2px); }
+  50%  { transform: translateX(2px); }
+  75%  { transform: translateX(-1px); }
+  100% { transform: translateX(0); }
+}
+
+/* ============ ADD CUSTOM ============ */
+.add-row{
+  display:grid;
+  grid-template-columns: 110px 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.add-row.full{ grid-template-columns: 1fr; }
+
+input[type="text"]{
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--bg-soft);
+  border: 1px solid var(--muted);
+  color: var(--phosphor);
+  font: inherit;
+  font-size: 13px;
+  border-radius: 0;
+  outline: none;
+  text-shadow: 0 0 3px rgba(0,255,102,.4);
+}
+input[type="text"]::placeholder{ color: var(--phosphor-d); opacity:.7; }
+input[type="text"]:focus{ border-color: var(--amber); box-shadow: 0 0 6px rgba(255,176,0,.45); }
+
+.btn-add{
+  width: 100%;
+  padding: 10px 14px;
+  background: transparent;
+  color: var(--amber);
+  border: 1px solid var(--amber);
+  font: inherit;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background .12s, color .12s;
+}
+.btn-add:hover{ background: var(--amber); color: var(--bg); }
+
+/* ============ FOOTER ============ */
+.footer{
+  margin-top: 28px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--muted);
+  text-align:center;
+  font-size: 11px;
+  color: var(--phosphor-d);
+  letter-spacing: 1px;
+}
+.footer a{ color: var(--cyan); text-decoration: none; }
+.footer a:hover{ color: var(--phosphor-2); text-shadow: 0 0 6px rgba(0,212,255,.6); }
+.footer .sep{ color: var(--muted); margin: 0 6px; }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 420px){
+  body{ font-size: 13px; padding: 14px 10px 50px; }
+  .logo{ font-size: 11px; }
+  .statbar .cell .v{ font-size: 16px; }
+  .add-row{ grid-template-columns: 1fr; }
+}
+
+/* small util */
+.dim{ color: var(--phosphor-d); }
+.amber{ color: var(--amber); }
+.cyan{ color: var(--cyan); }
 </style>
 </head>
 <body>
 <div class="container">
-  <div class="logo">📡</div>
-  <h1>MONSTRIX</h1>
-  <p class="subtitle">Network Checker — проверка доступности</p>
 
-  <button class="btn-check" id="checkBtn" onclick="checkAll()">⚡ Проверить всё</button>
-
-  <div class="summary" id="summary">
-    <span class="ok-count" id="okCount">0</span> доступно &nbsp;·&nbsp;
-    <span class="fail-count" id="failCount">0</span> недоступно
+  <div class="boot">
+    <span class="ok">[ OK ]</span> bootloader v2.0 // <span class="amber">monstrix.ru</span>
   </div>
 
-  <div class="section-label">📱 Мессенджеры и соцсети</div>
-  <div id="list-social"></div>
+  <div class="logo glitch" data-text="█▀▄▀█ █▀█ █▄░█ █▀ ▀█▀ █▀█ █ ▀▄▀
+█░▀░█ █▄█ █░▀█ ▄█ ░█░ █▀▄ █ █░█">█▀▄▀█ █▀█ █▄░█ █▀ ▀█▀ █▀█ █ ▀▄▀
+█░▀░█ █▄█ █░▀█ ▄█ ░█░ █▀▄ █ █░█</div>
 
-  <div class="section-label">🎬 Видео и музыка</div>
-  <div id="list-media"></div>
+  <p class="tag">&gt; net_check.exe <span class="blink">_</span></p>
 
-  <div class="section-label">🌐 Сервисы</div>
-  <div id="list-services"></div>
+  <!-- STATUS BAR -->
+  <div class="statbar" id="statbar">
+    <div class="cell"><span class="dim">// total</span>     <span class="v" id="totalCount">0</span></div>
+    <div class="cell ok"><span class="dim">// online</span> <span class="v" id="okCount">--</span></div>
+    <div class="cell fail"><span class="dim">// offline</span><span class="v" id="failCount">--</span></div>
+  </div>
 
-  <div class="section-label">🇷🇺 Российские</div>
-  <div id="list-ru"></div>
+  <!-- EXECUTE -->
+  <button class="btn-run" id="checkBtn" onclick="checkAll()">▶ execute_scan</button>
 
-  <div class="add-section">
-    <h2>➕ Добавить свой сайт</h2>
-    <div class="add-row">
-      <input type="text" id="customName" placeholder="Название" style="max-width:110px">
-      <input type="text" id="customUrl" placeholder="https://example.com">
-    </div>
-    <div class="add-row">
-      <button class="btn-add" onclick="addCustom()" style="width:100%">Добавить и проверить</button>
+  <!-- SECTION: SOCIAL -->
+  <div class="panel">
+    <div class="panel-head">messengers</div>
+    <div class="panel-body" id="list-social"></div>
+  </div>
+
+  <!-- SECTION: MEDIA -->
+  <div class="panel">
+    <div class="panel-head">media</div>
+    <div class="panel-body" id="list-media"></div>
+  </div>
+
+  <!-- SECTION: SERVICES -->
+  <div class="panel">
+    <div class="panel-head">services</div>
+    <div class="panel-body" id="list-services"></div>
+  </div>
+
+  <!-- SECTION: RU -->
+  <div class="panel">
+    <div class="panel-head">ru_segment</div>
+    <div class="panel-body" id="list-ru"></div>
+  </div>
+
+  <!-- ADD CUSTOM -->
+  <div class="panel">
+    <div class="panel-head">add_target</div>
+    <div class="panel-body">
+      <div class="add-row">
+        <input type="text" id="customName" placeholder="alias" maxlength="20">
+        <input type="text" id="customUrl" placeholder="https://example.com">
+      </div>
+      <div class="add-row full">
+        <button class="btn-add" onclick="addCustom()">+ append &amp; scan</button>
+      </div>
+      <div id="list-custom" style="margin-top:8px"></div>
     </div>
   </div>
 
-  <div id="list-custom"></div>
-
+  <!-- FOOTER -->
   <div class="footer">
-    <a href="https://monstrix.ru">monstrix.ru</a> · @igortechminimal
+    <a href="https://monstrix.ru">monstrix.ru</a>
+    <span class="sep">//</span>
+    <a href="https://t.me/techminimal">@techminimal</a>
+    <span class="sep">//</span>
+    <span class="dim">esp32 · diy · minimal</span>
   </div>
+
 </div>
 
 <script>
+/* ============================================================
+   MONSTRIX checker logic — same shape as v1, new render layer
+   ============================================================ */
 const SERVICES = {
   social: [
-    { name: "Telegram", url: "https://telegram.org", icon: "✈️" },
-    { name: "Instagram", url: "https://www.instagram.com", icon: "📸" },
-    { name: "ВКонтакте", url: "https://vk.com", icon: "💙" },
-    { name: "TikTok", url: "https://www.tiktok.com", icon: "🎵" },
-    { name: "Twitter / X", url: "https://x.com", icon: "🐦" },
-    { name: "Facebook", url: "https://www.facebook.com", icon: "👤" },
+    { name: "Telegram",   url: "https://telegram.org" },
+    { name: "Instagram",  url: "https://www.instagram.com" },
+    { name: "VKontakte",  url: "https://vk.com" },
+    { name: "TikTok",     url: "https://www.tiktok.com" },
+    { name: "X (Twitter)",url: "https://x.com" },
+    { name: "Facebook",   url: "https://www.facebook.com" }
   ],
   media: [
-    { name: "YouTube", url: "https://www.youtube.com", icon: "▶️" },
-    { name: "Spotify", url: "https://open.spotify.com", icon: "🎧" },
-    { name: "Netflix", url: "https://www.netflix.com", icon: "🎬" },
-    { name: "Twitch", url: "https://www.twitch.tv", icon: "🟣" },
+    { name: "YouTube",    url: "https://www.youtube.com" },
+    { name: "Spotify",    url: "https://open.spotify.com" },
+    { name: "Netflix",    url: "https://www.netflix.com" },
+    { name: "Twitch",     url: "https://www.twitch.tv" }
   ],
   services: [
-    { name: "Google", url: "https://www.google.com", icon: "🔍" },
-    { name: "GitHub", url: "https://github.com", icon: "🐙" },
-    { name: "ChatGPT", url: "https://chat.openai.com", icon: "🤖" },
-    { name: "Discord", url: "https://discord.com", icon: "🎮" },
-    { name: "Wikipedia", url: "https://www.wikipedia.org", icon: "📖" },
+    { name: "Google",     url: "https://www.google.com" },
+    { name: "GitHub",     url: "https://github.com" },
+    { name: "ChatGPT",    url: "https://chat.openai.com" },
+    { name: "Discord",    url: "https://discord.com" },
+    { name: "Wikipedia",  url: "https://www.wikipedia.org" }
   ],
   ru: [
-    { name: "Яндекс", url: "https://ya.ru", icon: "🔴" },
-    { name: "Mail.ru", url: "https://mail.ru", icon: "📧" },
-    { name: "Авито", url: "https://www.avito.ru", icon: "🛒" },
-    { name: "Ozon", url: "https://www.ozon.ru", icon: "📦" },
-    { name: "Госуслуги", url: "https://gosuslugi.ru", icon: "🏛️" },
-  ],
+    { name: "Yandex",     url: "https://ya.ru" },
+    { name: "Mail.ru",    url: "https://mail.ru" },
+    { name: "Avito",      url: "https://www.avito.ru" },
+    { name: "Ozon",       url: "https://www.ozon.ru" },
+    { name: "Gosuslugi",  url: "https://gosuslugi.ru" }
+  ]
 };
 
 const customServices = [];
 
-function getCardId(url) {
-  return "card_" + url.replace(/[^a-z0-9]/gi, "_");
+function getId(url){ return "t_" + url.replace(/[^a-z0-9]/gi,"_"); }
+
+function shortHost(url){
+  return url.replace(/^https?:\/\/(www\.)?/,"").replace(/\/$/,"").split("/")[0];
 }
 
-function renderCard(service, listId) {
-  const id = getCardId(service.url);
-  const hostShort = service.url.replace(/^https?:\/\/(www\.)?/, "").split("/")[0];
-  const div = document.createElement("div");
-  div.className = "card";
-  div.id = id;
-  div.innerHTML = `
-    <div class="card-icon">${service.icon || "🌐"}</div>
-    <div class="card-info">
-      <div class="card-name">${service.name}</div>
-      <div class="card-url">${hostShort}</div>
-    </div>
-    <div class="card-status status-idle" id="status_${id}">—</div>
-  `;
-  document.getElementById(listId).appendChild(div);
+function renderRow(s, listId){
+  const id = getId(s.url);
+  const host = shortHost(s.url);
+  const row = document.createElement("div");
+  row.className = "row";
+  row.id = id;
+  row.innerHTML =
+    '<div class="marker">&gt;</div>' +
+    '<div class="name">' + s.name + ' <span class="host">' + host + '</span></div>' +
+    '<div class="stat idle" id="s_' + id + '">[--]</div>';
+  document.getElementById(listId).appendChild(row);
 }
 
-function renderAll() {
-  for (const [key, list] of Object.entries(SERVICES)) {
-    list.forEach(s => renderCard(s, "list-" + key));
+function renderAll(){
+  for (const k in SERVICES){
+    SERVICES[k].forEach(s => renderRow(s, "list-" + k));
   }
+  document.getElementById("totalCount").textContent =
+    Object.values(SERVICES).reduce((a,b)=>a+b.length,0);
 }
 
-async function checkOne(service) {
-  const id = getCardId(service.url);
-  const statusEl = document.getElementById("status_" + id);
-  statusEl.className = "card-status status-checking";
-  statusEl.innerHTML = "...";
+async function checkOne(s){
+  const id = getId(s.url);
+  const el = document.getElementById("s_" + id);
+  el.className = "stat wait";
+  el.textContent = "[..]";
 
-  const t0 = Date.now();
-  try {
-    await fetch(service.url, {
+  const t0 = performance.now();
+  try{
+    await fetch(s.url, {
       method: "HEAD",
       mode: "no-cors",
       cache: "no-cache",
-      signal: AbortSignal.timeout(6000),
+      signal: AbortSignal.timeout(6000)
     });
-    const ms = Date.now() - t0;
-    statusEl.className = "card-status status-ok";
-    statusEl.innerHTML = `✅ OK<span class="ping-time">${ms} мс</span>`;
+    const ms = Math.round(performance.now() - t0);
+    el.className = "stat ok";
+    el.innerHTML = '[OK]<span class="ms">' + ms + ' ms</span>';
     return true;
-  } catch (e) {
-    statusEl.className = "card-status status-fail";
-    statusEl.innerHTML = "❌ Нет";
+  }catch(e){
+    el.className = "stat fail";
+    el.textContent = "[FAIL]";
     return false;
   }
 }
 
-async function checkAll() {
+async function checkAll(){
   const btn = document.getElementById("checkBtn");
   btn.disabled = true;
-  btn.textContent = "⏳ Проверяю...";
+  btn.classList.add("scanning");
+  btn.textContent = "▰▰▱▱  scanning...";
 
-  document.getElementById("summary").style.display = "none";
-
-  const allServices = [
-    ...SERVICES.social,
-    ...SERVICES.media,
-    ...SERVICES.services,
-    ...SERVICES.ru,
-    ...customServices,
+  // reset
+  const all = [
+    ...SERVICES.social, ...SERVICES.media, ...SERVICES.services,
+    ...SERVICES.ru, ...customServices
   ];
-
-  // Reset all
-  allServices.forEach(s => {
-    const id = getCardId(s.url);
-    const el = document.getElementById("status_" + id);
-    if (el) { el.className = "card-status status-idle"; el.innerHTML = "—"; }
+  all.forEach(s => {
+    const el = document.getElementById("s_" + getId(s.url));
+    if (el){ el.className = "stat idle"; el.textContent = "[--]"; }
   });
 
-  const results = await Promise.all(allServices.map(s => checkOne(s)));
+  document.getElementById("okCount").textContent   = "--";
+  document.getElementById("failCount").textContent = "--";
+  document.getElementById("totalCount").textContent = all.length;
 
+  const results = await Promise.all(all.map(s => checkOne(s)));
   const ok = results.filter(Boolean).length;
   const fail = results.length - ok;
 
-  document.getElementById("okCount").textContent = ok;
+  document.getElementById("okCount").textContent   = ok;
   document.getElementById("failCount").textContent = fail;
-  document.getElementById("summary").style.display = "block";
 
   btn.disabled = false;
-  btn.textContent = "🔄 Проверить снова";
+  btn.classList.remove("scanning");
+  btn.textContent = "↻ rescan";
 }
 
-function addCustom() {
+function addCustom(){
   const name = document.getElementById("customName").value.trim();
   let url = document.getElementById("customUrl").value.trim();
   if (!url) return;
   if (!/^https?:\/\//i.test(url)) url = "https://" + url;
-  const service = { name: name || url, url, icon: "🌐" };
-  customServices.push(service);
-  renderCard(service, "list-custom");
+  const s = { name: name || shortHost(url), url };
+  customServices.push(s);
+  renderRow(s, "list-custom");
   document.getElementById("customName").value = "";
   document.getElementById("customUrl").value = "";
-  checkOne(service);
+  document.getElementById("totalCount").textContent =
+    Object.values(SERVICES).reduce((a,b)=>a+b.length,0) + customServices.length;
+  checkOne(s);
 }
 
 renderAll();
