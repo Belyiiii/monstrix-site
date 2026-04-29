@@ -2,8 +2,22 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0a0e0a">
+<meta name="description" content="MONSTRIX // net_check — чекер доступности сайтов и сервисов в стиле CRT-терминала.">
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+
+<!-- iOS standalone PWA -->
+<link rel="apple-touch-icon" href="icon-apple-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MONSTRIX">
+
 <title>MONSTRIX // net_check.exe</title>
 <style>
 /* ============================================================
@@ -354,6 +368,105 @@ input[type="text"]:focus{ border-color: var(--amber); box-shadow: 0 0 6px rgba(2
 .dim{ color: var(--phosphor-d); }
 .amber{ color: var(--amber); }
 .cyan{ color: var(--cyan); }
+
+/* iOS PWA safe area */
+@supports (padding: max(0px)) {
+  body{
+    padding-top:    max(18px, env(safe-area-inset-top));
+    padding-left:   max(14px, env(safe-area-inset-left));
+    padding-right:  max(14px, env(safe-area-inset-right));
+    padding-bottom: max(60px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Install banner (показывается только если PWA-установка доступна) */
+.install-banner{
+  display: none;
+  margin: 12px 0 14px;
+  padding: 10px 12px;
+  border: 1px dashed var(--cyan);
+  background: rgba(0,212,255,.05);
+  font-size: 12px;
+  color: var(--cyan);
+  letter-spacing: .5px;
+  display: none;
+  align-items: center;
+  gap: 10px;
+}
+.install-banner.show{ display: flex; }
+.install-banner .msg{ flex: 1; }
+.install-banner button{
+  background: transparent;
+  color: var(--cyan);
+  border: 1px solid var(--cyan);
+  font: inherit;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding: 6px 10px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.install-banner button:hover{ background: var(--cyan); color: var(--bg); }
+.install-banner .close{
+  border-color: var(--muted);
+  color: var(--muted);
+  padding: 6px 8px;
+}
+
+/* iOS install hint (показывается только в Safari, не standalone) */
+.ios-hint{
+  display: none;
+  margin: 10px 0 0;
+  font-size: 11px;
+  color: var(--phosphor-d);
+  line-height: 1.6;
+}
+.ios-hint.show{ display: block; }
+.ios-hint b{ color: var(--cyan); font-weight: 700; }
+
+/* Report preview */
+.report-preview{
+  background: var(--bg-soft);
+  border: 1px solid var(--muted);
+  padding: 10px 12px;
+  margin: 8px 0 12px;
+  font-size: 12px;
+  color: var(--phosphor-2);
+  white-space: pre;
+  overflow-x: auto;
+  min-height: 60px;
+  text-shadow: 0 0 3px rgba(51,255,138,.4);
+}
+.report-preview.empty{
+  color: var(--phosphor-d);
+  font-style: italic;
+  text-shadow: none;
+}
+
+/* Toast */
+.toast{
+  position: fixed;
+  left: 50%;
+  bottom: max(24px, env(safe-area-inset-bottom, 24px));
+  transform: translate(-50%, 20px);
+  background: var(--bg);
+  border: 1px solid var(--phosphor);
+  color: var(--phosphor-2);
+  padding: 10px 18px;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  box-shadow: 0 0 18px rgba(0,255,102,.5);
+  text-shadow: 0 0 4px rgba(0,255,102,.7);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .2s, transform .2s;
+  z-index: 10000;
+}
+.toast.show{ opacity: 1; transform: translate(-50%, 0); }
+.toast.amber{ border-color: var(--amber); color: var(--amber); box-shadow: 0 0 18px rgba(255,176,0,.5); text-shadow: 0 0 4px rgba(255,176,0,.7); }
+.toast.fail { border-color: var(--red);   color: var(--red);   box-shadow: 0 0 18px rgba(255,51,85,.5); text-shadow: 0 0 4px rgba(255,51,85,.7); }
 </style>
 </head>
 <body>
@@ -368,6 +481,18 @@ input[type="text"]:focus{ border-color: var(--amber); box-shadow: 0 0 6px rgba(2
 █░▀░█ █▄█ █░▀█ ▄█ ░█░ █▀▄ █ █░█</div>
 
   <p class="tag">&gt; net_check.exe <span class="blink">_</span></p>
+
+  <!-- INSTALL BANNER (Android/Chrome) -->
+  <div class="install-banner" id="installBanner">
+    <span class="msg">// install as app?</span>
+    <button onclick="pwaInstall()">install</button>
+    <button class="close" onclick="pwaDismiss()" aria-label="dismiss">×</button>
+  </div>
+
+  <!-- iOS HINT -->
+  <div class="ios-hint" id="iosHint">
+    // <b>iOS:</b> share <span style="color:var(--cyan)">[</span>↑<span style="color:var(--cyan)">]</span> → <b>«На экран Домой»</b> чтобы установить как app.
+  </div>
 
   <!-- STATUS BAR -->
   <div class="statbar" id="statbar">
@@ -418,6 +543,29 @@ input[type="text"]:focus{ border-color: var(--amber); box-shadow: 0 0 6px rgba(2
     </div>
   </div>
 
+  <!-- REPORT / SHARE -->
+  <div class="panel">
+    <div class="panel-head">report</div>
+    <div class="panel-body">
+      <div class="add-row">
+        <input type="text" id="repCity"     placeholder="город"    maxlength="32" autocomplete="off">
+        <input type="text" id="repOperator" placeholder="оператор" maxlength="32" autocomplete="off">
+      </div>
+
+      <pre class="report-preview empty" id="reportPreview">// прогон не выполнен</pre>
+
+      <div class="add-row full" style="margin-bottom:6px">
+        <button class="btn-add" onclick="copyReport()">⧉ copy_report</button>
+      </div>
+      <div class="add-row full" style="margin-bottom:0">
+        <button class="btn-add" onclick="shareReport()" style="border-color:var(--cyan);color:var(--cyan)">↗ share</button>
+      </div>
+      <p class="hint" style="color:var(--phosphor-d);font-size:11px;margin-top:8px;letter-spacing:.5px">
+        // отчёт формируется после первого скана
+      </p>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <div class="footer">
     <a href="https://monstrix.ru">monstrix.ru</a>
@@ -429,42 +577,48 @@ input[type="text"]:focus{ border-color: var(--amber); box-shadow: 0 0 6px rgba(2
 
 </div>
 
+<!-- TOAST -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <script>
 /* ============================================================
    MONSTRIX checker logic — same shape as v1, new render layer
    ============================================================ */
 const SERVICES = {
   social: [
-    { name: "Telegram",   url: "https://telegram.org" },
-    { name: "Instagram",  url: "https://www.instagram.com" },
-    { name: "VKontakte",  url: "https://vk.com" },
-    { name: "TikTok",     url: "https://www.tiktok.com" },
-    { name: "X (Twitter)",url: "https://x.com" },
-    { name: "Facebook",   url: "https://www.facebook.com" }
+    { name: "Telegram",   short: "TG",        url: "https://telegram.org" },
+    { name: "Instagram",  short: "insta",     url: "https://www.instagram.com" },
+    { name: "VKontakte",  short: "VK",        url: "https://vk.com" },
+    { name: "TikTok",     short: "TikTok",    url: "https://www.tiktok.com" },
+    { name: "X (Twitter)",short: "X",         url: "https://x.com" },
+    { name: "Facebook",   short: "FB",        url: "https://www.facebook.com" }
   ],
   media: [
-    { name: "YouTube",    url: "https://www.youtube.com" },
-    { name: "Spotify",    url: "https://open.spotify.com" },
-    { name: "Netflix",    url: "https://www.netflix.com" },
-    { name: "Twitch",     url: "https://www.twitch.tv" }
+    { name: "YouTube",    short: "YT",        url: "https://www.youtube.com" },
+    { name: "Spotify",    short: "Spotify",   url: "https://open.spotify.com" },
+    { name: "Netflix",    short: "Netflix",   url: "https://www.netflix.com" },
+    { name: "Twitch",     short: "Twitch",    url: "https://www.twitch.tv" }
   ],
   services: [
-    { name: "Google",     url: "https://www.google.com" },
-    { name: "GitHub",     url: "https://github.com" },
-    { name: "ChatGPT",    url: "https://chat.openai.com" },
-    { name: "Discord",    url: "https://discord.com" },
-    { name: "Wikipedia",  url: "https://www.wikipedia.org" }
+    { name: "Google",     short: "Google",    url: "https://www.google.com" },
+    { name: "GitHub",     short: "GitHub",    url: "https://github.com" },
+    { name: "ChatGPT",    short: "ChatGPT",   url: "https://chat.openai.com" },
+    { name: "Discord",    short: "Discord",   url: "https://discord.com" },
+    { name: "Wikipedia",  short: "Wiki",      url: "https://www.wikipedia.org" }
   ],
   ru: [
-    { name: "Yandex",     url: "https://ya.ru" },
-    { name: "Mail.ru",    url: "https://mail.ru" },
-    { name: "Avito",      url: "https://www.avito.ru" },
-    { name: "Ozon",       url: "https://www.ozon.ru" },
-    { name: "Gosuslugi",  url: "https://gosuslugi.ru" }
+    { name: "Yandex",     short: "Яндекс",    url: "https://ya.ru" },
+    { name: "Mail.ru",    short: "Mail",      url: "https://mail.ru" },
+    { name: "Avito",      short: "Авито",     url: "https://www.avito.ru" },
+    { name: "Ozon",       short: "Ozon",      url: "https://www.ozon.ru" },
+    { name: "Gosuslugi",  short: "Госуслуги", url: "https://gosuslugi.ru" }
   ]
 };
 
 const customServices = [];
+
+// state of last scan: url -> { ok: bool, ms: number|null, name, short }
+const lastResults = {};
 
 function getId(url){ return "t_" + url.replace(/[^a-z0-9]/gi,"_"); }
 
@@ -510,10 +664,12 @@ async function checkOne(s){
     const ms = Math.round(performance.now() - t0);
     el.className = "stat ok";
     el.innerHTML = '[OK]<span class="ms">' + ms + ' ms</span>';
+    lastResults[s.url] = { ok: true,  ms: ms,   name: s.name, short: s.short || s.name };
     return true;
   }catch(e){
     el.className = "stat fail";
     el.textContent = "[FAIL]";
+    lastResults[s.url] = { ok: false, ms: null, name: s.name, short: s.short || s.name };
     return false;
   }
 }
@@ -548,6 +704,9 @@ async function checkAll(){
   btn.disabled = false;
   btn.classList.remove("scanning");
   btn.textContent = "↻ rescan";
+
+  // обновить превью отчёта
+  updateReportPreview();
 }
 
 function addCustom(){
@@ -555,17 +714,193 @@ function addCustom(){
   let url = document.getElementById("customUrl").value.trim();
   if (!url) return;
   if (!/^https?:\/\//i.test(url)) url = "https://" + url;
-  const s = { name: name || shortHost(url), url };
+  const s = { name: name || shortHost(url), short: name || shortHost(url), url };
   customServices.push(s);
   renderRow(s, "list-custom");
   document.getElementById("customName").value = "";
   document.getElementById("customUrl").value = "";
   document.getElementById("totalCount").textContent =
     Object.values(SERVICES).reduce((a,b)=>a+b.length,0) + customServices.length;
-  checkOne(s);
+  checkOne(s).then(updateReportPreview);
 }
 
+/* ============================================================
+   REPORT / SHARE
+   формат:
+       Город Оператор
+       VK - 47 мс
+       insta - n/a
+   ============================================================ */
+const STORAGE_KEY = 'monstrix.checker.v2';
+
+function loadPrefs(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const p = JSON.parse(raw);
+    if (p.city)     document.getElementById('repCity').value     = p.city;
+    if (p.operator) document.getElementById('repOperator').value = p.operator;
+  }catch(e){}
+}
+
+function savePrefs(){
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      city:     document.getElementById('repCity').value.trim(),
+      operator: document.getElementById('repOperator').value.trim()
+    }));
+  }catch(e){}
+}
+
+function buildReport(){
+  const city = document.getElementById('repCity').value.trim();
+  const op   = document.getElementById('repOperator').value.trim();
+  const head = [city, op].filter(Boolean).join(' ');
+
+  // в порядке отрисовки
+  const ordered = [
+    ...SERVICES.social, ...SERVICES.media, ...SERVICES.services,
+    ...SERVICES.ru, ...customServices
+  ];
+  const lines = [];
+  ordered.forEach(s => {
+    const r = lastResults[s.url];
+    if (!r) return; // только проверенные
+    const label = r.short || r.name;
+    if (r.ok)  lines.push(label + ' - ' + r.ms + ' мс');
+    else       lines.push(label + ' - n/a');
+  });
+
+  if (lines.length === 0) return '';
+  return (head ? head + '\n' : '') + lines.join('\n');
+}
+
+function updateReportPreview(){
+  const pre = document.getElementById('reportPreview');
+  const txt = buildReport();
+  if (!txt){
+    pre.classList.add('empty');
+    pre.textContent = '// прогон не выполнен';
+  } else {
+    pre.classList.remove('empty');
+    pre.textContent = txt;
+  }
+}
+
+function showToast(msg, kind){
+  const el = document.getElementById('toast');
+  el.className = 'toast' + (kind ? ' ' + kind : '');
+  el.textContent = msg;
+  // force reflow
+  void el.offsetWidth;
+  el.classList.add('show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => el.classList.remove('show'), 1800);
+}
+
+async function copyReport(){
+  const txt = buildReport();
+  if (!txt){
+    showToast('// сначала запусти scan', 'amber');
+    return;
+  }
+  try{
+    if (navigator.clipboard && window.isSecureContext){
+      await navigator.clipboard.writeText(txt);
+    } else {
+      // fallback — textarea + execCommand
+      const ta = document.createElement('textarea');
+      ta.value = txt;
+      ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus(); ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+    showToast('[ok] copied to clipboard');
+  }catch(e){
+    showToast('[fail] clipboard denied', 'fail');
+  }
+}
+
+async function shareReport(){
+  const txt = buildReport();
+  if (!txt){
+    showToast('// сначала запусти scan', 'amber');
+    return;
+  }
+  if (navigator.share){
+    try{
+      await navigator.share({ title: 'MONSTRIX // net_check', text: txt });
+      showToast('[ok] shared');
+    }catch(e){ /* user cancelled — silent */ }
+  } else {
+    // браузер не поддерживает Web Share — копируем
+    copyReport();
+  }
+}
+
+document.getElementById('repCity').addEventListener('input', () => { savePrefs(); updateReportPreview(); });
+document.getElementById('repOperator').addEventListener('input', () => { savePrefs(); updateReportPreview(); });
+
+/* ============================================================
+   PWA — service worker + install prompt
+   ============================================================ */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {/* не критично */});
+  });
+}
+
+let _deferredInstall = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  _deferredInstall = e;
+  // показать баннер только если пользователь его не скрывал
+  if (localStorage.getItem('monstrix.installDismissed') !== '1'){
+    document.getElementById('installBanner').classList.add('show');
+  }
+});
+
+async function pwaInstall(){
+  if (!_deferredInstall) return;
+  document.getElementById('installBanner').classList.remove('show');
+  _deferredInstall.prompt();
+  const { outcome } = await _deferredInstall.userChoice;
+  _deferredInstall = null;
+  if (outcome === 'accepted') showToast('[ok] installed');
+}
+
+function pwaDismiss(){
+  document.getElementById('installBanner').classList.remove('show');
+  try{ localStorage.setItem('monstrix.installDismissed', '1'); }catch(e){}
+}
+
+window.addEventListener('appinstalled', () => {
+  document.getElementById('installBanner').classList.remove('show');
+  showToast('[ok] app installed');
+});
+
+/* iOS hint — Safari, не standalone, не Chrome iOS */
+(function(){
+  const ua = navigator.userAgent;
+  const isIOS  = /iPhone|iPad|iPod/i.test(ua) && !window.MSStream;
+  const isSafari = /Safari/i.test(ua) && !/CriOS|FxiOS|EdgiOS/i.test(ua);
+  const isStandalone =
+    window.matchMedia('(display-mode: standalone)').matches ||
+    window.navigator.standalone === true;
+  if (isIOS && isSafari && !isStandalone &&
+      localStorage.getItem('monstrix.installDismissed') !== '1') {
+    document.getElementById('iosHint').classList.add('show');
+  }
+})();
+
+/* ============================================================
+   INIT
+   ============================================================ */
+loadPrefs();
 renderAll();
+updateReportPreview();
 </script>
 </body>
 </html>
