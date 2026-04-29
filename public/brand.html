@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0a0e0a">
+<title>MONSTRIX // brand_v2.0</title>
+<style>
+:root{
+  --bg:#0a0e0a; --bg-card:#0d120e; --bg-soft:#0f1410;
+  --phosphor:#00ff66; --phosphor-2:#33ff8a; --phosphor-d:#0a8a3a;
+  --amber:#ffb000; --amber-2:#ffd166;
+  --cyan:#00d4ff; --magenta:#ff3df0;
+  --red:#ff3355; --muted:#2c4030;
+  --glow-p: 0 0 1px var(--phosphor), 0 0 4px rgba(0,255,102,.35);
+  --glow-a: 0 0 5px rgba(255,176,0,.45);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);min-height:100vh}
+body{
+  font-family:'JetBrains Mono','Fira Code','IBM Plex Mono','SF Mono',
+              ui-monospace,Menlo,Consolas,monospace;
+  font-size:14px; line-height:1.55;
+  color:var(--phosphor); text-shadow:var(--glow-p);
+  padding:24px 18px 80px;
+  -webkit-font-smoothing: antialiased;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:9999;
+  background:
+    repeating-linear-gradient(
+      to bottom, rgba(0,255,102,.04) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse at center, rgba(0,255,102,.05) 0%, transparent 65%);
+  mix-blend-mode:overlay;
+}
+body::after{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:9998;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.55) 100%);
+  animation: flicker 6s infinite;
+}
+@keyframes flicker{
+  0%,100%{opacity:1} 48%{opacity:.96} 52%{opacity:.92} 54%{opacity:1}
+}
+
+.wrap{ max-width: 880px; margin: 0 auto; }
+
+/* ========= LOGO ========= */
+.logo{
+  white-space:pre; line-height:1.05; font-size:14px;
+  color:var(--phosphor);
+  text-shadow: 0 0 6px rgba(0,255,102,.65), 0 0 14px rgba(0,255,102,.35);
+  position:relative; display:inline-block;
+}
+.logo.glitch::before, .logo.glitch::after{
+  content: attr(data-text);
+  position:absolute; left:0; top:0; white-space:pre;
+  pointer-events:none; mix-blend-mode:screen;
+}
+.logo.glitch::before{ color:var(--cyan);    transform:translate(-1.5px,0); animation: glitch-x 3s infinite steps(1); }
+.logo.glitch::after { color:var(--magenta); transform:translate( 1.5px,0); animation: glitch-y 2.6s infinite steps(1); }
+@keyframes glitch-x{
+  0%,90%,100%{ clip-path:inset(0 0 0 0); transform:translate(-1.5px,0) }
+  92%{ clip-path:inset(20% 0 60% 0); transform:translate(-3px,-1px) }
+  94%{ clip-path:inset(70% 0 10% 0); transform:translate(2px,1px) }
+  96%{ clip-path:inset(40% 0 30% 0); transform:translate(-2px,0) }
+}
+@keyframes glitch-y{
+  0%,88%,100%{ clip-path:inset(0 0 0 0); transform:translate(1.5px,0) }
+  91%{ clip-path:inset(10% 0 75% 0); transform:translate(3px,1px) }
+  93%{ clip-path:inset(55% 0 25% 0); transform:translate(-1px,-1px) }
+  95%{ clip-path:inset(30% 0 50% 0); transform:translate(2px,0) }
+}
+
+/* ========= TYPOGRAPHY ========= */
+.boot{ color:var(--phosphor-d); font-size:11px; letter-spacing:.5px; margin-bottom:6px }
+.boot .ok{ color:var(--phosphor) } .boot .warn{ color:var(--amber) }
+.tag{ color:var(--amber); font-size:12px; margin:6px 0 16px; letter-spacing:.5px;
+      text-shadow: var(--glow-a); }
+.blink::after{ content:"▮"; margin-left:2px; animation: blink 1s steps(1) infinite; color:var(--phosphor) }
+@keyframes blink{ 50%{opacity:0} }
+
+h2.section{
+  color:var(--amber); font-size:13px; letter-spacing:2.5px;
+  text-transform:uppercase; margin: 36px 0 14px;
+  text-shadow: var(--glow-a);
+}
+h2.section::before{ content:"▌"; color:var(--phosphor); margin-right:8px }
+
+p.lead{ color:var(--phosphor-d); font-size:12px; max-width: 60ch; margin-bottom:14px }
+
+/* ========= PANEL ========= */
+.panel{
+  border: 1px solid var(--phosphor-d);
+  background: var(--bg-card);
+  margin: 14px 0; position: relative;
+}
+.panel-head{
+  position: absolute; top: -10px; left: 12px;
+  background: var(--bg); padding: 0 8px;
+  font-size: 11px; letter-spacing: 1.5px;
+  color: var(--amber); text-transform: uppercase;
+}
+.panel-head::before{ content:"┤ "; color:var(--phosphor-d) }
+.panel-head::after { content:" ├"; color:var(--phosphor-d) }
+.panel-body{ padding: 18px 16px 16px; }
+
+.grid-2{ display:grid; grid-template-columns: repeat(2, 1fr); gap:14px }
+.grid-3{ display:grid; grid-template-columns: repeat(3, 1fr); gap:12px }
+@media (max-width: 640px){
+  .grid-2, .grid-3{ grid-template-columns: 1fr }
+}
+
+/* ========= COLOR SWATCHES ========= */
+.swatch{
+  border: 1px solid var(--muted);
+  background: var(--bg-card);
+  padding: 0; overflow:hidden;
+  display:flex; flex-direction:column;
+}
+.swatch .chip{ height: 64px; }
+.swatch .meta{ padding: 8px 10px; font-size: 11px; line-height: 1.4 }
+.swatch .meta b{ color:var(--phosphor-2); font-weight:700; letter-spacing:.5px; display:block }
+.swatch .meta span{ color:var(--phosphor-d) }
+
+/* ========= BUTTONS ========= */
+.btn{
+  display:inline-block;
+  padding: 12px 20px;
+  background: transparent;
+  color:var(--phosphor);
+  border: 1px solid var(--phosphor);
+  font: inherit; font-size: 14px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  cursor: pointer; text-decoration:none;
+  text-shadow: 0 0 4px rgba(0,255,102,.7);
+  transition: background .12s, color .12s, box-shadow .12s;
+}
+.btn:hover{
+  background: var(--phosphor); color: var(--bg); text-shadow:none;
+  box-shadow: 0 0 18px rgba(0,255,102,.55);
+}
+.btn.amber{ color:var(--amber); border-color:var(--amber); text-shadow: var(--glow-a) }
+.btn.amber:hover{ background:var(--amber); color:var(--bg); box-shadow: 0 0 18px rgba(255,176,0,.55) }
+.btn.cyan{ color:var(--cyan); border-color:var(--cyan); text-shadow: 0 0 4px rgba(0,212,255,.6) }
+.btn.cyan:hover{ background:var(--cyan); color:var(--bg); box-shadow: 0 0 18px rgba(0,212,255,.55) }
+.btn.danger{ color:var(--red); border-color:var(--red); text-shadow: 0 0 4px rgba(255,51,85,.6) }
+.btn.danger:hover{ background:var(--red); color:var(--bg) }
+.btn-row{ display:flex; gap: 10px; flex-wrap: wrap }
+
+/* ========= STATUS BADGES ========= */
+.badges{ display:flex; gap: 16px; flex-wrap:wrap }
+.stat{ font-weight:700; letter-spacing:.5px; font-size:13px }
+.stat.idle{ color: var(--muted) }
+.stat.wait{ color: var(--amber); animation: blink 1s steps(1) infinite }
+.stat.ok  { color: var(--phosphor-2); text-shadow: 0 0 6px rgba(51,255,138,.55) }
+.stat.fail{ color: var(--red);  text-shadow: 0 0 6px rgba(255,51,85,.45) }
+
+/* ========= FORM ========= */
+label.tlabel{ display:block; margin-bottom:5px; color:var(--phosphor-d); font-size:11px; letter-spacing:1px; text-transform:uppercase }
+input[type="text"], input[type="password"], select, textarea{
+  width:100%; padding:10px 12px;
+  background: var(--bg-soft);
+  border: 1px solid var(--muted);
+  color: var(--phosphor); font: inherit; font-size: 13px;
+  border-radius: 0; outline: none;
+  text-shadow: 0 0 3px rgba(0,255,102,.4);
+}
+input::placeholder{ color: var(--phosphor-d); opacity:.7 }
+input:focus, select:focus{ border-color: var(--amber); box-shadow: 0 0 6px rgba(255,176,0,.45) }
+
+/* ========= SPINNER ========= */
+.spinner{
+  border:2px solid var(--bg-card);
+  border-top:2px solid var(--phosphor);
+  border-radius:50%; width:42px; height:42px;
+  animation: spin 1s linear infinite;
+  box-shadow: 0 0 12px rgba(0,255,102,.4);
+}
+@keyframes spin{ to{ transform: rotate(360deg) } }
+
+/* ========= ROW LIST ========= */
+.row{
+  display:grid; grid-template-columns: 18px 1fr auto;
+  gap:10px; align-items:center;
+  padding: 7px 4px; border-bottom: 1px dashed var(--muted);
+  font-size: 13px;
+}
+.row:last-child{ border-bottom:none }
+.row .marker{ color:var(--phosphor-d); font-weight:700; text-align:center }
+.row .name{ color:var(--phosphor-2) }
+.row .host{ color:var(--muted); font-size:11px; margin-left:6px }
+
+/* ========= CODE BLOCK ========= */
+pre.code{
+  background: var(--bg-soft);
+  border: 1px solid var(--muted);
+  padding: 12px 14px;
+  font-size: 12px; line-height: 1.55;
+  color: var(--phosphor-2);
+  overflow-x: auto;
+  text-shadow: none;
+}
+pre.code .com{ color: var(--phosphor-d) }
+pre.code .key{ color: var(--amber) }
+pre.code .str{ color: var(--cyan) }
+
+/* ========= ICON TABLE ========= */
+.icontable{ width:100%; border-collapse:collapse; font-size:13px }
+.icontable th, .icontable td{ padding:8px 10px; text-align:left; border-bottom:1px dashed var(--muted) }
+.icontable th{ color: var(--phosphor-d); font-weight:400; font-size:11px; letter-spacing:1px; text-transform:uppercase }
+.icontable td.ascii{ color:var(--phosphor-2); font-weight:700 }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="boot">
+    <span class="ok">[ OK ]</span> brandbook v2.0 // <span class="warn">monstrix.ru</span>
+  </div>
+
+  <div class="logo glitch" data-text="█▀▄▀█ █▀█ █▄░█ █▀ ▀█▀ █▀█ █ ▀▄▀
+█░▀░█ █▄█ █░▀█ ▄█ ░█░ █▀▄ █ █░█">█▀▄▀█ █▀█ █▄░█ █▀ ▀█▀ █▀█ █ ▀▄▀
+█░▀░█ █▄█ █░▀█ ▄█ ░█░ █▀▄ █ █░█</div>
+
+  <p class="tag">&gt; identity / crt_phosphor / v2.0 <span class="blink">_</span></p>
+
+  <p class="lead">
+    Минималистичная CRT-айдентика MONSTRIX. Чёрный фон, фосфорный зелёный,
+    янтарь как акцент, cyan для ссылок. Только моноширинный текст. Никаких
+    внешних шрифтов и картинок — всё портируется в <code style="color:var(--amber)">html_pages.h</code>
+    для ESP32.
+  </p>
+
+  <!-- ========= PALETTE ========= -->
+  <h2 class="section">// palette</h2>
+  <div class="grid-3">
+
+    <div class="swatch"><div class="chip" style="background:#0a0e0a;border-bottom:1px solid var(--muted)"></div>
+      <div class="meta"><b>--bg</b><span>#0a0e0a · фон CRT</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#0d120e"></div>
+      <div class="meta"><b>--bg-card</b><span>#0d120e · карточки</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#0f1410"></div>
+      <div class="meta"><b>--bg-soft</b><span>#0f1410 · поля</span></div></div>
+
+    <div class="swatch"><div class="chip" style="background:#00ff66"></div>
+      <div class="meta"><b>--phosphor</b><span>#00ff66 · текст</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#33ff8a"></div>
+      <div class="meta"><b>--phosphor-2</b><span>#33ff8a · OK</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#0a8a3a"></div>
+      <div class="meta"><b>--phosphor-d</b><span>#0a8a3a · dim</span></div></div>
+
+    <div class="swatch"><div class="chip" style="background:#ffb000"></div>
+      <div class="meta"><b>--amber</b><span>#ffb000 · CTA</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#00d4ff"></div>
+      <div class="meta"><b>--cyan</b><span>#00d4ff · ссылки</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#ff3df0"></div>
+      <div class="meta"><b>--magenta</b><span>#ff3df0 · глитч</span></div></div>
+
+    <div class="swatch"><div class="chip" style="background:#ff3355"></div>
+      <div class="meta"><b>--red</b><span>#ff3355 · FAIL</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#2c4030"></div>
+      <div class="meta"><b>--muted</b><span>#2c4030 · разделители</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#ffd166"></div>
+      <div class="meta"><b>--amber-2</b><span>#ffd166 · hover</span></div></div>
+
+  </div>
+
+  <!-- ========= TYPOGRAPHY ========= -->
+  <h2 class="section">// typography</h2>
+  <div class="panel">
+    <div class="panel-head">type_scale</div>
+    <div class="panel-body">
+      <div style="font-size:24px;color:var(--phosphor-2);letter-spacing:1px;margin-bottom:8px">Aa Bb 0123 //</div>
+      <div style="color:var(--phosphor-d);font-size:11px;margin-bottom:18px">
+        JetBrains Mono → Fira Code → IBM Plex Mono → SF Mono → ui-monospace → Menlo
+      </div>
+      <div style="display:grid;grid-template-columns:60px 1fr;gap:8px 14px;font-size:13px">
+        <span style="color:var(--phosphor-d)">11px</span><span>panel-head · boot · footer · hint</span>
+        <span style="color:var(--phosphor-d)">12px</span><span>tag · status badges</span>
+        <span style="color:var(--phosphor-d)">13px</span><span>row · input · code</span>
+        <span style="color:var(--phosphor-d)">14px</span><span>body</span>
+        <span style="color:var(--phosphor-d)">15px</span><span>btn primary</span>
+        <span style="color:var(--phosphor-d)">24px+</span><span>display headings</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========= LOGO VARIANTS ========= -->
+  <h2 class="section">// logo</h2>
+  <div class="panel">
+    <div class="panel-head">primary_glitch</div>
+    <div class="panel-body">
+      <div class="logo glitch" data-text="█▀▄▀█ █▀█ █▄░█ █▀ ▀█▀ █▀█ █ ▀▄▀
+█░▀░█ █▄█ █░▀█ ▄█ ░█░ █▀▄ █ █░█">█▀▄▀█ █▀█ █▄░█ █▀ ▀█▀ █▀█ █ ▀▄▀
+█░▀░█ █▄█ █░▀█ ▄█ ░█░ █▀▄ █ █░█</div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-head">primary_clean</div>
+    <div class="panel-body">
+      <div class="logo">█▀▄▀█ █▀█ █▄░█ █▀ ▀█▀ █▀█ █ ▀▄▀
+█░▀░█ █▄█ █░▀█ ▄█ ░█░ █▀▄ █ █░█</div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-head">short_marks</div>
+    <div class="panel-body" style="display:flex;gap:24px;flex-wrap:wrap;font-size:18px">
+      <span style="color:var(--phosphor)">[M0NSTR1X]</span>
+      <span style="color:var(--phosphor)">&gt; monstrix //</span>
+      <span style="color:var(--phosphor)">M█NSTRIX</span>
+      <span style="color:var(--amber)">[ MX ]</span>
+    </div>
+  </div>
+
+  <!-- ========= BUTTONS ========= -->
+  <h2 class="section">// buttons</h2>
+  <div class="panel">
+    <div class="panel-head">primary_actions</div>
+    <div class="panel-body">
+      <div class="btn-row">
+        <a class="btn" href="#">▶ execute</a>
+        <a class="btn amber" href="#">▶ flash_device</a>
+        <a class="btn cyan" href="#">▶ open_repo</a>
+        <a class="btn danger" href="#">✕ erase_nvs</a>
+      </div>
+      <p style="margin-top:14px;color:var(--phosphor-d);font-size:11px">
+        primary = phosphor outline. amber для CTA / прошивок. cyan для внешних ссылок.
+        danger — только деструктивное.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========= STATUS ========= -->
+  <h2 class="section">// status_badges</h2>
+  <div class="panel">
+    <div class="panel-head">states</div>
+    <div class="panel-body">
+      <div class="badges">
+        <span class="stat idle">[--]</span>
+        <span class="stat wait">[..]</span>
+        <span class="stat ok">[OK]</span>
+        <span class="stat fail">[FAIL]</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========= FORM ========= -->
+  <h2 class="section">// forms</h2>
+  <div class="panel">
+    <div class="panel-head">wifi_link</div>
+    <div class="panel-body">
+      <div style="margin-bottom:12px">
+        <label class="tlabel">// network</label>
+        <select><option>HOME-2.4G</option><option>HOME-5G</option><option>iPhone</option></select>
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="tlabel">// password</label>
+        <input type="password" value="••••••••">
+      </div>
+      <a class="btn" href="#" style="display:block;text-align:center">▶ connect</a>
+      <p style="margin-top:10px;color:var(--phosphor-d);font-size:11px">[ устройство перезагрузится после успеха ]</p>
+    </div>
+  </div>
+
+  <!-- ========= ROWS ========= -->
+  <h2 class="section">// rows / lists</h2>
+  <div class="panel">
+    <div class="panel-head">checker_rows</div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="marker">&gt;</div>
+        <div class="name">Telegram <span class="host">telegram.org</span></div>
+        <div class="stat ok">[OK]</div>
+      </div>
+      <div class="row">
+        <div class="marker">&gt;</div>
+        <div class="name">Instagram <span class="host">instagram.com</span></div>
+        <div class="stat fail">[FAIL]</div>
+      </div>
+      <div class="row">
+        <div class="marker">&gt;</div>
+        <div class="name">YouTube <span class="host">youtube.com</span></div>
+        <div class="stat wait">[..]</div>
+      </div>
+      <div class="row">
+        <div class="marker">&gt;</div>
+        <div class="name">GitHub <span class="host">github.com</span></div>
+        <div class="stat idle">[--]</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========= LOADER ========= -->
+  <h2 class="section">// loader</h2>
+  <div class="panel">
+    <div class="panel-head">syncing</div>
+    <div class="panel-body" style="text-align:center">
+      <div class="spinner" style="margin: 12px auto"></div>
+      <p style="color:var(--amber);letter-spacing:1px">connecting<span class="blink">_</span></p>
+      <p style="color:var(--phosphor-d);font-size:11px;margin-top:6px">[ device will restart automatically ]</p>
+    </div>
+  </div>
+
+  <!-- ========= ICONS ========= -->
+  <h2 class="section">// iconography (ascii)</h2>
+  <div class="panel">
+    <div class="panel-head">no_emoji_zone</div>
+    <div class="panel-body">
+      <table class="icontable">
+        <tr><th>назначение</th><th>ASCII</th><th>emoji-альт</th></tr>
+        <tr><td>WiFi</td>        <td class="ascii">[~] / &lt;~&gt;</td><td>📶</td></tr>
+        <tr><td>Питание</td>     <td class="ascii">[+-]</td>           <td>🔋</td></tr>
+        <tr><td>Связь / радио</td><td class="ascii">&lt;&lt;&gt;&gt;</td><td>📡</td></tr>
+        <tr><td>Дисплей</td>     <td class="ascii">[#]</td>            <td>🖼</td></tr>
+        <tr><td>Свет / LED</td>   <td class="ascii">(*)</td>            <td>💡</td></tr>
+        <tr><td>Электроника</td>  <td class="ascii">[~]</td>            <td>⚡</td></tr>
+        <tr><td>OK</td>          <td class="ascii">[OK]</td>           <td>✅</td></tr>
+        <tr><td>Ошибка</td>      <td class="ascii">[FAIL]</td>         <td>❌</td></tr>
+        <tr><td>Загрузка</td>    <td class="ascii">[..]</td>           <td>⏳</td></tr>
+        <tr><td>Маркер</td>      <td class="ascii">&gt;</td>            <td>▶</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ========= TONE OF VOICE ========= -->
+  <h2 class="section">// tone_of_voice</h2>
+  <div class="panel">
+    <div class="panel-head">writing</div>
+    <div class="panel-body">
+      <p style="margin-bottom:10px">// короткие команды, нижний регистр, slash-namespace</p>
+      <p style="color:var(--phosphor-2)">&gt; flash_device</p>
+      <p style="color:var(--phosphor-2)">&gt; net_check.exe</p>
+      <p style="color:var(--phosphor-2)">&gt; monstrix // wifi_setup</p>
+      <p style="margin-top:14px;color:var(--phosphor-d);font-size:11px">
+        правило: имя действия = глагол_объект (snake_case), без точки в конце.
+        вместо «Подключиться» — «&gt; connect». вместо «Сохранить» — «&gt; save_cfg».
+      </p>
+    </div>
+  </div>
+
+  <!-- ========= DON'TS ========= -->
+  <h2 class="section">// don't</h2>
+  <div class="panel">
+    <div class="panel-head">avoid</div>
+    <div class="panel-body" style="font-size:13px;line-height:1.7">
+      <p><span class="stat fail">[FAIL]</span> закруглённые карточки <code style="color:var(--phosphor-d)">border-radius: 12px</code> — резкие края, всегда 0</p>
+      <p><span class="stat fail">[FAIL]</span> Arial / sans-serif вне моноширинного стека</p>
+      <p><span class="stat fail">[FAIL]</span> синий фон <code style="color:var(--phosphor-d)">#1a1a2e</code> из v1.0 — заменён на <code style="color:var(--phosphor)">#0a0e0a</code></p>
+      <p><span class="stat fail">[FAIL]</span> заполненные оранжевые кнопки — теперь outline + hover-инверсия</p>
+      <p><span class="stat fail">[FAIL]</span> emoji в ESP32-страницах — ASCII-маркеры из таблицы выше</p>
+      <p><span class="stat fail">[FAIL]</span> цветной градиент текста, неон в дизайне статей — слишком много, читается плохо</p>
+    </div>
+  </div>
+
+  <!-- ========= CODE SNIPPETS ========= -->
+  <h2 class="section">// snippets</h2>
+  <div class="panel">
+    <div class="panel-head">css_tokens</div>
+    <div class="panel-body">
+<pre class="code"><span class="com">/* MONSTRIX UI v2.0 — drop into :root */</span>
+<span class="key">:root</span>{
+  --bg:        <span class="str">#0a0e0a</span>;
+  --bg-card:   <span class="str">#0d120e</span>;
+  --bg-soft:   <span class="str">#0f1410</span>;
+  --phosphor:  <span class="str">#00ff66</span>;
+  --phosphor-2:<span class="str">#33ff8a</span>;
+  --phosphor-d:<span class="str">#0a8a3a</span>;
+  --amber:     <span class="str">#ffb000</span>;
+  --cyan:      <span class="str">#00d4ff</span>;
+  --magenta:   <span class="str">#ff3df0</span>;
+  --red:       <span class="str">#ff3355</span>;
+  --muted:     <span class="str">#2c4030</span>;
+}</pre>
+    </div>
+  </div>
+
+  <!-- ========= FOOTER ========= -->
+  <div style="margin-top:36px;padding-top:14px;border-top:1px dashed var(--muted);text-align:center;font-size:11px;color:var(--phosphor-d);letter-spacing:1px">
+    <a href="https://monstrix.ru" style="color:var(--cyan);text-decoration:none">monstrix.ru</a>
+    <span style="color:var(--muted);margin:0 6px">//</span>
+    <a href="https://t.me/techminimal" style="color:var(--cyan);text-decoration:none">@techminimal</a>
+    <span style="color:var(--muted);margin:0 6px">//</span>
+    <span>brand_v2.0 · esp32 · diy · minimal</span>
+  </div>
+
+</div>
+</body>
+</html>

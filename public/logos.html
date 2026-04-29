@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0a0e0a">
+<title>MONSTRIX // logo_lab</title>
+<style>
+:root{
+  --bg:#0a0e0a; --bg-card:#0d120e; --bg-soft:#0f1410;
+  --phosphor:#00ff66; --phosphor-2:#33ff8a; --phosphor-d:#0a8a3a;
+  --amber:#ffb000; --cyan:#00d4ff; --magenta:#ff3df0;
+  --red:#ff3355; --muted:#2c4030;
+  --glow:0 0 1px var(--phosphor), 0 0 4px rgba(0,255,102,.35);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);min-height:100vh}
+body{
+  font-family:'JetBrains Mono','Fira Code','IBM Plex Mono','SF Mono',ui-monospace,Menlo,Consolas,monospace;
+  font-size:14px; line-height:1.55;
+  color:var(--phosphor); text-shadow:var(--glow);
+  padding:24px 18px 80px;
+  -webkit-font-smoothing: antialiased;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:9999;
+  background:
+    repeating-linear-gradient(to bottom, rgba(0,255,102,.04) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse at center, rgba(0,255,102,.05) 0%, transparent 65%);
+  mix-blend-mode:overlay;
+}
+.wrap{ max-width: 920px; margin: 0 auto; }
+
+.boot{ color:var(--phosphor-d); font-size:11px; letter-spacing:.5px; margin-bottom:14px; }
+.boot .ok{ color:var(--phosphor) } .boot .warn{ color:var(--amber) }
+
+h1.title{
+  color:var(--amber);
+  font-size:14px; letter-spacing:2px;
+  text-transform:uppercase;
+  margin: 4px 0 4px;
+  text-shadow: 0 0 5px rgba(255,176,0,.45);
+}
+p.lead{ color:var(--phosphor-d); font-size:12px; max-width:60ch; margin: 0 0 20px; }
+
+.panel{
+  border: 1px solid var(--phosphor-d);
+  background: var(--bg-card);
+  margin: 22px 0; position: relative;
+}
+.panel-head{
+  position:absolute; top:-10px; left:12px;
+  background: var(--bg); padding: 0 8px;
+  font-size:11px; letter-spacing:1.5px;
+  color: var(--amber); text-transform: uppercase;
+}
+.panel-head::before{ content:"┤ "; color:var(--phosphor-d) }
+.panel-head::after { content:" ├"; color:var(--phosphor-d) }
+.panel-num{
+  position:absolute; top:-10px; right:12px;
+  background:var(--bg); padding:0 8px;
+  font-size:11px; color: var(--phosphor-d); letter-spacing:1px;
+}
+.panel-body{ padding: 26px 18px 18px; }
+.preview{
+  display:flex; align-items:center; justify-content:center;
+  min-height: 110px;
+  padding: 16px 12px;
+  border: 1px dashed var(--muted);
+  background: var(--bg-soft);
+  margin-bottom: 14px;
+  overflow:hidden;
+}
+.notes{ color: var(--phosphor-d); font-size:12px; line-height:1.6; margin-bottom: 10px; }
+.notes b{ color: var(--phosphor-2); font-weight: 700 }
+
+pre.code{
+  background: var(--bg-soft);
+  border: 1px solid var(--muted);
+  padding: 10px 12px;
+  font-size: 11.5px; line-height: 1.55;
+  color: var(--phosphor-2);
+  overflow-x: auto;
+  text-shadow: none;
+  margin-top: 6px;
+}
+pre.code .com{ color: var(--phosphor-d) }
+pre.code .key{ color: var(--amber) }
+pre.code .str{ color: var(--cyan) }
+
+/* ============= VARIANT 1 — CSS eye-O =============
+   текстовый wordmark, буква O — настоящий круг с зрачком */
+.v1{
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 44px; font-weight: 700; letter-spacing: 2px;
+  color: var(--phosphor);
+  text-shadow: 0 0 6px rgba(0,255,102,.65), 0 0 14px rgba(0,255,102,.35);
+  display:flex; align-items:center; gap: 0;
+}
+.v1 .eye{
+  display:inline-block;
+  width: 0.86em; height: 0.86em;
+  border: 3px solid var(--phosphor);
+  border-radius: 50%;
+  position: relative;
+  box-sizing: border-box;
+  margin: 0 .04em;
+  box-shadow: 0 0 8px rgba(0,255,102,.55), inset 0 0 6px rgba(0,255,102,.25);
+  overflow: hidden;
+  vertical-align: middle;
+  background: var(--bg);
+}
+.v1 .eye::before{
+  /* зрачок */
+  content:"";
+  position:absolute;
+  width: 32%; height: 32%;
+  background: var(--phosphor);
+  border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 6px rgba(0,255,102,.85);
+  animation: eye-look 4s infinite;
+}
+.v1 .eye::after{
+  /* веко — закрывается раз в 5 сек */
+  content:"";
+  position:absolute; left:0; right:0; top:0;
+  height: 0;
+  background: var(--phosphor);
+  animation: eye-blink 5s infinite;
+}
+@keyframes eye-look{
+  0%,18%   { transform: translate(-50%, -50%); }
+  22%      { transform: translate(-160%, -50%); }
+  28%,42%  { transform: translate(-50%, -50%); }
+  46%      { transform: translate( 60%, -50%); }
+  52%,68%  { transform: translate(-50%, -50%); }
+  72%      { transform: translate(-50%,-130%); }
+  78%,100% { transform: translate(-50%, -50%); }
+}
+@keyframes eye-blink{
+  0%,90%,100% { height: 0; top: 0; }
+  92%         { height: 100%; top: 0; }
+  94%         { height: 0; top: 100%; }
+}
+
+/* ============= VARIANT 2 — block + pixel eye in O slot ============= */
+.v2{
+  font-family: monospace;
+  font-size: 12px; line-height: 1.05;
+  color: var(--phosphor);
+  text-shadow: 0 0 6px rgba(0,255,102,.65), 0 0 14px rgba(0,255,102,.35);
+  white-space: pre;
+}
+.v2 .eyebox{ color: var(--phosphor); display:inline-block; position:relative; }
+.v2 .eyebox .pup{
+  display:inline-block; color: var(--amber);
+  animation: pupil 3s infinite steps(1);
+}
+@keyframes pupil{
+  0%,40%,100%{ color: var(--amber); }
+  42%        { color: transparent;  }
+  44%        { color: var(--amber); }
+  70%        { color: var(--cyan);  }
+  73%        { color: var(--amber); }
+}
+
+/* ============= VARIANT 3 — eye icon + wordmark side by side ============= */
+.v3{
+  display:flex; align-items:center; gap: 14px;
+}
+.v3 .eye-ico{
+  position:relative;
+  width: 56px; height: 56px;
+  border: 2px solid var(--phosphor);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0,255,102,.55), inset 0 0 8px rgba(0,255,102,.25);
+  background: var(--bg);
+}
+.v3 .eye-ico::before{
+  content:"";
+  position:absolute; width: 38%; height: 38%;
+  background: var(--phosphor);
+  border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 8px rgba(0,255,102,.85);
+  animation: eye-look 4s infinite;
+}
+.v3 .eye-ico::after{
+  content:""; position:absolute; left:-2px; right:-2px; top:-2px;
+  height: 0; background: var(--bg);
+  border-bottom: 2px solid var(--phosphor);
+  animation: blink-lid 4.5s infinite;
+}
+@keyframes blink-lid{
+  0%,90%,100% { height: 0; }
+  93%         { height: 50%; }
+  96%         { height: 0; }
+}
+.v3 .word{
+  font-size: 38px; font-weight: 700; letter-spacing: 4px;
+  color: var(--phosphor);
+  text-shadow: 0 0 6px rgba(0,255,102,.65), 0 0 14px rgba(0,255,102,.35);
+}
+
+/* ============= VARIANT 4 — tri-eye monogram (favicon-style) ============= */
+.v4{ display:flex; gap: 6px; align-items:center; }
+.v4 .e{
+  width: 38px; height: 38px;
+  border: 2px solid var(--phosphor);
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 0 8px rgba(0,255,102,.4);
+  background: var(--bg);
+}
+.v4 .e::before{
+  content:""; position:absolute; width: 40%; height: 40%;
+  background: var(--phosphor); border-radius: 50%;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  box-shadow: 0 0 6px rgba(0,255,102,.85);
+}
+.v4 .e:nth-child(1)::before{ animation: blink-pup 3.4s infinite steps(1); }
+.v4 .e:nth-child(2)::before{ animation: blink-pup 3.4s infinite steps(1) .4s; }
+.v4 .e:nth-child(3)::before{ animation: blink-pup 3.4s infinite steps(1) .8s; }
+@keyframes blink-pup{
+  0%,90%,100% { opacity: 1 }
+  92%         { opacity: 0 }
+  94%         { opacity: 1 }
+}
+
+/* ============= VARIANT 5 — unicode glyph row ============= */
+.v5{
+  font-size: 36px; font-weight: 700; letter-spacing: 6px;
+  color: var(--phosphor);
+  text-shadow: 0 0 6px rgba(0,255,102,.65), 0 0 14px rgba(0,255,102,.35);
+}
+.v5 .row{ margin: 8px 0; display:flex; gap: 16px; flex-wrap:wrap; align-items:center; }
+.v5 .lab{ color: var(--phosphor-d); font-size: 10px; letter-spacing: 1px; min-width: 70px; text-align:right; padding-right:10px; border-right: 1px dashed var(--muted); }
+
+/* ============= VARIANT 6 — big-eye centerpiece + wordmark ============= */
+.v6{ text-align:center; }
+.v6 .big-eye{
+  width: 90px; height: 60px;
+  margin: 0 auto 8px;
+  border: 3px solid var(--phosphor);
+  border-radius: 50%/55%;
+  position: relative;
+  box-shadow: 0 0 14px rgba(0,255,102,.55), inset 0 0 12px rgba(0,255,102,.2);
+  background: var(--bg);
+}
+.v6 .big-eye::before{
+  content:""; position:absolute;
+  width: 26px; height: 26px;
+  background: var(--phosphor);
+  border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 8px rgba(0,255,102,.85), inset 0 0 4px var(--bg);
+  animation: eye-look 4s infinite;
+}
+.v6 .big-eye::after{
+  content:""; position:absolute; left:-3px; right:-3px; top:-3px;
+  height: 0; background: var(--bg);
+  border-bottom: 3px solid var(--phosphor);
+  border-radius: 0 0 50%/100% 0 0;
+  animation: blink-lid 4.5s infinite;
+}
+.v6 .word{
+  font-size: 24px; font-weight: 700; letter-spacing: 6px;
+  color: var(--phosphor);
+  text-shadow: 0 0 6px rgba(0,255,102,.65);
+}
+
+/* ============= VARIANT 7 — slash-namespace eye ============= */
+.v7{
+  font-size: 28px; font-weight: 700; letter-spacing: 3px;
+  color: var(--phosphor);
+  text-shadow: 0 0 6px rgba(0,255,102,.65);
+  display:flex; gap: 12px; align-items:center;
+}
+.v7 .slash{ color: var(--phosphor-d); font-weight: 400; }
+.v7 .e{
+  width: 34px; height: 22px;
+  border: 2px solid var(--amber);
+  border-radius: 50%/55%;
+  position: relative; display:inline-block;
+  box-shadow: 0 0 8px rgba(255,176,0,.5);
+  background: var(--bg);
+}
+.v7 .e::before{
+  content:""; position:absolute; width: 8px; height: 8px;
+  background: var(--amber); border-radius: 50%;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  animation: eye-look 4s infinite;
+}
+
+/* ============= VARIANT 8 — pixel eye (8x8 grid) ============= */
+.v8{
+  display:flex; gap: 18px; align-items:center;
+}
+.v8 .grid{
+  display:grid;
+  grid-template-columns: repeat(8, 6px);
+  grid-template-rows:    repeat(8, 6px);
+  gap: 1px;
+  padding: 4px;
+  border: 1px solid var(--phosphor-d);
+  background: var(--bg);
+}
+.v8 .grid div{ background: var(--muted); }
+.v8 .grid div.on{ background: var(--phosphor); box-shadow: 0 0 3px rgba(0,255,102,.7); }
+.v8 .word{
+  font-size: 22px; letter-spacing: 4px; font-weight: 700;
+  color: var(--phosphor);
+  text-shadow: 0 0 6px rgba(0,255,102,.65);
+}
+
+/* compare table */
+.compare{
+  width: 100%; border-collapse: collapse; font-size: 12px;
+  margin-top: 12px;
+}
+.compare th, .compare td{
+  text-align:left; padding: 8px 10px;
+  border-bottom: 1px dashed var(--muted);
+  vertical-align: top;
+}
+.compare th{
+  color: var(--phosphor-d); font-weight: 400; font-size: 11px;
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.compare td.tag{ color: var(--amber); font-weight: 700; white-space: nowrap; }
+.compare td.win{ color: var(--phosphor-2); }
+.compare td.warn{ color: var(--amber); }
+.compare td.bad{ color: var(--red); }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="boot">
+    <span class="ok">[ OK ]</span> logo_lab // <span class="warn">monstrix.ru</span>
+  </div>
+  <h1 class="title">// MONSTRIX — варианты wordmark с O = глаз</h1>
+  <p class="lead">
+    Идея: O в названии — глаз монстрика (как на твоих ESP32-устройствах).
+    Ниже 8 концепций. Каждая показывает живую анимацию (моргание, движение
+    зрачка, глитч). К каждой — ASCII-вариант для Telegram/чатов и описание
+    как порт под ESP32 (bitmap PROGMEM, U8g2 / Adafruit_GFX, или Unicode).
+  </p>
+
+  <!-- ============== VARIANT 1 ============== -->
+  <div class="panel">
+    <div class="panel-head">eye_o_inline</div>
+    <div class="panel-num">v1 // css</div>
+    <div class="panel-body">
+      <div class="preview">
+        <div class="v1">M<span class="eye"></span>NSTRIX</div>
+      </div>
+      <p class="notes">
+        <b>Концепт:</b> чистый wordmark, буква O — настоящий круг с зрачком,
+        зрачок бегает по сторонам, веко моргает раз в 5 сек.
+        <br><b>Сильная сторона:</b> работает в любом размере, идеален для
+        шапки сайта и favicon.
+        <br><b>ESP32:</b> рисуется через `tft.drawCircle()` + `tft.fillCircle()`
+        для зрачка. На OLED 128×64 — 12px кружок с 4px зрачком.
+      </p>
+<pre class="code"><span class="com">&lt;!-- HTML --&gt;</span>
+&lt;div class=<span class="str">"logo-eye"</span>&gt;M&lt;span class=<span class="str">"eye"</span>&gt;&lt;/span&gt;NSTRIX&lt;/div&gt;
+
+<span class="com">/* ESP32 (TFT_eSPI) */</span>
+<span class="key">tft</span>.drawCircle(cx, cy, R, GREEN);     <span class="com">// контур O</span>
+<span class="key">tft</span>.fillCircle(cx + dx, cy, r, GREEN); <span class="com">// зрачок (dx = -R/2..R/2)</span></pre>
+    </div>
+  </div>
+
+  <!-- ============== VARIANT 2 ============== -->
+  <div class="panel">
+    <div class="panel-head">block_with_pupil</div>
+    <div class="panel-num">v2 // ascii</div>
+    <div class="panel-body">
+      <div class="preview">
+        <div class="v2">█▀▄▀█ <span class="eyebox">█▀█</span> █▄░█ █▀ ▀█▀ █▀█ █ ▀▄▀
+█░▀░█ <span class="eyebox">█<span class="pup">●</span>█</span> █░▀█ ▄█ ░█░ █▀▄ █ █░█</div>
+      </div>
+      <p class="notes">
+        <b>Концепт:</b> текущий блочный лого, но в нижней половине O —
+        зрачок-точка <code style="color:var(--amber)">●</code>, который
+        моргает (исчезает) и иногда краснеет (cyan). Чистый текст +
+        один эмулированный пиксель.
+        <br><b>Сильная сторона:</b> не ломает существующий лого, идеален
+        для terminal-темы Hugo, копируется как текст.
+        <br><b>ESP32:</b> печатается шрифтом, точка — отдельный
+        `drawPixel()` который мигает по таймеру.
+      </p>
+<pre class="code"><span class="com">// ASCII для чатов:</span>
+█▀▄▀█ █▀█ █▄░█ █▀ ▀█▀ █▀█ █ ▀▄▀
+█░▀░█ █●█ █░▀█ ▄█ ░█░ █▀▄ █ █░█</pre>
+    </div>
+  </div>
+
+  <!-- ============== VARIANT 3 ============== -->
+  <div class="panel">
+    <div class="panel-head">icon_plus_word</div>
+    <div class="panel-num">v3 // mascot</div>
+    <div class="panel-body">
+      <div class="preview">
+        <div class="v3">
+          <div class="eye-ico"></div>
+          <div class="word">MONSTRIX</div>
+        </div>
+      </div>
+      <p class="notes">
+        <b>Концепт:</b> глаз вынесен слева как mascot-иконка, рядом
+        wordmark. Это твой исходный образ — «монстрик с глазом».
+        Глаз можно использовать отдельно (favicon, иконка приложения,
+        sticker для Telegram).
+        <br><b>Сильная сторона:</b> отделимый mascot. Глаз становится
+        главным брендовым символом, его легко рисовать на корпусах
+        устройств и на 3D-печати.
+        <br><b>ESP32:</b> идеально под главную «idle»-анимацию — глаз
+        озирается, моргает, реагирует на тач/звук.
+      </p>
+<pre class="code"><span class="com">// 3 строки — для большинства OLED 128x64</span>
+&lt;div class=<span class="str">"logo-mascot"</span>&gt;
+  &lt;div class=<span class="str">"eye"</span>&gt;&lt;/div&gt;
+  &lt;span&gt;MONSTRIX&lt;/span&gt;
+&lt;/div&gt;</pre>
+    </div>
+  </div>
+
+  <!-- ============== VARIANT 4 ============== -->
+  <div class="panel">
+    <div class="panel-head">tri_eye_monogram</div>
+    <div class="panel-num">v4 // favicon</div>
+    <div class="panel-body">
+      <div class="preview">
+        <div class="v4">
+          <div class="e"></div><div class="e"></div><div class="e"></div>
+        </div>
+      </div>
+      <p class="notes">
+        <b>Концепт:</b> три глаза в ряд — как 3 устройства из линейки
+        MONSTRIX (NeuroFrame, Cardputer, etc). Моргают по-очереди.
+        Идеально под app-icon/favicon — узнаваемая монограмма.
+        <br><b>Сильная сторона:</b> работает в маленьком размере (32×32),
+        не зависит от шрифтов, легко рисуется в Affinity/Figma.
+        <br><b>ESP32:</b> «splash-screen» при загрузке — три глаза
+        моргают по-очереди, потом гаснут.
+      </p>
+<pre class="code"><span class="com">// SVG, 1.6 KB</span>
+&lt;svg viewBox=<span class="str">"0 0 130 40"</span>&gt;
+  &lt;circle cx=<span class="str">"20"</span> cy=<span class="str">"20"</span> r=<span class="str">"16"</span> stroke=<span class="str">"#00ff66"</span> fill=<span class="str">"none"</span> /&gt;
+  &lt;circle cx=<span class="str">"20"</span> cy=<span class="str">"20"</span> r=<span class="str">"6"</span>  fill=<span class="str">"#00ff66"</span>/&gt;
+  ...
+&lt;/svg&gt;</pre>
+    </div>
+  </div>
+
+  <!-- ============== VARIANT 5 — unicode candidates ============== -->
+  <div class="panel">
+    <div class="panel-head">unicode_glyphs</div>
+    <div class="panel-num">v5 // 1 char</div>
+    <div class="panel-body">
+      <div class="preview" style="flex-direction:column;align-items:flex-start;gap:4px;padding:18px 22px">
+        <div class="v5">
+          <div class="row"><span class="lab">U+25C9</span><span>M◉NSTRIX</span><span style="font-size:11px;color:var(--phosphor-d)">fisheye</span></div>
+          <div class="row"><span class="lab">U+25CE</span><span>M◎NSTRIX</span><span style="font-size:11px;color:var(--phosphor-d)">bullseye</span></div>
+          <div class="row"><span class="lab">U+2299</span><span>M⊙NSTRIX</span><span style="font-size:11px;color:var(--phosphor-d)">circled dot</span></div>
+          <div class="row"><span class="lab">U+229A</span><span>M⊚NSTRIX</span><span style="font-size:11px;color:var(--phosphor-d)">circled ring</span></div>
+          <div class="row"><span class="lab">U+0398</span><span>MΘNSTRIX</span><span style="font-size:11px;color:var(--phosphor-d)">theta (closed eye)</span></div>
+          <div class="row"><span class="lab">U+25EF</span><span>M◯·NSTRIX</span><span style="font-size:11px;color:var(--phosphor-d)">circle + middle-dot</span></div>
+        </div>
+      </div>
+      <p class="notes">
+        <b>Концепт:</b> один Unicode-глиф как глаз — самый минималистичный
+        и портативный вариант. Копируется в любой чат/тайтл вкладки/имя
+        бота. Фаворит — <code style="color:var(--amber)">M◉NSTRIX</code>
+        (<code>U+25C9 FISHEYE</code>) — выглядит как закрашенный глаз и
+        читается как «O».
+        <br><b>ESP32:</b> работает только если в шрифте есть этот глиф
+        (U8g2 имеет несколько шрифтов с symbol-блоками). Фоллбек —
+        нарисовать `drawCircle + fillCircle`.
+      </p>
+<pre class="code"><span class="com">// Текстовые формы для копирования:</span>
+M◉NSTRIX     <span class="com">// fisheye, идеален</span>
+M⊙NSTRIX     <span class="com">// circled dot</span>
+M⊚NSTRIX     <span class="com">// circled ring</span>
+MΘNSTRIX     <span class="com">// theta — «закрытый глаз»</span></pre>
+    </div>
+  </div>
+
+  <!-- ============== VARIANT 6 — big eye centerpiece ============== -->
+  <div class="panel">
+    <div class="panel-head">big_eye_centerpiece</div>
+    <div class="panel-num">v6 // poster</div>
+    <div class="panel-body">
+      <div class="preview" style="padding:22px">
+        <div class="v6">
+          <div class="big-eye"></div>
+          <div class="word">MONSTRIX</div>
+        </div>
+      </div>
+      <p class="notes">
+        <b>Концепт:</b> крупный глаз сверху, wordmark под ним. Работает
+        как splash-screen на ESP32 при загрузке устройства, как hero
+        блока сайта и как обложка соцсетей.
+        <br><b>Сильная сторона:</b> вертикальная композиция занимает мало
+        ширины, легко вписывается в квадратные дисплеи 240×240
+        (GC9A01, ST7789).
+        <br><b>ESP32:</b> 1 эллипс + 1 закрашенный круг + текст. На
+        большом экране — главный «лицевой» лого.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============== VARIANT 7 — slash namespace ============== -->
+  <div class="panel">
+    <div class="panel-head">slash_eye</div>
+    <div class="panel-num">v7 // tag</div>
+    <div class="panel-body">
+      <div class="preview">
+        <div class="v7">
+          <span>MONSTRIX</span>
+          <span class="slash">//</span>
+          <span class="e"></span>
+        </div>
+      </div>
+      <p class="notes">
+        <b>Концепт:</b> wordmark — обычный текст, после `//` идёт
+        тэг-глаз янтарного цвета. Семантика: «MONSTRIX // [eye]» = бренд
+        и его watcher-mascot. Хорошо для футеров, email-подписей,
+        commit-message в репозитории.
+        <br><b>ESP32:</b> в режиме «info bar» внизу экрана.
+      </p>
+<pre class="code">MONSTRIX // (●)        <span class="com">// ASCII для чата</span>
+MONSTRIX // ◉
+M0NSTRIX // [<span class="key">●</span>]</pre>
+    </div>
+  </div>
+
+  <!-- ============== VARIANT 8 — pixel eye 8x8 (PROGMEM) ============== -->
+  <div class="panel">
+    <div class="panel-head">pixel_eye_8x8</div>
+    <div class="panel-num">v8 // esp32</div>
+    <div class="panel-body">
+      <div class="preview" style="gap:30px;flex-wrap:wrap">
+        <div class="v8">
+          <div>
+            <div class="grid" id="g-open"></div>
+            <p style="text-align:center;font-size:10px;color:var(--phosphor-d);margin-top:6px;letter-spacing:1px">OPEN</p>
+          </div>
+          <div>
+            <div class="grid" id="g-half"></div>
+            <p style="text-align:center;font-size:10px;color:var(--phosphor-d);margin-top:6px;letter-spacing:1px">HALF</p>
+          </div>
+          <div>
+            <div class="grid" id="g-closed"></div>
+            <p style="text-align:center;font-size:10px;color:var(--phosphor-d);margin-top:6px;letter-spacing:1px">CLOSED</p>
+          </div>
+          <div class="word" style="font-size:16px;letter-spacing:3px">MONSTRIX</div>
+        </div>
+      </div>
+      <p class="notes">
+        <b>Концепт:</b> попиксельный глаз 8×8 — точно так же выглядит на
+        OLED SSD1306 (128×64). Три кадра моргания → готовая sprite-анимация.
+        <br><b>ESP32 PROGMEM</b> код рядом — копируй в `eye.h` и рисуй
+        через `u8g2.drawXBMP(x, y, 8, 8, eye_open)`.
+      </p>
+<pre class="code"><span class="com">// eye.h — 8x8 monstrix eye sprites</span>
+<span class="key">const uint8_t</span> eye_open[] PROGMEM = {
+  0b00111100,
+  0b01000010,
+  0b10011001,
+  0b10111101,
+  0b10111101,
+  0b10011001,
+  0b01000010,
+  0b00111100,
+};
+<span class="key">const uint8_t</span> eye_half[] PROGMEM = {
+  0b00000000,
+  0b00111100,
+  0b01111110,
+  0b11111111,
+  0b11111111,
+  0b01111110,
+  0b00111100,
+  0b00000000,
+};
+<span class="key">const uint8_t</span> eye_closed[] PROGMEM = {
+  0b00000000,
+  0b00000000,
+  0b00000000,
+  0b00111100,
+  0b01111110,
+  0b00111100,
+  0b00000000,
+  0b00000000,
+};
+
+<span class="com">// usage (U8g2):</span>
+<span class="key">void</span> drawLogo() {
+  u8g2.drawXBMP(0, 0, 8, 8, eye_open);
+  u8g2.setFont(u8g2_font_6x10_mr);
+  u8g2.drawStr(12, 8, <span class="str">"MONSTRIX"</span>);
+}</pre>
+    </div>
+  </div>
+
+  <!-- ============== COMPARE ============== -->
+  <div class="panel">
+    <div class="panel-head">compare</div>
+    <div class="panel-num">// pick</div>
+    <div class="panel-body">
+      <table class="compare">
+        <tr>
+          <th>variant</th>
+          <th>web</th>
+          <th>esp32 oled</th>
+          <th>chat / unicode</th>
+          <th>recommend for</th>
+        </tr>
+        <tr>
+          <td class="tag">v1 inline</td>
+          <td class="win">★★★</td><td class="warn">★★</td><td class="bad">×</td>
+          <td>сайт, шапка, hero</td>
+        </tr>
+        <tr>
+          <td class="tag">v2 block</td>
+          <td class="win">★★★</td><td class="win">★★★</td><td class="win">★★★</td>
+          <td>ascii-арт, footer, README</td>
+        </tr>
+        <tr>
+          <td class="tag">v3 mascot</td>
+          <td class="win">★★★</td><td class="win">★★★</td><td class="warn">★★</td>
+          <td>app icon, корпуса, стикеры</td>
+        </tr>
+        <tr>
+          <td class="tag">v4 tri-eye</td>
+          <td class="win">★★★</td><td class="warn">★★</td><td class="warn">★★</td>
+          <td>favicon, splash, обложки соцсетей</td>
+        </tr>
+        <tr>
+          <td class="tag">v5 unicode</td>
+          <td class="warn">★★</td><td class="warn">★★</td><td class="win">★★★</td>
+          <td>тайтлы, ники, Telegram, commits</td>
+        </tr>
+        <tr>
+          <td class="tag">v6 big eye</td>
+          <td class="win">★★★</td><td class="win">★★★</td><td class="bad">×</td>
+          <td>splash 240×240, постеры</td>
+        </tr>
+        <tr>
+          <td class="tag">v7 slash</td>
+          <td class="warn">★★</td><td class="warn">★★</td><td class="win">★★★</td>
+          <td>email, footer, info-bar</td>
+        </tr>
+        <tr>
+          <td class="tag">v8 pixel</td>
+          <td class="warn">★★</td><td class="win">★★★</td><td class="warn">★★</td>
+          <td>OLED 128×64, U8g2 sprite</td>
+        </tr>
+      </table>
+      <p class="notes" style="margin-top:14px">
+        <b>Стратегия системы лого:</b> можно держать <b>несколько вариантов</b>
+        и применять контекстно:
+        <br>· <span class="amber" style="color:var(--amber)">v3 (mascot)</span> + <span class="amber" style="color:var(--amber)">v8 (pixel)</span> — primary, для ESP32 и иконок.
+        <br>· <span class="amber" style="color:var(--amber)">v1 (inline-eye)</span> — для сайта.
+        <br>· <span class="amber" style="color:var(--amber)">v2 (block)</span> — для ASCII (текущий, теперь с зрачком).
+        <br>· <span class="amber" style="color:var(--amber)">v5 ◉</span> — для никнеймов/чатов.
+      </p>
+    </div>
+  </div>
+
+  <div style="margin-top:36px;padding-top:14px;border-top:1px dashed var(--muted);text-align:center;font-size:11px;color:var(--phosphor-d);letter-spacing:1px">
+    <a href="https://monstrix.ru" style="color:var(--cyan);text-decoration:none">monstrix.ru</a>
+    <span style="color:var(--muted);margin:0 6px">//</span>
+    <span>logo_lab · v2.0</span>
+  </div>
+
+</div>
+
+<script>
+/* render 8x8 grids for V8 — bitmap → divs */
+const eyes = {
+  'g-open':   [0b00111100,0b01000010,0b10011001,0b10111101,0b10111101,0b10011001,0b01000010,0b00111100],
+  'g-half':   [0b00000000,0b00111100,0b01111110,0b11111111,0b11111111,0b01111110,0b00111100,0b00000000],
+  'g-closed': [0b00000000,0b00000000,0b00000000,0b00111100,0b01111110,0b00111100,0b00000000,0b00000000],
+};
+for (const id in eyes) {
+  const g = document.getElementById(id);
+  if (!g) continue;
+  eyes[id].forEach(row => {
+    for (let i = 7; i >= 0; i--) {
+      const px = document.createElement('div');
+      if (row & (1 << i)) px.className = 'on';
+      g.appendChild(px);
+    }
+  });
+}
+</script>
+</body>
+</html>
