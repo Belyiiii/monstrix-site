@@ -304,6 +304,7 @@ body::after{
 .stat.idle    { color: var(--muted); }
 .stat.wait    { color: var(--amber); animation: blink 1s steps(1) infinite; }
 .stat.ok      { color: var(--phosphor-2); text-shadow: 0 0 6px rgba(51,255,138,.55); }
+.stat.partial { color: var(--amber); text-shadow: 0 0 6px rgba(255,176,0,.55); }
 .stat.fail    { color: var(--red);  text-shadow: 0 0 6px rgba(255,51,85,.45); animation: shake .35s steps(1); }
 @keyframes shake{
   0%   { transform: translateX(0); }
@@ -682,8 +683,11 @@ function probeFetch(url){
 }
 
 function probeImage(url){
-  // Тянем фавикон напрямую — это минимальный «живой» ресурс,
-  // его обычно отдаёт CDN ещё до WAF, и он обходит CORS-проверки.
+  // Тянем фавикон через <img>. СТРОГО:
+  //   onload + naturalWidth > 0   = реальная картинка → OK
+  //   всё остальное               = FAIL
+  // Это нужно чтобы не получать false-positive на блокировках РКН,
+  // когда DPI/провайдерская заглушка отвечает по HTTPS, но контента нет.
   return new Promise(resolve => {
     const t0 = performance.now();
     const img = new Image();
@@ -693,15 +697,11 @@ function probeImage(url){
       img.onload = img.onerror = null; img.src = "";
       resolve({ ok, ms: ok ? Math.round(performance.now() - t0) : null, via: "img" });
     };
-    img.onload  = () => finish(true);
-    // onerror тоже считается «сетевой ответ был» — image не картинка,
-    // но сервер ответил. Для нашей задачи (доступен ли хост) это OK.
-    img.onerror = () => {
-      const dt = performance.now() - t0;
-      // если упало мгновенно (<150 мс) — почти наверняка DNS/TCP RST = FAIL
-      // если ответ пришёл с задержкой — сервер живой, просто отдал не картинку
-      finish(dt > 150);
+    img.onload  = () => {
+      // реальная картинка должна иметь ненулевой размер
+      finish(img.naturalWidth > 0 && img.naturalHeight > 0);
     };
+    img.onerror = () => finish(false);
     setTimeout(() => finish(false), PROBE_TIMEOUT);
     const base = url.replace(/\/$/, "");
     img.src = base + "/favicon.ico?_=" + Date.now();
@@ -714,24 +714,30 @@ async function checkOne(s){
   el.className = "stat wait";
   el.textContent = "[..]";
 
-  // обе пробы параллельно — кто первый сказал OK, тот и победил
-  let ok = false, ms = null, via = null;
-  const probes = [probeFetch(s.url), probeImage(s.url)];
-  await Promise.all(probes.map(p => p.then(r => {
-    if (r.ok && !ok) { ok = true; ms = r.ms; via = r.via; }
-  })));
+  // обе пробы параллельно
+  const [fRes, iRes] = await Promise.all([probeFetch(s.url), probeImage(s.url)]);
 
-  if (ok) {
+  // Приоритет: image (реальная картинка) — самый надёжный сигнал.
+  // Только image OK → ✅ OK
+  // image FAIL + fetch OK → [?] partial (вероятно заглушка/блокировка)
+  // оба FAIL → FAIL
+  if (iRes.ok) {
     el.className = "stat ok";
-    el.innerHTML = '[OK]<span class="ms">' + ms + ' ms · ' + via + '</span>';
-    lastResults[s.url] = { ok: true, ms: ms, name: s.name, short: s.short || s.name };
-    return true;
-  } else {
-    el.className = "stat fail";
-    el.textContent = "[FAIL]";
-    lastResults[s.url] = { ok: false, ms: null, name: s.name, short: s.short || s.name };
-    return false;
+    el.innerHTML = '[OK]<span class="ms">' + iRes.ms + ' ms</span>';
+    lastResults[s.url] = { state: "ok", ms: iRes.ms, name: s.name, short: s.short || s.name };
+    return "ok";
   }
+  if (fRes.ok) {
+    // соединение есть, но картинка не загрузилась → заглушка / WAF / блокировка
+    el.className = "stat partial";
+    el.innerHTML = '[?]<span class="ms">~' + fRes.ms + ' ms · partial</span>';
+    lastResults[s.url] = { state: "partial", ms: fRes.ms, name: s.name, short: s.short || s.name };
+    return "partial";
+  }
+  el.className = "stat fail";
+  el.textContent = "[FAIL]";
+  lastResults[s.url] = { state: "fail", ms: null, name: s.name, short: s.short || s.name };
+  return "fail";
 }
 
 async function checkAll(){
@@ -755,11 +761,13 @@ async function checkAll(){
   document.getElementById("totalCount").textContent = all.length;
 
   const results = await Promise.all(all.map(s => checkOne(s)));
-  const ok = results.filter(Boolean).length;
-  const fail = results.length - ok;
+  const ok      = results.filter(r => r === "ok").length;
+  const partial = results.filter(r => r === "partial").length;
+  const fail    = results.length - ok - partial;
 
   document.getElementById("okCount").textContent   = ok;
-  document.getElementById("failCount").textContent = fail;
+  // partial считаем как «не работает» в счётчике offline (что у юзера и так)
+  document.getElementById("failCount").textContent = (fail + partial) || 0;
 
   btn.disabled = false;
   btn.classList.remove("scanning");
@@ -827,8 +835,9 @@ function buildReport(){
     const r = lastResults[s.url];
     if (!r) return; // только проверенные
     const label = r.short || r.name;
-    if (r.ok)  lines.push(label + ' - ' + r.ms + ' мс');
-    else       lines.push(label + ' - n/a');
+    if (r.state === "ok")           lines.push(label + ' - ' + r.ms + ' мс');
+    else if (r.state === "partial") lines.push(label + ' - n/a (?)');
+    else                            lines.push(label + ' - n/a');
   });
 
   if (lines.length === 0) return '';

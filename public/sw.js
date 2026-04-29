@@ -1,7 +1,7 @@
 /* MONSTRIX // service worker v2.1
    PWA-installable: precache + offline navigation fallback. */
 
-const CACHE = 'monstrix-v2.1.1';
+const CACHE = 'monstrix-v2.1.2';
 const ASSETS = [
   './',
   'monstrix-checker.html',
