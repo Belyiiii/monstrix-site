@@ -3,7 +3,7 @@
    Чекер сам по себе требует сети для запросов — но shell приложения
    доступен оффлайн и приложение можно установить как PWA. */
 
-const CACHE = 'monstrix-v2.0.1';
+const CACHE = 'monstrix-v2.0.2';
 const ASSETS = [
   './',
   './monstrix-checker.html',

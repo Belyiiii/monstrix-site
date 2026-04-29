@@ -57,12 +57,10 @@ body{
   padding:18px 14px 60px;
   overflow-x:hidden;
   -webkit-font-smoothing: antialiased;
-  background-image:
-    radial-gradient(ellipse at center, rgba(0,255,102,.05) 0%, transparent 70%),
-    linear-gradient(180deg, transparent 0, var(--bg) 100%);
 }
 
-/* CRT scanlines + flicker overlay */
+/* CRT scanlines + центральное свечение — fixed к viewport,
+   не уезжает при скролле длинных страниц */
 body::before{
   content:"";
   position:fixed; inset:0; pointer-events:none; z-index:9999;
@@ -73,8 +71,9 @@ body::before{
       var(--scan) 1px,
       transparent 1px,
       transparent 3px
-    );
-  mix-blend-mode:overlay;
+    ),
+    radial-gradient(ellipse at center, rgba(0,255,102,.05) 0%, transparent 65%);
+  mix-blend-mode: overlay;
 }
 body::after{
   content:"";
