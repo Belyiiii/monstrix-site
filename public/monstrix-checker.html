@@ -647,26 +647,76 @@ function renderAll(){
     Object.values(SERVICES).reduce((a,b)=>a+b.length,0);
 }
 
+/* ============================================================
+   checkOne — двойная проба:
+     1) HEAD fetch (no-cors)         — быстрая проверка опытных серверов
+     2) favicon как <img>            — обходит WAF (Ozon, VK, Avito)
+   Кто первым ответит OK — тот определяет результат. FAIL только если
+   обе пробы упали в timeout/error.
+   ============================================================ */
+const PROBE_TIMEOUT = 6000;
+
+function probeFetch(url){
+  return new Promise(resolve => {
+    const t0 = performance.now();
+    fetch(url, {
+      method: "HEAD",
+      mode: "no-cors",
+      cache: "no-cache",
+      redirect: "follow",
+      signal: AbortSignal.timeout(PROBE_TIMEOUT)
+    })
+    .then(()  => resolve({ ok: true,  ms: Math.round(performance.now() - t0), via: "fetch" }))
+    .catch(() => resolve({ ok: false, ms: null, via: "fetch" }));
+  });
+}
+
+function probeImage(url){
+  // Тянем фавикон напрямую — это минимальный «живой» ресурс,
+  // его обычно отдаёт CDN ещё до WAF, и он обходит CORS-проверки.
+  return new Promise(resolve => {
+    const t0 = performance.now();
+    const img = new Image();
+    let done = false;
+    const finish = (ok) => {
+      if (done) return; done = true;
+      img.onload = img.onerror = null; img.src = "";
+      resolve({ ok, ms: ok ? Math.round(performance.now() - t0) : null, via: "img" });
+    };
+    img.onload  = () => finish(true);
+    // onerror тоже считается «сетевой ответ был» — image не картинка,
+    // но сервер ответил. Для нашей задачи (доступен ли хост) это OK.
+    img.onerror = () => {
+      const dt = performance.now() - t0;
+      // если упало мгновенно (<150 мс) — почти наверняка DNS/TCP RST = FAIL
+      // если ответ пришёл с задержкой — сервер живой, просто отдал не картинку
+      finish(dt > 150);
+    };
+    setTimeout(() => finish(false), PROBE_TIMEOUT);
+    const base = url.replace(/\/$/, "");
+    img.src = base + "/favicon.ico?_=" + Date.now();
+  });
+}
+
 async function checkOne(s){
   const id = getId(s.url);
   const el = document.getElementById("s_" + id);
   el.className = "stat wait";
   el.textContent = "[..]";
 
-  const t0 = performance.now();
-  try{
-    await fetch(s.url, {
-      method: "HEAD",
-      mode: "no-cors",
-      cache: "no-cache",
-      signal: AbortSignal.timeout(6000)
-    });
-    const ms = Math.round(performance.now() - t0);
+  // обе пробы параллельно — кто первый сказал OK, тот и победил
+  let ok = false, ms = null, via = null;
+  const probes = [probeFetch(s.url), probeImage(s.url)];
+  await Promise.all(probes.map(p => p.then(r => {
+    if (r.ok && !ok) { ok = true; ms = r.ms; via = r.via; }
+  })));
+
+  if (ok) {
     el.className = "stat ok";
-    el.innerHTML = '[OK]<span class="ms">' + ms + ' ms</span>';
-    lastResults[s.url] = { ok: true,  ms: ms,   name: s.name, short: s.short || s.name };
+    el.innerHTML = '[OK]<span class="ms">' + ms + ' ms · ' + via + '</span>';
+    lastResults[s.url] = { ok: true, ms: ms, name: s.name, short: s.short || s.name };
     return true;
-  }catch(e){
+  } else {
     el.className = "stat fail";
     el.textContent = "[FAIL]";
     lastResults[s.url] = { ok: false, ms: null, name: s.name, short: s.short || s.name };
