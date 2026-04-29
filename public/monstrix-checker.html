@@ -7,9 +7,10 @@
 <meta name="description" content="MONSTRIX // net_check — чекер доступности сайтов и сервисов в стиле CRT-терминала.">
 
 <!-- PWA -->
-<link rel="manifest" href="manifest.webmanifest">
+<link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 
 <!-- iOS standalone PWA -->
 <link rel="apple-touch-icon" href="icon-apple-180.png">
@@ -59,21 +60,16 @@ body{
   -webkit-font-smoothing: antialiased;
 }
 
-/* CRT scanlines + центральное свечение — fixed к viewport,
-   не уезжает при скролле длинных страниц */
+/* CRT scanlines — fixed к viewport, без blend-mode (даёт чистый фон,
+   без артефактов при скролле длинных страниц) */
 body::before{
   content:"";
   position:fixed; inset:0; pointer-events:none; z-index:9999;
-  background:
-    repeating-linear-gradient(
-      to bottom,
-      var(--scan) 0,
-      var(--scan) 1px,
-      transparent 1px,
-      transparent 3px
-    ),
-    radial-gradient(ellipse at center, rgba(0,255,102,.05) 0%, transparent 65%);
-  mix-blend-mode: overlay;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0,255,102,.045) 0 1px,
+    transparent 1px 3px
+  );
 }
 body::after{
   content:"";
@@ -123,6 +119,21 @@ body::after{
 }
 .logo.glitch::before{ color: var(--cyan);    transform: translate(-1.5px, 0); animation: glitch-x 3s infinite steps(1); }
 .logo.glitch::after { color: var(--magenta); transform: translate( 1.5px, 0); animation: glitch-y 2.6s infinite steps(1); }
+
+/* зрачок-глаз монстрика — точка ● в нижней половине O.
+   моргает раз в 3.4 сек, иногда мерцает в cyan (глитч). */
+.logo .pupil{
+  color: var(--amber);
+  text-shadow: 0 0 4px rgba(255,176,0,.7), 0 0 9px rgba(255,176,0,.4);
+  animation: pupil-blink 3.4s infinite steps(1);
+}
+@keyframes pupil-blink{
+  0%,80%,100% { color: var(--amber); text-shadow: 0 0 4px rgba(255,176,0,.7); }
+  82%         { color: transparent;  text-shadow: none; }              /* моргнул */
+  84%         { color: var(--amber); text-shadow: 0 0 4px rgba(255,176,0,.7); }
+  90%         { color: var(--cyan);  text-shadow: 0 0 4px rgba(0,212,255,.6); } /* RGB-сдвиг */
+  93%         { color: var(--amber); text-shadow: 0 0 4px rgba(255,176,0,.7); }
+}
 @keyframes glitch-x{
   0%,90%,100% { clip-path: inset(0 0 0 0); transform: translate(-1.5px,0); }
   92%   { clip-path: inset(20% 0 60% 0); transform: translate(-3px, -1px); }
@@ -476,8 +487,8 @@ input[type="text"]:focus{ border-color: var(--amber); box-shadow: 0 0 6px rgba(2
   </div>
 
   <div class="logo glitch" data-text="█▀▄▀█ █▀█ █▄░█ █▀ ▀█▀ █▀█ █ ▀▄▀
-█░▀░█ █▄█ █░▀█ ▄█ ░█░ █▀▄ █ █░█">█▀▄▀█ █▀█ █▄░█ █▀ ▀█▀ █▀█ █ ▀▄▀
-█░▀░█ █▄█ █░▀█ ▄█ ░█░ █▀▄ █ █░█</div>
+█░▀░█ █●█ █░▀█ ▄█ ░█░ █▀▄ █ █░█">█▀▄▀█ █▀█ █▄░█ █▀ ▀█▀ █▀█ █ ▀▄▀
+█░▀░█ █<span class="pupil">●</span>█ █░▀█ ▄█ ░█░ █▀▄ █ █░█</div>
 
   <p class="tag">&gt; net_check.exe <span class="blink">_</span></p>
 
