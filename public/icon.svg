@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="1" fill="#00ff66" opacity="0.08"/>
+    </pattern>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- CRT background -->
+  <rect width="512" height="512" fill="#0a0e0a"/>
+  <rect width="512" height="512" fill="url(#scan)"/>
+  <!-- phosphor frame -->
+  <rect x="16" y="16" width="480" height="480" fill="none" stroke="#0a8a3a" stroke-width="6"/>
+  <!-- M letter — three bars + center wedge -->
+  <g fill="#00ff66" filter="url(#glow)">
+    <!-- left bar -->
+    <rect x="92" y="92" width="58" height="328"/>
+    <!-- right bar -->
+    <rect x="362" y="92" width="58" height="328"/>
+    <!-- inner diagonals (forming the M's center V) -->
+    <polygon points="150,92 208,92 256,256 226,256"/>
+    <polygon points="304,92 362,92 286,256 256,256"/>
+  </g>
+  <!-- amber accent strip -->
+  <rect x="190" y="402" width="132" height="12" fill="#ffb000"/>
+</svg>
