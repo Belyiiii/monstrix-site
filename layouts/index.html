@@ -1,0 +1,56 @@
+{{ define "main" }}
+<div class="mx-home">
+
+  {{/* ── Интро (редактируется в content/_index.md) ── */}}
+  {{ with .Content }}<div class="mx-home-intro index-content">{{ . }}</div>{{ end }}
+
+  {{/* ── Связь / сотрудничество ── */}}
+  <section class="mx-conn">
+    <h2>Связь и сотрудничество</h2>
+    <p>Пиши в Telegram, если:</p>
+    <ul>
+      <li>нужна реклама твоему проекту или гаджету — обсудим формат</li>
+      <li>хочешь прислать свой DIY-гаджет на обзор</li>
+      <li>есть идея, какой проект мне сделать</li>
+      <li>хочешь производить и продавать мой проект</li>
+    </ul>
+    <a class="mx-btn mx-btn--donate" href="https://t.me/techminimal" target="_blank" rel="noopener">&gt; Написать в Telegram</a>
+    <p class="mx-warn">[!] В директ инсты не пиши — спам-фильтр съест.</p>
+  </section>
+
+  {{/* ── Закреп ── */}}
+  {{ range first 1 (where site.RegularPages "Params.pinned" true) }}
+    <section class="mx-pinned">
+      <h2>Закреп</h2>
+      {{ partial "mx-card.html" . }}
+    </section>
+  {{ end }}
+
+  {{/* ── Проекты (последние, кроме закрепа) ── */}}
+  {{ $rest := where (where site.RegularPages "Section" "projects") "Params.pinned" "!=" true }}
+  {{ with $rest }}
+    <section class="mx-latest">
+      <h2>Проекты</h2>
+      <div class="mx-grid">
+        {{ range first 5 .ByDate.Reverse }}{{ partial "mx-card.html" . }}{{ end }}
+      </div>
+      <a class="mx-btn mx-btn--alt" href="/projects/">Все проекты &rarr;</a>
+    </section>
+  {{ end }}
+
+  {{/* ── Разделы ── */}}
+  <section class="mx-linkrow">
+    <a class="mx-btn mx-btn--alt" href="/firmware/">[~] Прошивки из браузера</a>
+    <a class="mx-btn mx-btn--alt" href="/components/">[+] Компоненты</a>
+  </section>
+
+  {{/* ── Соцсети ── */}}
+  <nav class="mx-socials">
+    <a href="https://www.instagram.com/igor.fedorov" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://youtube.com/@project_23" target="_blank" rel="noopener">YouTube</a>
+    <a href="https://t.me/techminimal" target="_blank" rel="noopener">Telegram</a>
+    <a href="https://www.tiktok.com/@igortechminimal" target="_blank" rel="noopener">TikTok</a>
+  </nav>
+
+</div>
+{{ end }}

@@ -1,0 +1,6 @@
+{{/* Прогресс-бар. Использование:
+     {{ partial "mx-progress.html" (dict "val" 60 "max" 100 "label" "60%") }} */}}
+<div class="mx-bar">
+  <div class="mx-bar-fill" style="width:{{ div (mul (.val | float) 100) (.max | float) }}%"></div>
+  <span class="mx-bar-label">{{ .label }}</span>
+</div>

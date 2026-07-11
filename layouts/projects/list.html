@@ -1,0 +1,22 @@
+{{ define "main" }}
+  {{ with .Content }}<div class="index-content">{{ . }}</div>{{ end }}
+
+  {{ $work  := where .Pages "Params.stage" 1 }}
+  {{ $ideas := where .Pages "Params.stage" 0 }}
+  {{ $done  := where .Pages "Params.stage" 2 }}
+
+  {{ with $work }}
+    <h2 class="mx-section">В работе</h2>
+    <div class="mx-grid">{{ range .ByDate.Reverse }}{{ partial "mx-card.html" . }}{{ end }}</div>
+  {{ end }}
+
+  {{ with $ideas }}
+    <h2 class="mx-section">Идеи</h2>
+    <div class="mx-grid">{{ range . }}{{ partial "mx-card.html" . }}{{ end }}</div>
+  {{ end }}
+
+  {{ with $done }}
+    <h2 class="mx-section">Готово</h2>
+    <div class="mx-grid">{{ range .ByDate.Reverse }}{{ partial "mx-card.html" . }}{{ end }}</div>
+  {{ end }}
+{{ end }}

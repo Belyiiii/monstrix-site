@@ -11,6 +11,7 @@ copyright = "© 2025 MONSTRIX | Лицензия <a href=\"https://creativecommo
 
 [params]
   customCSS = ["css/monstrix-custom.css"]
+  donateURL = "https://t.me/tribute/app?startapp=dEq7"   # общий донат на весь сайт (Tribute)
   showMenuItems = 7
   logoHomeLink = "/"
   autoCover = true

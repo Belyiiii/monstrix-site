@@ -1,0 +1,18 @@
+{{/* Карточка проекта. Стадия управляет содержимым. */}}
+{{ $stage := .Params.stage | default 0 }}
+<a class="mx-card" href="{{ .Permalink }}">
+  {{ with .Params.cover }}<img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">{{ end }}
+  <h3 class="mx-card-title">{{ .Title }}</h3>
+
+  {{ if eq $stage 0 }}
+    <p class="mx-status mx-status--idea">[ ИДЕЯ ]</p>
+    {{ with .Params.needs }}<p class="mx-needs">Нужно: {{ . }}</p>{{ end }}
+
+  {{ else if eq $stage 1 }}
+    {{ partial "mx-progress.html" (dict "val" (.Params.progress | default 0) "max" 100 "label" (printf "%d%%" (.Params.progress | default 0))) }}
+    {{ with .Params.stuck_on }}<p class="mx-stuck">Затык: {{ . }}</p>{{ end }}
+
+  {{ else }}
+    <p class="mx-status mx-done">[ ГОТОВО ]</p>
+  {{ end }}
+</a>

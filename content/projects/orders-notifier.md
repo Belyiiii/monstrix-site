@@ -3,6 +3,13 @@ title: "Уведомлятор заказов — уведомления о за
 date: 2025-01-24
 tags: ["esp32", "oled", "wildberries", "ozon", "проект", "для новичков"]
 cover: "/images/projects/orders-notifier/main.jpg"
+
+# --- MONSTRIX ---
+stage: 2
+pinned: false
+goal_text: "Устройство, которое показывает количество новых заказов на Wildberries и Ozon и светится, когда есть что собирать"
+term: "~1 час"
+budget: "~800 ₽"
 ---
 
 Собираем компактное устройство, которое показывает количество новых заказов на маркетплейсах Wildberries и Ozon. Когда приходит заказ — загорается подсветка. Идеально для продавцов, чтобы не пропустить заказы.
@@ -13,7 +20,7 @@ cover: "/images/projects/orders-notifier/main.jpg"
 
 ---
 
-## 🎯 Что получится в итоге
+## [>] Что получится в итоге
 
 Небольшая коробочка, которая:
 - Подключается к домашнему WiFi
@@ -27,7 +34,7 @@ cover: "/images/projects/orders-notifier/main.jpg"
 
 ---
 
-## 📦 Что понадобится
+## [+] Что понадобится
 
 ### Электроника
 Все компоненты и ссылки на них можете найти в разделе [компоненты](/components)
@@ -40,7 +47,7 @@ cover: "/images/projects/orders-notifier/main.jpg"
 | LED лента 2-3см | Подсветка для WB (фиолетовая) | 1 |
 | Провода | Для соединения | 6-8 шт |
 
-> 💡 **Совет:** Используйте LED с потреблением не более **40mA на пин**, иначе сгорит ESP. Подходят:
+> [i] **Совет:** Используйте LED с потреблением не более **40mA на пин**, иначе сгорит ESP. Подходят:
 > - Филаментная LED лента 3V (как в проекте) — идеальный вариант
 > - 1-2 обычных светодиода 5мм с резистором 100Ω
 > - Мелкая лента на 2-3 диода максимум
@@ -60,7 +67,7 @@ cover: "/images/projects/orders-notifier/main.jpg"
 
 ---
 
-## 🔌 Схема подключения
+## [+-] Схема подключения
 
 Всё подключается к плате ESP32-S3 SuperMini. Вот схема:
 
@@ -89,7 +96,7 @@ LED лента WB (2 провода):
 
 ---
 
-## 🔧 Пошаговая сборка
+## [>] Пошаговая сборка
 
 ### Шаг 1: Подготовка
 
@@ -105,7 +112,7 @@ LED лента WB (2 провода):
 
 ![Пайка дисплея](/images/projects/orders-notifier/solder-oled.jpg)
 
-> ⚠️ **Важно:** Не перепутайте VCC и GND — иначе дисплей сгорит!
+> [!] **Важно:** Не перепутайте VCC и GND — иначе дисплей сгорит!
 
 ### Шаг 3: Припаиваем LED ленты
 
@@ -125,7 +132,7 @@ LED лента WB (2 провода):
 
 ---
 
-## 💾 Прошивка
+## [+] Прошивка
 
 ### Шаг 1: Установите Arduino IDE
 
@@ -180,7 +187,7 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 
 ---
 
-## 📱 Настройка устройства
+## [#] Настройка устройства
 
 ### Шаг 1: Подключение к WiFi
 
@@ -207,7 +214,7 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 
 ---
 
-## 🔑 Где взять API ключи
+## [>] Где взять API ключи
 
 ### Wildberries
 
@@ -230,7 +237,7 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 
 ---
 
-## ✅ Готово!
+## [✓] Готово!
 
 После ввода API ключей устройство начнёт работать:
 
@@ -243,14 +250,14 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 
 ---
 
-## 📸 Галерея светового индикатора
+## [#] Галерея светового индикатора
 
 ![Фото 1](/images/projects/orders-notifier/gallery-1.jpg)
 ![Фото 2](/images/projects/orders-notifier/gallery-2.jpg)
 
 ---
 
-## ❓ Частые вопросы
+## [?] Частые вопросы
 
 ### Дисплей не включается
 - Проверьте подключение VCC и GND
@@ -271,14 +278,14 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 
 ---
 
-## 📁 Файлы проекта
+## [+] Файлы проекта
 
 - [Исходный код (GitHub)](https://github.com/Belyiiii/monstrix-orders-wb-ozon)
 - [3D модель корпуса (MakerWorld)](https://makerworld.com/ru/models/2292684-orders-notifier-wb-ozon-esp32-s3-oled#profileId-2501760)
 
 ---
 
-## 💬 Обратная связь
+## <> Обратная связь
 
 Собрали устройство? Поделитесь результатом!
 
@@ -287,7 +294,7 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 
 ---
 
-## ☕ Поддержать проект
+## <3 Поддержать проект
 
 Если проект был полезен — можете поддержать разработку донатом [Задонатить](https://t.me/tribute/app?startapp=dEq7)
 

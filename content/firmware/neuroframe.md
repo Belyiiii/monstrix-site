@@ -8,7 +8,7 @@ description: "AI-рамка с генерацией картинок для M5St
 
 Прошивка для **M5StickC Plus 2**, которая генерирует картинки нейросетью в 20 разных стилях.
 
-### 📋 Информация
+### [+] Информация
 
 | | |
 |---|---|
@@ -17,7 +17,7 @@ description: "AI-рамка с генерацией картинок для M5St
 | **Чип** | ESP32-PICO |
 | **Размер** | ~1.5 MB |
 
-### 🎨 Возможности
+### [>] Возможности
 
 - 20 стилей генерации (Симпсоны, киберпанк, аниме и др.)
 - Автоматическая генерация каждые 5 минут
@@ -27,7 +27,7 @@ description: "AI-рамка с генерацией картинок для M5St
 
 ---
 
-## 🔌 Прошить устройство
+## [+-] Прошить устройство
 
 1. Подключи **M5StickC Plus 2** к компьютеру по USB-C
 2. Нажми кнопку ниже
@@ -38,19 +38,19 @@ description: "AI-рамка с генерацией картинок для M5St
 
 <esp-web-install-button manifest="/firmware/neuroframe/manifest.json">
   <button slot="activate" style="background:#ff6b35; color:white; border:none; padding:15px 40px; font-size:18px; border-radius:8px; cursor:pointer;">
-    ⚡ Прошить устройство
+    [~] Прошить устройство
   </button>
   <span slot="unsupported">
-    ❌ Твой браузер не поддерживает Web Serial. Используй <b>Chrome</b>, <b>Edge</b> или <b>Opera</b> на компьютере.
+    [x] Твой браузер не поддерживает Web Serial. Используй <b>Chrome</b>, <b>Edge</b> или <b>Opera</b> на компьютере.
   </span>
   <span slot="not-allowed">
-    ❌ Нет доступа к Serial порту. Разреши доступ в настройках браузера.
+    [x] Нет доступа к Serial порту. Разреши доступ в настройках браузера.
   </span>
 </esp-web-install-button>
 
 ---
 
-## 📱 После прошивки
+## [#] После прошивки
 
 1. Устройство создаст WiFi точку: **MONSTRIX-NeuroFrame**
 2. Подключись к ней (пароль: `12345678`)
@@ -62,33 +62,33 @@ description: "AI-рамка с генерацией картинок для M5St
 
 ---
 
-## 📁 Скачать файл
+## [+] Скачать файл
 
 Если хочешь прошить через Arduino IDE или другой инструмент:
 
-**[⬇️ Скачать NeuroFrame_v1.0.bin](/firmware/neuroframe/NeuroFrame_v1.0.bin)** (1.5 MB)
+**[[+] Скачать NeuroFrame_v1.0.bin](/firmware/neuroframe/NeuroFrame_v1.0.bin)** (1.5 MB)
 
 ---
 
-## 🛒 Где купить устройство?
+## [+] Где купить устройство?
 
 Все компоненты и готовые девайсы собраны в разделе:
 
-**[📦 Готовые устройства](/components/ready-devices/)**
+**[[+] Готовые устройства](/components/ready-devices/)**
 
 ---
 
-## ☕ Поддержать проект
+## <3 Поддержать проект
 
 Если материал был полезен — буду рад поддержке! Все средства идут на новые эксперименты и компоненты.
 
 <a href="https://t.me/tribute/app?startapp=dEq7" target="_blank" style="display:inline-block; background:transparent; color:#eec35e; border:2px solid #eec35e; padding:12px 30px; font-size:16px; font-family:monospace; cursor:pointer; text-decoration:none;">
-  [ ❤️ Поддержать автора ]
+  [ <3 Поддержать автора ]
 </a>
 
 ---
 
-## 📝 История версий
+## [+] История версий
 
 ### v1.0 (2025-02-05)
 - Первый релиз
