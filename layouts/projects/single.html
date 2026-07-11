@@ -1,0 +1,98 @@
+{{ define "main" }}
+{{ $stage := .Params.stage | default 0 }}
+<article class="post mx-project">
+
+  <h1 class="post-title"><a href="{{ .Permalink }}">{{ .Title | markdownify }}</a></h1>
+
+  <div class="post-meta">
+    {{- if .Date -}}<time class="post-date">{{- partial "post-date" . -}}</time>{{- end -}}
+    <span class="mx-stage-badge mx-stage-{{ $stage }}">
+      {{- if eq $stage 0 }}[ ИДЕЯ ]{{ else if eq $stage 1 }}[ В РАБОТЕ ]{{ else }}[ ГОТОВО ]{{ end -}}
+    </span>
+  </div>
+
+  {{ if .Params.tags }}
+    <span class="post-tags">
+      {{ range .Params.tags }}#<a href="{{ (urlize (printf "tags/%s/" .)) | absLangURL }}">{{ . }}</a>&nbsp;{{ end }}
+    </span>
+  {{ end }}
+
+  {{ partial "cover.html" . }}
+
+  {{/* ── Паспорт ── */}}
+  {{ if or .Params.goal_text .Params.term .Params.budget .Params.components }}
+  <div class="mx-passport">
+    <h2>Паспорт проекта</h2>
+    {{ with .Params.goal_text }}<p class="mx-goal">{{ . }}</p>{{ end }}
+    <dl class="mx-spec">
+      {{ with .Params.term }}<div><dt>Срок</dt><dd>{{ . }}</dd></div>{{ end }}
+      {{ with .Params.budget }}<div><dt>Бюджет</dt><dd>{{ . }}</dd></div>{{ end }}
+    </dl>
+    {{ with .Params.components }}
+      <h3>Железо</h3>
+      <ul class="mx-components">
+        {{ range . }}
+          <li>{{ with .url }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}{{ .name }}{{ with .url }}</a>{{ end }}</li>
+        {{ end }}
+      </ul>
+    {{ end }}
+  </div>
+  {{ end }}
+
+  {{/* ── Прогресс (stage 1) ── */}}
+  {{ if eq $stage 1 }}
+  <div class="mx-progress-block">
+    {{ partial "mx-progress.html" (dict "val" (.Params.progress | default 0) "max" 100 "label" (printf "%d%%" (.Params.progress | default 0))) }}
+    {{ with .Params.stuck_on }}<p class="mx-stuck">Затык: {{ . }}</p>{{ end }}
+  </div>
+  {{ end }}
+
+  {{/* ── Деньги: общий донат (весь сайт) ── */}}
+  {{ with site.Params.donateURL }}
+  <div class="mx-money">
+    <a class="mx-btn mx-btn--donate" href="{{ . }}" target="_blank" rel="noopener">
+      {{- if eq $stage 2 }}Спасибо за проект{{ else }}Сдвинуть проект{{ end -}}
+    </a>
+    <p class="mx-hint">в сообщении к донату укажи проект</p>
+  </div>
+  {{ end }}
+
+  {{/* ── Сбор со шкалой (только если открыт) ── */}}
+  {{ with .Params.fund_url }}
+  <div class="mx-fund">
+    <a class="mx-btn mx-btn--alt" href="{{ . }}" target="_blank" rel="noopener">{{ $.Params.fund_label | default "Сбор на цель" }}</a>
+    {{ if $.Params.fund_goal }}
+      {{ partial "mx-progress.html" (dict "val" ($.Params.collected | default 0) "max" $.Params.fund_goal "label" (printf "%d / %d ₽" (int ($.Params.collected | default 0)) (int $.Params.fund_goal))) }}
+    {{ end }}
+  </div>
+  {{ end }}
+
+  {{/* ── Тело: журнал / туториал ── */}}
+  <div class="post-content">
+    {{- with .Content -}}
+      <div>
+        {{ . | replaceRE "(<h[1-9] id=\"([^\"]+)\".+)(</h[1-9]+>)" `${1}<a href="#${2}" class="hanchor" ariaLabel="Anchor">#</a> ${3}` | safeHTML }}
+      </div>
+    {{- end -}}
+  </div>
+
+  {{/* ── Блок готового (stage 2) ── */}}
+  {{ if eq $stage 2 }}
+    {{ if or .Params.github_url .Params.flash_url .Params.kit_fund_url .Params.upgrade_fund_url }}
+    <div class="mx-done-block">
+      <h2>Забрать проект</h2>
+      {{ with .Params.github_url }}<a class="mx-btn mx-btn--alt" href="{{ . }}" target="_blank" rel="noopener">Исходники на GitHub</a>{{ end }}
+      {{ with .Params.flash_url }}<a class="mx-btn mx-btn--alt" href="{{ . }}">Прошить из браузера</a>{{ end }}
+      {{ with .Params.kit_fund_url }}<a class="mx-btn mx-btn--alt" href="{{ . }}" target="_blank" rel="noopener">Сбор на партию{{ with $.Params.kit_count }} ({{ . }}){{ end }}</a>{{ end }}
+      {{ with .Params.upgrade_fund_url }}<a class="mx-btn mx-btn--alt" href="{{ . }}" target="_blank" rel="noopener">{{ $.Params.upgrade_label | default "Сбор на апгрейд" }}</a>{{ end }}
+    </div>
+    {{ end }}
+  {{ end }}
+
+  {{/* ── Вопросы → Telegram ── */}}
+  <div class="mx-ask">
+    <a href="https://t.me/techminimal" target="_blank" rel="noopener">Вопросы по проекту → Telegram</a>
+  </div>
+
+</article>
+{{ end }}

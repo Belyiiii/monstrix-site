@@ -129,14 +129,14 @@ description: "Igor Fedorov — Tech blogger, DIY electronics, gadgets. Collabora
 </style>
 
 <div class="lang-switch">
-    <button class="lang-btn active" onclick="switchLang('ru')">🇷🇺 Русский</button>
-    <button class="lang-btn" onclick="switchLang('en')">🇬🇧 English</button>
+    <button class="lang-btn active" onclick="switchLang('ru')">[RU] Русский</button>
+    <button class="lang-btn" onclick="switchLang('en')">[EN] English</button>
 </div>
 
 <!-- RUSSIAN VERSION -->
 <div id="lang-ru" class="lang-content active">
 
-## 👋 Привет, я Игорь!
+## <3 Привет, я Игорь!
 
 Техноблогер, DIY-энтузиаст, создатель проекта **MONSTRIX**. Делаю контент про электронику, гаджеты и всё что можно собрать своими руками.
 
@@ -144,7 +144,7 @@ description: "Igor Fedorov — Tech blogger, DIY electronics, gadgets. Collabora
 
 ---
 
-## 📊 Аудитория
+## [#] Аудитория
 
 <div class="stats-grid">
     <div class="stat-card">
@@ -176,10 +176,10 @@ description: "Igor Fedorov — Tech blogger, DIY electronics, gadgets. Collabora
 
 ---
 
-## 🔥 Кейсы и охваты
+## [!] Кейсы и охваты
 
 <div class="case-card">
-    <div class="case-title">📦 HAGIBIS — Компактный SSD корпус</div>
+    <div class="case-title">[+] HAGIBIS — Компактный SSD корпус</div>
     <div class="case-views"><span>1 800 000+</span> просмотров</div>
     <div class="case-platforms">
         Instagram: 1 500 000+ (2 ролика) • TikTok: 300 000+
@@ -187,7 +187,7 @@ description: "Igor Fedorov — Tech blogger, DIY electronics, gadgets. Collabora
 </div>
 
 <div class="case-card">
-    <div class="case-title">💳 Chameleon Ultra — NFC гаджет</div>
+    <div class="case-title"><3 Chameleon Ultra — NFC гаджет</div>
     <div class="case-views"><span>1 200 000+</span> просмотров</div>
     <div class="case-platforms">
         Instagram: 870 000 (620K + 250K) • YouTube: 266 000 • TikTok: 67 000
@@ -195,7 +195,7 @@ description: "Igor Fedorov — Tech blogger, DIY electronics, gadgets. Collabora
 </div>
 
 <div class="case-card">
-    <div class="case-title">🤖 AI Ассистент на стол</div>
+    <div class="case-title">[o_o] AI Ассистент на стол</div>
     <div class="case-views"><span>1 360 000+</span> просмотров</div>
     <div class="case-platforms">
         YouTube: 690 000 • TikTok: 374 000 • Instagram: 300 000
@@ -203,7 +203,7 @@ description: "Igor Fedorov — Tech blogger, DIY electronics, gadgets. Collabora
 </div>
 
 <div class="case-card">
-    <div class="case-title">🖨️ Bambu Lab — 3D принтер (серия)</div>
+    <div class="case-title">[#] Bambu Lab — 3D принтер (серия)</div>
     <div class="case-views"><span>1 170 000+</span> просмотров</div>
     <div class="case-platforms">
         YouTube: 500 000+ • TikTok: 400 000+ • Instagram: 270 000+
@@ -211,7 +211,7 @@ description: "Igor Fedorov — Tech blogger, DIY electronics, gadgets. Collabora
 </div>
 
 <div class="case-card">
-    <div class="case-title">⚡ M5Stack — Девайсы и модули</div>
+    <div class="case-title">[~] M5Stack — Девайсы и модули</div>
     <div class="case-views"><span>900 000+</span> просмотров</div>
     <div class="case-platforms">
         Instagram: 500 000 • TikTok: 200 000 • YouTube: 200 000
@@ -220,7 +220,7 @@ description: "Igor Fedorov — Tech blogger, DIY electronics, gadgets. Collabora
 
 ---
 
-## 🎯 Форматы контента
+## [>] Форматы контента
 
 - **Обзоры гаджетов** — распаковки, тесты, сравнения
 - **DIY проекты** — собираю устройства на ESP32, Arduino
@@ -229,19 +229,19 @@ description: "Igor Fedorov — Tech blogger, DIY electronics, gadgets. Collabora
 
 ---
 
-## 🌐 Соцсети
+## <> Соцсети
 
 <div class="social-links">
-    <a href="https://www.instagram.com/igor.fedorov" target="_blank" class="social-link">📸 Instagram</a>
-    <a href="https://www.youtube.com/@Project_23" target="_blank" class="social-link">▶️ YouTube</a>
-    <a href="https://www.tiktok.com/@igortechminimal" target="_blank" class="social-link">🎵 TikTok</a>
-    <a href="https://t.me/techminimal" target="_blank" class="social-link">✈️ Telegram</a>
-    <a href="https://monstrix.ru" target="_blank" class="social-link">🌐 Сайт</a>
+    <a href="https://www.instagram.com/igor.fedorov" target="_blank" class="social-link">[#] Instagram</a>
+    <a href="https://www.youtube.com/@Project_23" target="_blank" class="social-link">[>] YouTube</a>
+    <a href="https://www.tiktok.com/@igortechminimal" target="_blank" class="social-link">[>] TikTok</a>
+    <a href="https://t.me/techminimal" target="_blank" class="social-link">> Telegram</a>
+    <a href="https://monstrix.ru" target="_blank" class="social-link"><> Сайт</a>
 </div>
 
 ---
 
-## 📧 Сотрудничество
+## <> Сотрудничество
 
 <div class="contact-box">
     <h3>Открыт к сотрудничеству!</h3>
@@ -254,7 +254,7 @@ description: "Igor Fedorov — Tech blogger, DIY electronics, gadgets. Collabora
 <!-- ENGLISH VERSION -->
 <div id="lang-en" class="lang-content">
 
-## 👋 Hi, I'm Igor!
+## <3 Hi, I'm Igor!
 
 Tech blogger, DIY enthusiast, creator of **MONSTRIX** project. I make content about electronics, gadgets and everything you can build yourself.
 
@@ -262,7 +262,7 @@ Tech blogger, DIY enthusiast, creator of **MONSTRIX** project. I make content ab
 
 ---
 
-## 📊 Audience
+## [#] Audience
 
 <div class="stats-grid">
     <div class="stat-card">
@@ -294,10 +294,10 @@ Tech blogger, DIY enthusiast, creator of **MONSTRIX** project. I make content ab
 
 ---
 
-## 🔥 Case Studies & Reach
+## [!] Case Studies & Reach
 
 <div class="case-card">
-    <div class="case-title">📦 HAGIBIS — Compact SSD Enclosure</div>
+    <div class="case-title">[+] HAGIBIS — Compact SSD Enclosure</div>
     <div class="case-views"><span>1.8M+</span> views</div>
     <div class="case-platforms">
         Instagram: 1.5M+ (2 videos) • TikTok: 300K+
@@ -305,7 +305,7 @@ Tech blogger, DIY enthusiast, creator of **MONSTRIX** project. I make content ab
 </div>
 
 <div class="case-card">
-    <div class="case-title">💳 Chameleon Ultra — NFC Device</div>
+    <div class="case-title"><3 Chameleon Ultra — NFC Device</div>
     <div class="case-views"><span>1.2M+</span> views</div>
     <div class="case-platforms">
         Instagram: 870K (620K + 250K) • YouTube: 266K • TikTok: 67K
@@ -313,7 +313,7 @@ Tech blogger, DIY enthusiast, creator of **MONSTRIX** project. I make content ab
 </div>
 
 <div class="case-card">
-    <div class="case-title">🤖 AI Desktop Assistant</div>
+    <div class="case-title">[o_o] AI Desktop Assistant</div>
     <div class="case-views"><span>1.36M+</span> views</div>
     <div class="case-platforms">
         YouTube: 690K • TikTok: 374K • Instagram: 300K
@@ -321,7 +321,7 @@ Tech blogger, DIY enthusiast, creator of **MONSTRIX** project. I make content ab
 </div>
 
 <div class="case-card">
-    <div class="case-title">🖨️ Bambu Lab — 3D Printer (series)</div>
+    <div class="case-title">[#] Bambu Lab — 3D Printer (series)</div>
     <div class="case-views"><span>1.17M+</span> views</div>
     <div class="case-platforms">
         YouTube: 500K+ • TikTok: 400K+ • Instagram: 270K+
@@ -329,7 +329,7 @@ Tech blogger, DIY enthusiast, creator of **MONSTRIX** project. I make content ab
 </div>
 
 <div class="case-card">
-    <div class="case-title">⚡ M5Stack — Devices & Modules</div>
+    <div class="case-title">[~] M5Stack — Devices & Modules</div>
     <div class="case-views"><span>900K+</span> views</div>
     <div class="case-platforms">
         Instagram: 500K • TikTok: 200K • YouTube: 200K
@@ -338,7 +338,7 @@ Tech blogger, DIY enthusiast, creator of **MONSTRIX** project. I make content ab
 
 ---
 
-## 🎯 Content Formats
+## [>] Content Formats
 
 - **Gadget reviews** — unboxing, tests, comparisons
 - **DIY projects** — building devices with ESP32, Arduino
@@ -347,19 +347,19 @@ Tech blogger, DIY enthusiast, creator of **MONSTRIX** project. I make content ab
 
 ---
 
-## 🌐 Social Media
+## <> Social Media
 
 <div class="social-links">
-    <a href="https://www.instagram.com/igor.fedorov" target="_blank" class="social-link">📸 Instagram</a>
-    <a href="https://www.youtube.com/@Project_23" target="_blank" class="social-link">▶️ YouTube</a>
-    <a href="https://www.tiktok.com/@igortechminimal" target="_blank" class="social-link">🎵 TikTok</a>
-    <a href="https://t.me/techminimal" target="_blank" class="social-link">✈️ Telegram</a>
-    <a href="https://monstrix.ru" target="_blank" class="social-link">🌐 Website</a>
+    <a href="https://www.instagram.com/igor.fedorov" target="_blank" class="social-link">[#] Instagram</a>
+    <a href="https://www.youtube.com/@Project_23" target="_blank" class="social-link">[>] YouTube</a>
+    <a href="https://www.tiktok.com/@igortechminimal" target="_blank" class="social-link">[>] TikTok</a>
+    <a href="https://t.me/techminimal" target="_blank" class="social-link">> Telegram</a>
+    <a href="https://monstrix.ru" target="_blank" class="social-link"><> Website</a>
 </div>
 
 ---
 
-## 📧 Collaboration
+## <> Collaboration
 
 <div class="contact-box">
     <h3>Open for collaboration!</h3>

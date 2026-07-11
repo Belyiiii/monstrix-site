@@ -241,3 +241,63 @@ body::after {
   91% { clip-path: inset(10% 0 75% 0); transform: translate(3px, 1px); }
   93% { clip-path: inset(55% 0 25% 0); transform: translate(-1px,-1px); }
 }
+
+/* ============================================================
+   MONSTRIX v2 — карточки и страницы проектов (Этап 1 плана V2)
+   Палитра янтарный моно (см. :root выше), radius 0.
+   Зелёный/оранжевый не используем; красный — только затык.
+   ============================================================ */
+
+/* сетка карточек */
+.mx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin:16px 0}
+.mx-card{display:block;background:var(--bg-card);border:1px solid var(--muted);padding:14px;text-decoration:none;color:var(--phosphor)}
+.mx-card:hover{border-color:var(--amber);box-shadow:var(--glow-amber)}
+.mx-card img{width:100%;display:block;margin-bottom:10px;border:1px solid var(--muted)}
+.mx-card-title{margin:0 0 8px;color:var(--amber);font-size:1rem;text-transform:none}
+.mx-status{letter-spacing:2px;text-transform:uppercase;font-size:.8rem;margin:6px 0}
+.mx-done{color:var(--amber)}
+.mx-status--idea{color:var(--phosphor-2)}
+.mx-needs{color:var(--phosphor-2);font-size:.85rem}
+.mx-stuck{color:var(--red);font-size:.85rem}
+
+/* прогресс-бар */
+.mx-bar{position:relative;background:var(--bg-soft);border:1px solid var(--muted);height:22px;overflow:hidden;margin:8px 0}
+.mx-bar-fill{background:var(--amber);height:100%;box-shadow:var(--glow-amber)}
+.mx-bar-label{position:absolute;inset:0;text-align:center;font-size:13px;line-height:22px;color:var(--amber-2)}
+
+/* заголовки секций списка */
+.mx-section{margin:26px 0 4px}
+
+/* страница проекта */
+.mx-stage-badge{margin-left:10px;letter-spacing:2px;font-size:.8rem}
+.mx-stage-2{color:var(--amber)}
+.mx-stage-1{color:var(--phosphor-2)}
+.mx-stage-0{color:var(--phosphor-d)}
+.mx-passport{border:1px solid var(--muted);padding:14px 16px;margin:18px 0}
+.mx-passport h2{margin-top:0}
+.mx-goal{color:var(--phosphor-2)}
+.mx-spec{margin:10px 0}
+.mx-spec div{display:flex;gap:10px;margin:4px 0}
+.mx-spec dt{color:var(--phosphor-d);min-width:80px;text-transform:uppercase;font-size:.8rem;letter-spacing:1px}
+.mx-spec dd{margin:0;color:var(--phosphor)}
+.mx-components{margin:6px 0 0;padding-left:18px}
+
+/* кнопки денег/готового — outline + hover-инверсия (как §6/§8) */
+.mx-money,.mx-fund,.mx-done-block{margin:18px 0}
+.mx-btn{display:block;text-align:center;background:transparent;border:1px solid var(--phosphor);color:var(--phosphor);padding:12px;margin:10px 0;text-transform:uppercase;letter-spacing:2px;font-weight:700;text-decoration:none;text-shadow:0 0 4px rgba(255,176,0,.5);transition:background .12s,color .12s}
+.mx-btn:hover{background:var(--phosphor);color:var(--bg);text-shadow:none;box-shadow:0 0 16px rgba(255,176,0,.4)}
+.mx-btn--donate{border-color:var(--amber);color:var(--amber)}
+.mx-btn--donate:hover{background:var(--amber);color:var(--bg)}
+.mx-btn--alt{border-color:var(--phosphor-d);color:var(--phosphor-2)}
+.mx-hint{text-align:center;color:var(--phosphor-d);font-size:.8rem;margin:2px 0 0}
+.mx-ask{margin:24px 0;text-align:center}
+
+/* ── главная ── */
+.mx-home section{margin:28px 0}
+.mx-home h2{margin-bottom:8px}
+.mx-conn ul{margin:8px 0 14px}
+.mx-conn .mx-btn{max-width:420px}
+.mx-warn{color:var(--phosphor-d);font-size:.85rem;margin-top:10px}
+.mx-linkrow{display:flex;gap:12px;flex-wrap:wrap}
+.mx-linkrow .mx-btn{flex:1;min-width:200px;margin:0}
+.mx-socials{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:24px;padding-top:16px;border-top:1px solid var(--muted)}
