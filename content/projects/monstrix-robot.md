@@ -210,12 +210,12 @@ flash_url: "/firmware/monstrix-robot/"
 
 Если материал был полезен — буду рад поддержке! Все средства идут на новые эксперименты и компоненты.
 
-<a href="https://t.me/tribute/app?startapp=dEq7" target="_blank" style="display:inline-block; background:transparent; color:#eec35e; border:2px solid #eec35e; padding:12px 30px; font-size:16px; font-family:monospace; cursor:pointer; text-decoration:none;">
+<a href="https://t.me/tribute/app?startapp=dEq7" target="_blank" style="display:inline-block; background:transparent; color:#ffb000; border:1px solid #ffb000; padding:12px 24px; font-size:14px; font-family:'JetBrains Mono',ui-monospace,monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; text-decoration:none; text-shadow:0 0 4px rgba(255,176,0,.6);">
   [ <3 Поддержать автора ]
 </a>
 
 ---
 
-*Вопросы? Пиши в [Telegram](https://t.me/techminimal)*
+*Вопросы? Пиши в [Telegram](https://t.me/belyiiii)*
 
 *Собрал робота? Делись фото в комментариях!* [o_o]

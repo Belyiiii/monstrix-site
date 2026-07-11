@@ -289,7 +289,7 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 
 Собрали устройство? Поделитесь результатом!
 
-- Telegram: [@techminimal](https://t.me/techminimal)
+- Telegram: [@belyiiii](https://t.me/belyiiii)
 - Instagram: [@igor.fedorov](https://instagram.com/igor.fedorov)
 
 ---
