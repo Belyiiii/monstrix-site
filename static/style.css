@@ -291,6 +291,13 @@ body::after {
 .mx-btn--alt{border-color:var(--phosphor-d);color:var(--phosphor-2)}
 .mx-hint{text-align:center;color:var(--phosphor-d);font-size:.8rem;margin:2px 0 0}
 .mx-ask{margin:24px 0;text-align:center}
+.mx-cover{width:100%;display:block;margin:14px 0;border:1px solid var(--muted)}
+.mx-gear{color:var(--phosphor-2);font-size:.9rem;margin-top:8px}
+
+/* ── Лаборатория ── */
+.mx-lab-item{margin:16px 0}
+.mx-lab-item p{margin:6px 0}
+.mx-lab-unlock{color:var(--phosphor-d);font-size:.9rem}
 
 /* ── главная ── */
 .mx-home section{margin:28px 0}

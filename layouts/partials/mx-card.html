@@ -1,7 +1,7 @@
 {{/* Карточка проекта. Стадия управляет содержимым. */}}
 {{ $stage := .Params.stage | default 0 }}
 <a class="mx-card" href="{{ .Permalink }}">
-  {{ with .Params.cover }}<img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">{{ end }}
+  {{ with .Params.cover }}<img src="{{ . }}" alt="{{ $.Title }}" loading="lazy" onerror="this.style.display='none'">{{ end }}
   <h3 class="mx-card-title">{{ .Title }}</h3>
 
   {{ if eq $stage 0 }}
