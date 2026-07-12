@@ -1,7 +1,7 @@
 ---
 title: "RGB-лампа цветных теней"
 date: 2026-07-08
-cover: "/images/projects/rgb-shadow-lamp/cover.webp"
+cover: "/images/projects/rgb-shadow-lamp/cover.jpg"
 tags: ["esp32", "led", "свет"]
 stage: 1
 progress: 25

@@ -1,7 +1,7 @@
 ---
 title: "Пушка Гаусса 2.0"
 date: 2026-07-05
-cover: "/images/projects/gauss-gun-v2/cover.webp"
+cover: "/images/projects/gauss-gun-v2/cover.jpg"
 tags: ["esp32", "fun", "баллистика"]
 stage: 1
 progress: 20

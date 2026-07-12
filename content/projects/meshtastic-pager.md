@@ -1,7 +1,7 @@
 ---
 title: "Телеграм-пейджер на Meshtastic"
 date: 2026-07-03
-cover: "/images/projects/meshtastic-pager/cover.webp"
+cover: "/images/projects/meshtastic-pager/cover.jpg"
 tags: ["meshtastic", "lora", "telegram", "esp32"]
 stage: 1
 progress: 40

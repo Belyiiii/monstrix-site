@@ -1,7 +1,7 @@
 ---
 title: "Прокачка Яндекс Алисы"
 date: 2026-06-10
-cover: "/images/projects/alice-mod/cover.webp"
+cover: "/images/projects/alice-mod/cover.jpg"
 tags: ["яндекс", "алиса", "led-матрица", "готово"]
 stage: 2
 progress: 100

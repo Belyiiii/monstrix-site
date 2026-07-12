@@ -1,7 +1,7 @@
 ---
 title: "Спектроанализатор эфира 2.4 ГГц"
 date: 2026-06-20
-cover: "/images/projects/spectrum-analyzer/cover.webp"
+cover: "/images/projects/spectrum-analyzer/cover.jpg"
 tags: ["esp32", "nrf24", "радио", "готово"]
 stage: 2
 progress: 100

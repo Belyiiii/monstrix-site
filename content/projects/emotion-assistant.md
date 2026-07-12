@@ -1,7 +1,7 @@
 ---
 title: "Эмоциональный голосовой ассистент"
 date: 2026-07-02
-cover: "/images/projects/emotion-assistant/cover.webp"
+cover: "/images/projects/emotion-assistant/cover.jpg"
 tags: ["esp32-s3", "ai", "голос"]
 stage: 1
 progress: 15
