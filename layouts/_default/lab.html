@@ -1,0 +1,27 @@
+{{ define "main" }}
+<article class="post mx-lab">
+  <h1 class="post-title">{{ .Title }}</h1>
+
+  {{ with .Content }}<div class="index-content">{{ . }}</div>{{ end }}
+
+  {{ range site.Data.lab.items }}
+  <div class="mx-card mx-lab-item" id="{{ .id }}">
+    <h3 class="mx-card-title">{{ .name }}</h3>
+    <p>{{ .why }}</p>
+    <p class="mx-needs">Цена: {{ .price }}</p>
+
+    {{ if .goal }}
+      {{ partial "mx-progress.html" (dict "val" .collected "max" .goal "label" (printf "%d / %d ₽" .collected .goal)) }}
+    {{ end }}
+
+    {{ with .project }}<p class="mx-lab-unlock">Разблокирует: <a href="/projects/{{ .slug }}/">{{ .title }}</a></p>{{ end }}
+
+    {{ if .fund_url }}
+      <a class="mx-btn mx-btn--donate" href="{{ .fund_url }}" target="_blank" rel="noopener">Задонатить на это</a>
+    {{ else }}
+      <p class="mx-hint">Сбор скоро откроется</p>
+    {{ end }}
+  </div>
+  {{ end }}
+</article>
+{{ end }}

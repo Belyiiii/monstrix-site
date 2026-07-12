@@ -12,7 +12,7 @@ copyright = "© 2025 MONSTRIX | Лицензия <a href=\"https://creativecommo
 [params]
   customCSS = ["css/monstrix-custom.css"]
   donateURL = "https://t.me/tribute/app?startapp=dEq7"   # общий донат на весь сайт (Tribute)
-  showMenuItems = 7
+  showMenuItems = 8
   logoHomeLink = "/"
   autoCover = true
   ReadMore = " Читать → "  # ← ДОБАВЬ ЭТУ СТРОКУ!
@@ -24,26 +24,30 @@ copyright = "© 2025 MONSTRIX | Лицензия <a href=\"https://creativecommo
     url = "/projects/"
     weight = 1
   [[menu.main]]
+    name = "Лаборатория"
+    url = "/lab/"
+    weight = 2
+  [[menu.main]]
     name = "Прошивки"
     url = "/firmware/"
-    weight = 2
+    weight = 3
   [[menu.main]]
     name = "Гайды"
     url = "/guides/"
-    weight = 3
+    weight = 4
   [[menu.main]]
     name = "Компоненты"
     url = "/components/"
-    weight = 4
+    weight = 5
   [[menu.main]]
     name = "Ссылки"
     url = "/links/"
-    weight = 5
+    weight = 6
   [[menu.main]]
     name = "Поддержать"
     url = "/support/"
-    weight = 6
+    weight = 7
   [[menu.main]]
     name = "О проекте"
     url = "/about/"
-    weight = 7
+    weight = 8

@@ -7,7 +7,7 @@ cover: "/images/projects/monstrix-robot/cover.jpg"
 
 # --- MONSTRIX ---
 stage: 2
-pinned: true
+pinned: false
 goal_text: "Компактный робот-монстрик с настоящими эмоциями на ESP32-C3, вдохновлён «Love, Death & Robots»"
 term: "~1 час"
 budget: "~800 ₽"
