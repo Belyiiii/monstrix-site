@@ -1,7 +1,7 @@
 ---
 title: "Панель на лампах ИВ-12"
 date: 2026-07-06
-cover: "/images/projects/vfd-panel/cover.webp"
+cover: "/images/projects/vfd-panel/cover.jpg"
 tags: ["esp32", "vfd", "советские-лампы"]
 stage: 1
 progress: 5

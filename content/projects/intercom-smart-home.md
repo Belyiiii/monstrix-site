@@ -1,7 +1,7 @@
 ---
 title: "Домофон в умном доме"
 date: 2026-07-07
-cover: "/images/projects/intercom-smart-home/cover.webp"
+cover: "/images/projects/intercom-smart-home/cover.jpg"
 tags: ["esp32-c3", "умный-дом", "домофон"]
 stage: 1
 progress: 10

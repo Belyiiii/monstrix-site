@@ -1,7 +1,7 @@
 ---
 title: "Лазерный гравёр из Kingroon KP3S"
 date: 2026-07-09
-cover: "/images/projects/laser-engraver/cover.webp"
+cover: "/images/projects/laser-engraver/cover.jpg"
 tags: ["klipper", "лазер", "cnc"]
 stage: 1
 progress: 30

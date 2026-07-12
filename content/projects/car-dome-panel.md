@@ -1,7 +1,7 @@
 ---
 title: "Приборная панель в люстре авто"
 date: 2026-07-04
-cover: "/images/projects/car-dome-panel/cover.webp"
+cover: "/images/projects/car-dome-panel/cover.jpg"
 tags: ["esp32-c3", "can", "авто", "esp-now"]
 stage: 1
 progress: 65

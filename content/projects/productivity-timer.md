@@ -1,7 +1,7 @@
 ---
 title: "Геймификатор продуктивности"
 date: 2026-06-25
-cover: "/images/projects/productivity-timer/cover.webp"
+cover: "/images/projects/productivity-timer/cover.jpg"
 tags: ["esp32", "продуктивность", "готово"]
 stage: 2
 progress: 100
