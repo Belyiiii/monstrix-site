@@ -29,15 +29,16 @@
     <dl class="mx-spec">
       {{ with .Params.term }}<div><dt>Срок</dt><dd>{{ . }}</dd></div>{{ end }}
       {{ with .Params.budget }}<div><dt>Бюджет</dt><dd>{{ . }}</dd></div>{{ end }}
+      {{ with .Params.components }}
+      <div><dt>Железо</dt><dd>
+        <ul class="mx-components">
+          {{ range . }}
+            <li>{{ with .url }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}{{ .name }}{{ with .url }}</a>{{ end }}</li>
+          {{ end }}
+        </ul>
+      </dd></div>
+      {{ end }}
     </dl>
-    {{ with .Params.components }}
-      <h3>Железо</h3>
-      <ul class="mx-components">
-        {{ range . }}
-          <li>{{ with .url }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}{{ .name }}{{ with .url }}</a>{{ end }}</li>
-        {{ end }}
-      </ul>
-    {{ end }}
   </div>
   {{ end }}
 
@@ -47,7 +48,7 @@
     {{ partial "mx-progress.html" (dict "val" (.Params.progress | default 0) "max" 100 "label" (printf "%d%%" (.Params.progress | default 0))) }}
     {{ with .Params.stuck_on }}<p class="mx-stuck">Затык: {{ . }}</p>{{ end }}
     {{ if .Params.gear_url }}
-      <p class="mx-gear">[&gt;] Нужно оборудование: <a href="{{ .Params.gear_url }}">{{ .Params.gear_needed }}</a> — поддержать в Лаборатории</p>
+      <p class="mx-gear">Нужен <a href="{{ .Params.gear_url }}">{{ .Params.gear_needed }}</a> — поддержать в Лаборатории</p>
     {{ end }}
   </div>
   {{ end }}
