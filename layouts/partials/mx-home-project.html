@@ -1,0 +1,51 @@
+{{ $stage := .Params.stage | default 2 }}
+{{ $progress := .Params.progress | default (cond (eq $stage 2) 100 0) }}
+{{ $status := cond (eq $stage 0) "idea" (cond (eq $stage 1) "progress" "done") }}
+{{ $search := printf "%s %s" .Title (delimit (.Params.tags | default slice) " ") | lower }}
+
+<details class="mx-project-row" data-project data-status="{{ $status }}" data-search="{{ $search }}">
+  <summary class="mx-project-row__summary">
+    <span class="mx-project-row__cover">
+      {{ with .Params.cover }}
+        <img src="{{ . }}" alt="" loading="lazy" onerror="this.parentElement.classList.add('is-empty');this.remove()">
+      {{ end }}
+    </span>
+
+    <span class="mx-project-row__main">
+      <span class="mx-project-row__title">{{ .Title }}</span>
+
+      {{ if eq $stage 0 }}
+        <span class="mx-project-row__state mx-project-row__state--idea">Идея</span>
+      {{ else if eq $stage 1 }}
+        <span class="mx-project-row__progress-label">В работе · {{ $progress }}%</span>
+        <span class="mx-project-row__progress" role="progressbar" aria-label="Готовность проекта" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ $progress }}">
+          <span style="width: {{ $progress }}%"></span>
+        </span>
+      {{ else }}
+        <span class="mx-project-row__state mx-project-row__state--done">Готово</span>
+      {{ end }}
+    </span>
+
+    <span class="mx-project-row__toggle" aria-hidden="true">+</span>
+  </summary>
+
+  <div class="mx-project-row__details">
+    {{ with .Params.description }}
+      <p>{{ . }}</p>
+    {{ else }}{{ with .Params.goal_text }}
+      <p>{{ . }}</p>
+    {{ else }}
+      <p>{{ $.Summary | plainify | truncate 180 }}</p>
+    {{ end }}{{ end }}
+
+    <div class="mx-project-row__links">
+      {{ with .Params.instagram_url }}<a href="{{ . }}" target="_blank" rel="noopener">Instagram</a>{{ end }}
+      {{ with .Params.youtube_url }}<a href="{{ . }}" target="_blank" rel="noopener">YouTube</a>{{ end }}
+      {{ with .Params.telegram_url }}<a href="{{ . }}" target="_blank" rel="noopener">Telegram</a>{{ end }}
+      {{ with .Params.boosty_url }}<a href="{{ . }}" target="_blank" rel="noopener">Boosty</a>{{ end }}
+      {{ if and (ne $stage 2) site.Params.boostyURL }}
+        <a href="{{ site.Params.boostyURL }}" target="_blank" rel="noopener">Поддержать проект</a>
+      {{ end }}
+    </div>
+  </div>
+</details>

@@ -1,12 +1,9 @@
 {{ define "main" }}
-<div class="mx-home">
-
-  {{/* ── Интро (редактируется в content/_index.md) ── */}}
+<main class="mx-home" data-project-catalog>
   {{ with .Content }}<div class="mx-home-intro index-content">{{ . }}</div>{{ end }}
 
-  {{/* ── Связь / сотрудничество ── */}}
-  <section class="mx-conn">
-    <h2>Связь и сотрудничество</h2>
+  <section class="mx-conn" aria-labelledby="contact-title">
+    <h2 id="contact-title">Связь и сотрудничество</h2>
     <p>Пиши в Telegram, если:</p>
     <ul>
       <li>нужна реклама твоему проекту или гаджету — обсудим формат</li>
@@ -18,39 +15,44 @@
     <p class="mx-warn">[!] В директ инсты не пиши — спам-фильтр съест.</p>
   </section>
 
-  {{/* ── Закреп ── */}}
-  {{ range first 1 (where site.RegularPages "Params.pinned" true) }}
-    <section class="mx-pinned">
-      <h2>Закреп</h2>
-      {{ partial "mx-card.html" . }}
-    </section>
-  {{ end }}
-
-  {{/* ── Проекты (последние, кроме закрепа) ── */}}
-  {{ $rest := where (where site.RegularPages "Section" "projects") "Params.pinned" "!=" true }}
-  {{ with $rest }}
-    <section class="mx-latest">
-      <h2>Проекты</h2>
-      <div class="mx-grid">
-        {{ range first 5 .ByDate.Reverse }}{{ partial "mx-card.html" . }}{{ end }}
-      </div>
-      <a class="mx-btn mx-btn--alt" href="/projects/">Все проекты &rarr;</a>
-    </section>
-  {{ end }}
-
-  {{/* ── Разделы ── */}}
-  <section class="mx-linkrow">
-    <a class="mx-btn mx-btn--alt" href="/firmware/">[~] Прошивки из браузера</a>
-    <a class="mx-btn mx-btn--alt" href="/components/">[+] Компоненты</a>
-  </section>
-
-  {{/* ── Соцсети ── */}}
-  <nav class="mx-socials">
+  <nav class="mx-home-links" aria-label="Социальные сети">
     <a href="https://www.instagram.com/igor.fedorov" target="_blank" rel="noopener">Instagram</a>
     <a href="https://youtube.com/@project_23" target="_blank" rel="noopener">YouTube</a>
     <a href="https://t.me/techminimal" target="_blank" rel="noopener">Telegram</a>
     <a href="https://www.tiktok.com/@igortechminimal" target="_blank" rel="noopener">TikTok</a>
+    {{ with site.Params.boostyURL }}<a class="mx-home-links__boosty" href="{{ . }}" target="_blank" rel="noopener">Boosty</a>{{ end }}
   </nav>
 
-</div>
+  {{ $projects := where site.RegularPages "Section" "projects" }}
+  <section class="mx-projects" aria-labelledby="projects-title">
+    <div class="mx-projects__heading">
+      <h2 id="projects-title">Проекты</h2>
+      <span class="mx-projects__count" data-project-count>{{ len $projects }} проектов</span>
+    </div>
+
+    <div class="mx-project-tools">
+      <div class="mx-project-search">
+        <label class="mx-sr-only" for="project-search">Найти проект</label>
+        <input id="project-search" type="search" placeholder="Найти проект" autocomplete="off" data-project-search>
+        <button type="button" class="mx-project-search__clear" aria-label="Очистить поиск" title="Очистить поиск" data-project-clear hidden>×</button>
+      </div>
+
+      <div class="mx-project-filters" aria-label="Фильтр проектов">
+        <button type="button" data-project-filter="all" aria-pressed="true">Все</button>
+        <button type="button" data-project-filter="progress" aria-pressed="false">В работе</button>
+        <button type="button" data-project-filter="done" aria-pressed="false">Готово</button>
+        <button type="button" data-project-filter="idea" aria-pressed="false">Идеи</button>
+      </div>
+    </div>
+
+    <div class="mx-project-list" data-project-list>
+      {{ range $projects.ByDate.Reverse }}
+        {{ partial "mx-home-project.html" . }}
+      {{ end }}
+    </div>
+
+    <p class="mx-project-empty" data-project-empty hidden>Ничего не найдено.</p>
+  </section>
+</main>
+<script src="/js/home-projects.js" defer></script>
 {{ end }}
